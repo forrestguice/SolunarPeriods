@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -182,16 +184,79 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @SuppressWarnings("RestrictedApi")
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu)
+    {
+        forceActionBarIcons(menu);
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id)
         {
-            // TODO
-            //case R.id.action_settings:
-            //  return true;
+            case R.id.action_today:
+                showToday();
+                return true;
+
+            case R.id.action_settings:
+                showSettings();
+                return true;
+
+            case R.id.action_help:
+                showHelp();
+                return true;
+
+            case R.id.action_about:
+                showAbout();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    protected void showToday() {
+        cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+    }
+
+    protected void showSettings()
+    {
+        // TODO
+    }
+
+    protected void showHelp()
+    {
+        // TODO
+    }
+
+    protected void showAbout()
+    {
+        // TODO
+    }
+
+    /**
+     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
+     */
+    public static void forceActionBarIcons(Menu menu)
+    {
+        if (menu != null)
+        {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+
+                } catch (Exception e) {
+                    Log.e(MainActivity.class.getSimpleName(), "failed to set show overflow icons", e);
+                }
+            }
+        }
+    }
+
+
 }
