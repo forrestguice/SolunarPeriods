@@ -3,6 +3,7 @@ package com.forrestguice.suntimes.solunar.data;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -189,8 +190,11 @@ public class SolunarData implements Parcelable
     public long getDateMillis() {
         return date;
     }
-    public long getDateMillis(String key)
+    public long getDateMillis(@Nullable String key)
     {
+        if (key == null) {
+            return date;
+        }
         switch (key)
         {
             case KEY_SUNRISE: return sunrise;
@@ -207,6 +211,9 @@ public class SolunarData implements Parcelable
     /**
      * @return Calendar obj
      */
+    public Calendar getDate() {
+        return getDate(null);
+    }
     public Calendar getDate(String key) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone(timezone));
