@@ -17,24 +17,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
-import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
-import com.forrestguice.suntimes.solunar.data.SolunarData;
-import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
+
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
-import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
 public class MainActivity extends AppCompatActivity
 {
     private SuntimesInfo suntimesInfo = null;
@@ -56,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (suntimesInfo.appTheme != null) {    // override the theme
-            setTheme(suntimesInfo.appTheme.equals(SuntimesInfo.THEME_LIGHT) ? com.forrestguice.suntimes.addon.R.style.AppTheme_Light : com.forrestguice.suntimes.addon.R.style.AppTheme_Dark);
+            setTheme(suntimesInfo.appTheme.equals(SuntimesInfo.THEME_LIGHT) ? R.style.SolunarAppTheme_Light : R.style.SolunarAppTheme_Dark);
         }
 
         setContentView(R.layout.activity_main);

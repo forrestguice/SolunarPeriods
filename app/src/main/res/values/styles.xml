@@ -1,16 +1,16 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Light theme -->
+    <style name="SolunarAppTheme.Light" parent="AppTheme.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary_light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
+        <item name="colorAccent">@color/colorAccent_light</item>
 
-        <item name="icToday">@drawable/ic_today</item>
-        <item name="icSettings">@drawable/ic_settings</item>
-        <item name="icHelp">@drawable/ic_help</item>
-        <item name="icAbout">@drawable/ic_about</item>
+        <item name="icToday">@drawable/ic_today_light</item>
+        <item name="icSettings">@drawable/ic_settings_light</item>
+        <item name="icHelp">@drawable/ic_help_light</item>
+        <item name="icAbout">@drawable/ic_about_light</item>
 
         <item name="colorAction">@color/colorAction_light</item>
         <item name="colorDisabled">@color/colorDisabled_light</item>
@@ -22,6 +22,30 @@
 
         <item name="fab_backgroundColor">@color/colorFabBackground_light</item>
         <item name="fab_rippleColor">@color/colorFabRipple_light</item>
+    </style>
+
+    <!-- Dark theme -->
+    <style name="SolunarAppTheme.Dark" parent="AppTheme.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary_dark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
+        <item name="colorAccent">@color/colorAccent_dark</item>
+
+        <item name="icToday">@drawable/ic_today</item>
+        <item name="icSettings">@drawable/ic_settings</item>
+        <item name="icHelp">@drawable/ic_help</item>
+        <item name="icAbout">@drawable/ic_about</item>
+
+        <item name="colorAction">@color/colorAction_dark</item>
+        <item name="colorDisabled">@color/colorDisabled_dark</item>
+
+        <item name="colorDate">@color/colorDate_dark</item>
+        <item name="colorLabel">@color/colorLabel_dark</item>
+        <item name="colorTime">@color/colorTime_dark</item>
+        <item name="colorValue">@color/colorValue_dark</item>
+
+        <item name="fab_backgroundColor">@color/colorFabBackground_dark</item>
+        <item name="fab_rippleColor">@color/colorFabRipple_dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- light theme colors -->
+
+    <color name="colorPrimary_light">#3F51B5</color>
+    <color name="colorPrimaryDark_light">#303F9F</color>
+    <color name="colorAccent_light">#FF4081</color>
 
     <color name="colorAction_light">#F00081</color>
     <color name="colorDisabled_light">#aaaaaa</color>
@@ -14,4 +17,23 @@
 
     <color name="colorFabBackground_light">#3F51B5</color>
     <color name="colorFabRipple_light">#303F9F</color>
+
+
+    <!-- dark theme colors -->
+
+    <color name="colorPrimary_dark">#3F51B5</color>
+    <color name="colorPrimaryDark_dark">#303F9F</color>
+    <color name="colorAccent_dark">#FF4081</color>
+
+    <color name="colorAction_dark">#F00081</color>
+    <color name="colorDisabled_dark">#aaaaaa</color>
+
+    <color name="colorDate_dark">#000000</color>
+    <color name="colorLabel_dark">#000000</color>
+    <color name="colorTime_dark">#FF4081</color>
+    <color name="colorValue_dark">#3F51B5</color>
+
+    <color name="colorFabBackground_dark">#3F51B5</color>
+    <color name="colorFabRipple_dark">#303F9F</color>
+
 </resources>
