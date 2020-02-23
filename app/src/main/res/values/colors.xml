@@ -11,4 +11,7 @@
     <color name="colorLabel_light">#000000</color>
     <color name="colorTime_light">#FF4081</color>
     <color name="colorValue_light">#3F51B5</color>
+
+    <color name="colorFabBackground_light">#3F51B5</color>
+    <color name="colorFabRipple_light">#303F9F</color>
 </resources>

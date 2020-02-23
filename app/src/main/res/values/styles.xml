@@ -7,6 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="icToday">@drawable/ic_today</item>
+        <item name="icSettings">@drawable/ic_settings</item>
+        <item name="icHelp">@drawable/ic_help</item>
+        <item name="icAbout">@drawable/ic_about</item>
+
         <item name="colorAction">@color/colorAction_light</item>
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
