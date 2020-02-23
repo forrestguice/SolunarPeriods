@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorAction_light">#F00081</color>
+    <color name="colorDisabled_light">#aaaaaa</color>
+
+    <color name="colorDate_light">#000000</color>
+    <color name="colorLabel_light">#000000</color>
+    <color name="colorTime_light">#FF4081</color>
+    <color name="colorValue_light">#3F51B5</color>
 </resources>

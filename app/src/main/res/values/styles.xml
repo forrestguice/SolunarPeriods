@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorAction">@color/colorAction_light</item>
+        <item name="colorDisabled">@color/colorDisabled_light</item>
+
+        <item name="colorDate">@color/colorDate_light</item>
+        <item name="colorLabel">@color/colorLabel_light</item>
+        <item name="colorTime">@color/colorTime_light</item>
+        <item name="colorValue">@color/colorValue_light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +24,9 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="dateText">
+        <item name="android:textColor">@color/textbutton_date</item>
+    </style>
 
 </resources>
