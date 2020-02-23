@@ -19,6 +19,9 @@
         <item name="colorLabel">@color/colorLabel_light</item>
         <item name="colorTime">@color/colorTime_light</item>
         <item name="colorValue">@color/colorValue_light</item>
+
+        <item name="fab_backgroundColor">@color/colorFabBackground_light</item>
+        <item name="fab_rippleColor">@color/colorFabRipple_light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
