@@ -1,8 +1,16 @@
 package com.forrestguice.suntimes.solunar;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -16,12 +24,20 @@ import com.forrestguice.suntimes.addon.ui.Messages;
 import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
+import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
+import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity
 {
     private SuntimesInfo suntimesInfo = null;
+
+    private RecyclerView cardView;
+    private SolunarCardAdapter cardAdapter;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -42,9 +58,32 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cardView = (RecyclerView)findViewById(R.id.cardView);
+        cardView.setHasFixedSize(true);
+        cardView.setLayoutManager(new LinearLayoutManager(this));
+        cardView.addItemDecoration(cardDecoration);
+
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(cardView);
+
         checkVersion();
         initData();
+        cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
     }
+
+    private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
+    {
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state)
+        {
+            super.getItemOffsets(outRect, view, parent, state);
+            Resources r = getResources();
+            outRect.top = (int)r.getDimension(R.dimen.card_margin_top);
+            outRect.bottom = (int)r.getDimension(R.dimen.card_margin_bottom);
+            outRect.left = (int)r.getDimension(R.dimen.card_margin_left);
+            outRect.right = (int)r.getDimension(R.dimen.card_margin_right);
+        }
+    };
 
     protected void initData()
     {
@@ -54,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         double longitude = Double.parseDouble(suntimesInfo.location[2]);
         double altitude = Double.parseDouble(suntimesInfo.location[3]);
 
-        SolunarData data = new SolunarData(Calendar.getInstance().getTimeInMillis(), latitude, longitude, altitude, suntimesInfo.timezone);
+        /**SolunarData data = new SolunarData(Calendar.getInstance().getTimeInMillis(), latitude, longitude, altitude, suntimesInfo.timezone);
 
         SolunarCalculator calculator = new SolunarCalculator();
         calculator.calculateData(getContentResolver(), data);
@@ -69,13 +108,18 @@ public class MainActivity extends AppCompatActivity
 
         if (data.isCalculated())
         {
-            String debug = "date: " + data.getDateMillis() + "\n" +
+            long sunrise = data.getDateMillis(SolunarData.KEY_SUNRISE);
+            long sunset = data.getDateMillis(SolunarData.KEY_SUNSET);
+            long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
+            long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
+
+            String debug = "date: " + SolunarCardHolder.formatDate(this, data.getDateMillis()) + "\n" +
                     "timezone: " + data.getTimezone() + "\n" +
                     "location: " + data.getLatitude() + ", " + data.getLongitude() + " [" + data.getAltitude() + "]\n\n" +
-                    "sunrise: " + data.getDateMillis(SolunarData.KEY_SUNRISE) + "\n" +
-                    "sunset: " + data.getDateMillis(SolunarData.KEY_SUNSET) + "\n\n" +
-                    "moonrise: " + data.getDateMillis(SolunarData.KEY_MOONRISE) + "\n" +
-                    "moonset: " + data.getDateMillis(SolunarData.KEY_MOONSET) + "\n" +
+                    "sunrise: " + SolunarCardHolder.formatTime(this, sunrise, suntimesInfo.timezone, false) + "\n" +
+                    "sunset: " + SolunarCardHolder.formatTime(this, sunset, suntimesInfo.timezone, false) + "\n\n" +
+                    "moonrise: " + SolunarCardHolder.formatTime(this, moonrise, suntimesInfo.timezone, false) + "\n" +
+                    "moonset: " + SolunarCardHolder.formatTime(this, moonset, suntimesInfo.timezone, false) + "\n" +
                     "moonillum: " + data.getMoonIllumination() + "\n\n" +
                     "rating: " + data.getDayRating();
 
@@ -84,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             for (int i=0; i<minorPeriods.length; i++)
             {
                 if (minorPeriods[i] != null) {
-                    debug += minorPeriods[i].getStartMillis() + " - " + minorPeriods[i].getEndMillis() + "\n";
+                    debug += SolunarCardHolder.formatTime(this, minorPeriods[i].getStartMillis(), suntimesInfo.timezone, false) + " - " + SolunarCardHolder.formatTime(this, minorPeriods[i].getEndMillis(), suntimesInfo.timezone, false) + "\n";
                 }
             }
 
@@ -93,7 +137,7 @@ public class MainActivity extends AppCompatActivity
             for (int i=0; i<majorPeriods.length; i++)
             {
                 if (majorPeriods[i] != null) {
-                    debug += majorPeriods[i].getStartMillis() + " - " + majorPeriods[i].getEndMillis() + "\n";
+                    debug += SolunarCardHolder.formatTime(this, majorPeriods[i].getStartMillis(), suntimesInfo.timezone, false) + " - " + SolunarCardHolder.formatTime(this, majorPeriods[i].getEndMillis(), suntimesInfo.timezone, false) + "\n";
                 }
             }
 
@@ -101,8 +145,24 @@ public class MainActivity extends AppCompatActivity
 
         } else {
             text.setText("not calculated");
-        }
+        }*/
+
+
+        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, suntimesInfo.timezone);
+        cardAdapter.setCardAdapterListener(cardListener);
+
+        cardAdapter.initData();
+        cardView.setAdapter(cardAdapter);
     }
+
+    private SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
+    {
+        @Override
+        public void onDateClick(int i) {
+            Snackbar.make(cardView, "date clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            // TODO
+        }
+    };
 
     protected void checkVersion()
     {
