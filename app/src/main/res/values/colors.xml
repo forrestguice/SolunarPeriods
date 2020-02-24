@@ -21,16 +21,16 @@
 
     <!-- dark theme colors -->
 
-    <color name="colorPrimary_dark">#3F51B5</color>
+    <color name="colorPrimary_dark">@color/grey_900</color>
     <color name="colorPrimaryDark_dark">#303F9F</color>
     <color name="colorAccent_dark">#FF4081</color>
 
     <color name="colorAction_dark">#F00081</color>
     <color name="colorDisabled_dark">#aaaaaa</color>
 
-    <color name="colorDate_dark">#000000</color>
-    <color name="colorLabel_dark">#000000</color>
-    <color name="colorTime_dark">#FF4081</color>
+    <color name="colorDate_dark">#FFFFFF</color>
+    <color name="colorLabel_dark">#FFFFFF</color>
+    <color name="colorTime_dark">#FFFFFF</color>
     <color name="colorValue_dark">#3F51B5</color>
 
     <color name="colorFabBackground_dark">#3F51B5</color>

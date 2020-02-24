@@ -1,12 +1,14 @@
 package com.forrestguice.suntimes.solunar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
@@ -29,10 +32,9 @@ public class MainActivity extends AppCompatActivity
 {
     private SuntimesInfo suntimesInfo = null;
 
+    private FloatingActionButton fab;
     private RecyclerView cardView;
     private SolunarCardAdapter cardAdapter;
-
-    private FloatingActionButton fab;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -53,6 +55,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+        {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
+        }
+
+
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(fabOnClickListener);
 
@@ -64,9 +76,12 @@ public class MainActivity extends AppCompatActivity
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(cardView);
 
-        checkVersion();
-        initData();
-        cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+        if (checkVersion())
+        {
+            initData();
+            updateViews();
+            cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+        }
     }
 
     private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
@@ -95,6 +110,15 @@ public class MainActivity extends AppCompatActivity
         cardView.setAdapter(cardAdapter);
     }
 
+    protected void updateViews()
+    {
+        ActionBar toolbar = getSupportActionBar();
+        if (toolbar != null) {
+            toolbar.setTitle(suntimesInfo.location[0]);
+            toolbar.setSubtitle(getString(R.string.format_location, suntimesInfo.location[1], suntimesInfo.location[2], suntimesInfo.location[3]));
+        }
+    }
+
     private SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
     {
         @Override
@@ -112,15 +136,17 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    protected void checkVersion()
+    protected boolean checkVersion()
     {
-        if (!SuntimesInfo.checkVersion(this, suntimesInfo))
+        boolean checkVersion = SuntimesInfo.checkVersion(this, suntimesInfo);
+        if (!checkVersion)
         {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
             if (!suntimesInfo.hasPermission)
                 Messages.showPermissionDeniedMessage(this, view);
             else Messages.showMissingDependencyMessage(this, view);
         }
+        return checkVersion;
     }
 
     @Override
@@ -159,9 +185,17 @@ public class MainActivity extends AppCompatActivity
                 showAbout();
                 return true;
 
+            case android.R.id.home:
+                onHomePressed();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected void onHomePressed() {
+        AddonHelper.startSuntimesActivity(this);
     }
 
     protected void showToday() {
@@ -171,15 +205,18 @@ public class MainActivity extends AppCompatActivity
     protected void showSettings()
     {
         // TODO
+        Snackbar.make(cardView, "show settings", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
     }
 
     protected void showHelp()
     {
         // TODO
+        Snackbar.make(cardView, "show help", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
     }
 
     protected void showAbout()
     {
+        Snackbar.make(cardView, "show about", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
         // TODO
     }
 
