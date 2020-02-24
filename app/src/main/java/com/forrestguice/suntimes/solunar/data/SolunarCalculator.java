@@ -9,6 +9,7 @@ import android.util.Log;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * SolunarCalculator
@@ -98,9 +99,8 @@ public class SolunarCalculator
                     moon_cursor1.close();
                 }
 
-
-
-                data.dayRating = .5;  // TODO
+                Random rand = new Random();
+                data.dayRating = rand.nextDouble();  // TODO
                 data.calculated = true;
 
             } catch (SecurityException e) {

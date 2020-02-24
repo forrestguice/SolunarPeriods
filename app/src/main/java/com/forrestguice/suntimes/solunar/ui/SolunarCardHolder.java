@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.forrestguice.suntimes.solunar.R;
@@ -22,6 +23,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public View layout;
     public TextView text_date;
     public TextView text_debug;
+    public RatingBar rating;
 
     public SolunarCardHolder(@NonNull View itemView)
     {
@@ -29,6 +31,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         layout = itemView.findViewById(R.id.card_layout);
         text_date = itemView.findViewById(R.id.text_date);
         text_debug = itemView.findViewById(R.id.text_debug);
+        rating = itemView.findViewById(R.id.rating);
+
         // TODO
     }
 
@@ -44,9 +48,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
-            String debug = "date: " + SolunarCardHolder.formatDate(context, data.getDateMillis()) + "\n" +
+            String debug = //"date: " + SolunarCardHolder.formatDate(context, data.getDateMillis()) + "\n" +
                     "timezone: " + data.getTimezone() + "\n" +
-                    "location: " + data.getLatitude() + ", " + data.getLongitude() + " [" + data.getAltitude() + "]\n\n" +
+                    //"location: " + data.getLatitude() + ", " + data.getLongitude() + " [" + data.getAltitude() + "]\n\n" +
                     "sunrise: " + SolunarCardHolder.formatTime(context, sunrise, data.getTimezone(), false) + "\n" +
                     "sunset: " + SolunarCardHolder.formatTime(context, sunset, data.getTimezone(), false) + "\n\n" +
                     "moonrise: " + SolunarCardHolder.formatTime(context, moonrise, data.getTimezone(), false) + "\n" +
@@ -54,7 +58,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     "moonillum: " + data.getMoonIllumination() + "\n\n" +
                     "rating: " + data.getDayRating();
 
-            debug += "\n\n" + "minor periods:\n";
+            debug += "\n" + "minor periods:\n";
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
             for (int i=0; i<minorPeriods.length; i++)
             {
@@ -64,7 +68,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 }
             }
 
-            debug += "\n\n" + "major periods:\n";
+            debug += "\n" + "major periods:\n";
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             for (int i=0; i<majorPeriods.length; i++)
             {
@@ -75,8 +79,14 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             }
 
             text_debug.setText(debug);
+
+            float numStars = (float)(data.getDayRating() * 5);
+            rating.setNumStars((int)Math.ceil(numStars));
+            rating.setRating(numStars);
+
         } else {
             text_debug.setText("not calculated");
+            rating.setNumStars(0);
         }
 
         // TODO

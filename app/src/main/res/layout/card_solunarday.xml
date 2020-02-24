@@ -8,9 +8,16 @@
     <TextView
         android:id="@+id/text_date" style="@style/dateText"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        tools:text="Today\nFebruary 18, 2020"
+        tools:text="February 18, 2020"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/rating" style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:numStars="5" android:rating="4.75" android:stepSize="0.5" android:isIndicator="true"
+        app:layout_constraintTop_toBottomOf="@+id/text_date" app:layout_constraintStart_toStartOf="parent"
+        />
 
     <TextView android:id="@+id/text_debug"
         android:layout_width="wrap_content"
@@ -19,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_date" />
+        app:layout_constraintTop_toBottomOf="@+id/rating" />
 
 </android.support.constraint.ConstraintLayout>
