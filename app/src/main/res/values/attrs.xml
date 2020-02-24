@@ -6,9 +6,6 @@
     <attr name="icHelp" format="reference" />
     <attr name="icAbout" format="reference" />
 
-    <attr name="colorAction" format="reference" />
-    <attr name="colorDisabled" format="reference" />
-
     <attr name="colorDate" format="reference" />
     <attr name="colorLabel" format="reference" />
     <attr name="colorTime" format="reference" />

@@ -1,7 +1,9 @@
 <resources>
 
+    <style name="AppTheme" parent="SolunarAppTheme.Dark" />
+
     <!-- Light theme -->
-    <style name="SolunarAppTheme.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="SolunarAppTheme.Light" parent="SuntimesAddonTheme.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
@@ -27,7 +29,7 @@
     </style>
 
     <!-- Dark theme -->
-    <style name="SolunarAppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+    <style name="SolunarAppTheme.Dark" parent="SuntimesAddonTheme.Dark">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>

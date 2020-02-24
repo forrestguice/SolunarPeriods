@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_layout"
+    android:id="@+id/card_layout" style="@style/SuntimesCard"
     android:paddingTop="@dimen/card_padding_top" android:paddingBottom="@dimen/card_padding_bottom"
     android:paddingStart="@dimen/card_padding_left" android:paddingEnd="@dimen/card_padding_right" android:paddingLeft="@dimen/card_padding_left" android:paddingRight="@dimen/card_padding_right"
     android:layout_width="match_parent" android:layout_height="wrap_content">
