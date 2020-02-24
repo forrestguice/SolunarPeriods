@@ -3,11 +3,11 @@
 
     <!-- light theme colors -->
 
-    <color name="colorPrimary_light">#3F51B5</color>
-    <color name="colorPrimaryDark_light">#303F9F</color>
-    <color name="colorAccent_light">#FF4081</color>
+    <color name="colorPrimary_light">@color/grey_100</color>
+    <color name="colorPrimaryDark_light">@color/sun_setting_light</color>
+    <color name="colorAccent_light">@color/deep_teal_500</color>
 
-    <color name="colorAction_light">#F00081</color>
+    <color name="colorAction_light">@color/sun_setting_light</color>
     <color name="colorDisabled_light">#aaaaaa</color>
 
     <color name="colorDate_light">#000000</color>
@@ -15,17 +15,22 @@
     <color name="colorTime_light">#FF4081</color>
     <color name="colorValue_light">#3F51B5</color>
 
-    <color name="colorFabBackground_light">#3F51B5</color>
-    <color name="colorFabRipple_light">#303F9F</color>
+    <color name="colorFabBackground_light">@color/deep_teal_500</color>
+    <color name="colorFabRipple_light">@color/sun_setting_light</color>
+
+    <color name="sun_rising_light">#3277C7</color>
+    <color name="sun_setting_light">#CF4800</color>
+    <color name="moon_rising_light">#537794</color>
+    <color name="moon_setting_light">#6B5256</color>
 
 
     <!-- dark theme colors -->
 
     <color name="colorPrimary_dark">@color/grey_900</color>
-    <color name="colorPrimaryDark_dark">#303F9F</color>
-    <color name="colorAccent_dark">#FF4081</color>
+    <color name="colorPrimaryDark_dark">@color/sun_setting_dark</color>
+    <color name="colorAccent_dark">@color/deep_teal_200</color>
 
-    <color name="colorAction_dark">#F00081</color>
+    <color name="colorAction_dark">@color/sun_setting_dark</color>
     <color name="colorDisabled_dark">#aaaaaa</color>
 
     <color name="colorDate_dark">#FFFFFF</color>
@@ -33,7 +38,13 @@
     <color name="colorTime_dark">#FFFFFF</color>
     <color name="colorValue_dark">#3F51B5</color>
 
-    <color name="colorFabBackground_dark">#3F51B5</color>
-    <color name="colorFabRipple_dark">#303F9F</color>
+    <color name="colorFabBackground_dark">@color/colorAction_dark</color>
+    <color name="colorFabRipple_dark">@color/colorAccent_dark</color>
+
+    <color name="sun_rising_dark">#ffd500</color>
+    <color name="sun_setting_dark">#ff9900</color>
+    <color name="moon_rising_dark">@color/grey_50</color>
+    <color name="moon_setting_dark">@color/grey_500l</color>
+
 
 </resources>

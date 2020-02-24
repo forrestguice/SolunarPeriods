@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Light theme -->
-    <style name="SolunarAppTheme.Light" parent="AppTheme.Light">
+    <style name="SolunarAppTheme.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
@@ -20,12 +20,14 @@
         <item name="colorTime">@color/colorTime_light</item>
         <item name="colorValue">@color/colorValue_light</item>
 
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/PopupMenuStyleLight</item>
         <item name="fab_backgroundColor">@color/colorFabBackground_light</item>
         <item name="fab_rippleColor">@color/colorFabRipple_light</item>
     </style>
 
     <!-- Dark theme -->
-    <style name="SolunarAppTheme.Dark" parent="AppTheme.Dark">
+    <style name="SolunarAppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
@@ -44,6 +46,8 @@
         <item name="colorTime">@color/colorTime_dark</item>
         <item name="colorValue">@color/colorValue_dark</item>
 
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/PopupMenuStyleDark</item>
         <item name="fab_backgroundColor">@color/colorFabBackground_dark</item>
         <item name="fab_rippleColor">@color/colorFabRipple_dark</item>
     </style>
@@ -54,8 +58,14 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/grey_50</item>
+    </style>
+    <style name="PopupMenuStyleDark" parent="Theme.AppCompat">
+        <item name="android:background">@color/grey_900</item>
+    </style>
 
     <style name="dateText">
         <item name="android:textColor">@color/textbutton_date</item>
