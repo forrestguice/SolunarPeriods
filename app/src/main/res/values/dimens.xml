@@ -11,4 +11,6 @@
     <dimen name="card_padding_top">4dp</dimen>
     <dimen name="card_padding_bottom">4dp</dimen>
 
+    <dimen name="table_row_spacing">6dp</dimen>
+
 </resources>
