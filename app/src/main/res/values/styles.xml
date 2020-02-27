@@ -73,4 +73,10 @@
         <item name="android:textColor">@color/textbutton_date</item>
     </style>
 
+    <style name="SolunarRatingBar" parent="Theme.AppCompat">
+        <item name="colorAccent">?attr/colorAccent</item>
+        <item name="colorControlNormal">?attr/colorAccent</item>
+        <item name="colorControlActivated">?attr/colorAction</item>
+    </style>
+
 </resources>
