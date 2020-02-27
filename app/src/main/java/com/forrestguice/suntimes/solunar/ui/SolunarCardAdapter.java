@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
@@ -57,7 +58,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         Context context = contextRef.get();
         if (context != null)
         {
-            holder.onBindViewHolder(context, position, initData(position));
+            holder.onBindViewHolder(context, position, initData(position), options);
             attachClickListeners(holder, position);
         }
     }
@@ -67,6 +68,14 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     {
         detachClickListeners(holder);
         holder.position = RecyclerView.NO_POSITION;
+    }
+
+    private SolunarCardOptions options = new SolunarCardOptions();
+    public void setCardOptions(SolunarCardOptions options) {
+        this.options = options;
+    }
+    public SolunarCardOptions getOptions() {
+        return options;
     }
 
     @Override
@@ -142,9 +151,12 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         notifyDataSetChanged();
     }
 
-    private void attachClickListeners(@NonNull SolunarCardHolder holder, int position)
+    private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
     {
+        final Context context = contextRef.get();
+
         holder.text_date.setOnClickListener(onDateClick(position));
+
         // TODO
     }
 
@@ -180,5 +192,18 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static class SolunarCardAdapterListener
     {
         public void onDateClick(int position) {}
+    }
+
+    /**
+     * SolunarCardOptions
+     */
+    public static class SolunarCardOptions
+    {
+        public SuntimesInfo.SuntimesOptions suntimes_options = new SuntimesInfo.SuntimesOptions();
+
+        public SolunarCardOptions() {}
+        public SolunarCardOptions(SuntimesInfo.SuntimesOptions options) {
+            suntimes_options = options;
+        }
     }
 }

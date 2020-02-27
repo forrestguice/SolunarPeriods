@@ -8,11 +8,12 @@
     <string name="action_about">About</string>
 
     <string name="format_location">%s, %s [%s]</string>
+    <string name="format_period">%s - %s</string>   <!-- "startTime - endTime" -->
 
     <string name="help_minor_periods">Minor periods occur at moonrise and moonset and last for 2 hours.</string>
     <string name="help_major_periods">Major periods occur at lunar noon and lunar midnight and last for 3 hours.</string>
 
-
+    <string name="time_none">none</string>  <!-- no time / time does not occur -->
     <string name="timeMode_moon">Moon</string>                               <!-- label -->
     <string name="timeMode_moon_new">New Moon</string>                               <!-- setting -->
     <string name="timeMode_moon_new_short">New</string>                              <!-- setting -->

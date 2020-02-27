@@ -63,9 +63,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         // TODO
     }
 
-    public void onBindViewHolder(@NonNull Context context, int position, SolunarData data)
+    public void onBindViewHolder(@NonNull Context context, int position, SolunarData data, SolunarCardAdapter.SolunarCardOptions options)
     {
-        boolean is24 = false;
         String timezone = data.getTimezone();
 
         this.position = position;
@@ -78,8 +77,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             //long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
             //long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
-            text_sunrise.setText(formatTime(context, sunrise, timezone, is24));
-            text_sunset.setText(formatTime(context, sunset, timezone, is24));
+            text_sunrise.setText(formatTime(context, sunrise, timezone, options.suntimes_options.time_is24));
+            text_sunset.setText(formatTime(context, sunset, timezone, options.suntimes_options.time_is24));
 
             text_moonillum.setText((int)(data.getMoonIllumination() * 100) + "%");
 
@@ -105,6 +104,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     //"moonillum: " + data.getMoonIllumination() + "\n\n" +
                     "rating: " + data.getDayRating();
                             //;
+            text_debug.setText(debug);
 
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
@@ -114,60 +114,37 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             if (minorPeriods[0] != null)
             {
                 text_moonrise.setText(
-                        SolunarCardHolder.formatTime(context, minorPeriods[0].getStartMillis(), data.getTimezone(), false)
-                                + " - " + SolunarCardHolder.formatTime(context, minorPeriods[0].getEndMillis(), data.getTimezone(), false)
-                );
+                        context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, minorPeriods[0].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
+                                                                  SolunarCardHolder.formatTime(context, minorPeriods[0].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonset.setText("none");   // TODO: i18n
+                text_moonset.setText(context.getString(R.string.time_none));
             }
 
             if (minorPeriods[1] != null)
             {
                 text_moonset.setText(
-                        SolunarCardHolder.formatTime(context, minorPeriods[1].getStartMillis(), data.getTimezone(), false)
-                                + " - " + SolunarCardHolder.formatTime(context, minorPeriods[1].getEndMillis(), data.getTimezone(), false)
-                );
+                        context.getString(R.string.format_period,  SolunarCardHolder.formatTime(context, minorPeriods[1].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
+                                                                   SolunarCardHolder.formatTime(context, minorPeriods[1].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonset.setText("none");   // TODO: i18n
+                text_moonset.setText(context.getString(R.string.time_none));
             }
 
             if (majorPeriods[0] != null)
             {
                 text_moonnoon.setText(
-                        SolunarCardHolder.formatTime(context, majorPeriods[0].getStartMillis(), data.getTimezone(), false)
-                                + " - " + SolunarCardHolder.formatTime(context, majorPeriods[0].getEndMillis(), data.getTimezone(), false)
-                );
+                        context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, majorPeriods[0].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
+                                                                  SolunarCardHolder.formatTime(context, majorPeriods[0].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonnoon.setText("none");   // TODO: i18n
+                text_moonnoon.setText(context.getString(R.string.time_none));
             }
             if (majorPeriods[1] != null)
             {
                 text_moonnight.setText(
-                        SolunarCardHolder.formatTime(context, majorPeriods[1].getStartMillis(), data.getTimezone(), false)
-                                + " - " + SolunarCardHolder.formatTime(context, majorPeriods[1].getEndMillis(), data.getTimezone(), false)
-                );
+                        context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, majorPeriods[1].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
+                                                                  SolunarCardHolder.formatTime(context, majorPeriods[1].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonnight.setText("none");   // TODO: i18n
+                text_moonnight.setText(context.getString(R.string.time_none));
             }
-
-            //debug += "\n" + "minor periods:\n";
-            /**for (int i=0; i<minorPeriods.length; i++)
-            {
-                if (minorPeriods[i] != null) {
-                    debug += SolunarCardHolder.formatTime(context, minorPeriods[i].getStartMillis(), data.getTimezone(), false)
-                            + " - " + SolunarCardHolder.formatTime(context, minorPeriods[i].getEndMillis(), data.getTimezone(), false) + "\n";
-                }
-            }*/
-
-            //debug += "\n" + "major periods:\n";
-            /**for (int i=0; i<majorPeriods.length; i++)
-            {
-                if (majorPeriods[i] != null) {
-                    debug += SolunarCardHolder.formatTime(context, majorPeriods[i].getStartMillis(), data.getTimezone(), false)
-                            + " - " + SolunarCardHolder.formatTime(context, majorPeriods[i].getEndMillis(), data.getTimezone(), false) + "\n";
-                }
-            }*/
-            text_debug.setText(debug);
 
             double dayRating = data.getDayRating();
             if (dayRating > 0)
