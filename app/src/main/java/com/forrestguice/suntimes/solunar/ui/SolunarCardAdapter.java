@@ -3,7 +3,9 @@ package com.forrestguice.suntimes.solunar.ui;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
+
 import android.support.annotation.NonNull;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +27,6 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static final int TODAY_POSITION = (MAX_POSITIONS / 2);
 
     protected WeakReference<Context> contextRef;
-    private SolunarCalculator calculator;
 
     private double latitude;
     private double longitude;
@@ -35,7 +36,6 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, String timezone)
     {
         contextRef = new WeakReference<>(context);
-        calculator = new SolunarCalculator();
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
@@ -100,7 +100,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         SolunarData d = data.get(position);
         if (d == null && !invalidated) {
             data.put(position, d = createData(position));   // data gets removed in onViewRecycled
-            Log.d("DEBUG", "add data " + position);
+            //Log.d("DEBUG", "add data " + position);
         }
         return d;
     }
@@ -110,6 +110,9 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         Calendar date = Calendar.getInstance();
         date.setTimeZone(TimeZone.getTimeZone(timezone));
         date.add(Calendar.DATE, position - TODAY_POSITION);
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
         return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude, timezone));
     }
 
