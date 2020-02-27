@@ -8,6 +8,7 @@
         android:orderInCategory="100"
         android:title="@string/action_today"
         android:icon="?attr/icToday"
+        android:visible="false"
         app:showAsAction="never" />
 
     <item
