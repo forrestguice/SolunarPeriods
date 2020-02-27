@@ -47,8 +47,24 @@ public class SolunarPeriod implements Parcelable
         return start;
     }
 
+    public long getMidpointMillis() {
+        return start + ((end - start) / 2L);
+    }
+
     public long getEndMillis() {
         return end;
+    }
+
+    public long getLength() {
+        return end - start;
+    }
+
+    public boolean contains(long event) {
+        return (event >= start) && (event <= end);
+    }
+
+    public boolean withinStart(long event, long millis) {
+        return (Math.abs(start - event) < millis);
     }
 
     public Calendar[] getCalendar()
@@ -57,6 +73,10 @@ public class SolunarPeriod implements Parcelable
         calendar[0].setTimeInMillis(start);
         calendar[1].setTimeInMillis(end);
         return calendar;
+    }
+
+    public String toString() {
+        return getClass().getSimpleName() + " [" + (type == TYPE_MAJOR ? "MAJOR" : "MINOR") + ": " + start + ", " + end + "," + "]";
     }
 
     @Override
