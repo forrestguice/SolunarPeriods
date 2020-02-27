@@ -139,12 +139,13 @@ public class MainActivity extends AppCompatActivity
     protected boolean checkVersion()
     {
         boolean checkVersion = SuntimesInfo.checkVersion(this, suntimesInfo);
-        if (!checkVersion)
-        {
+        if (!checkVersion) {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
-            if (!suntimesInfo.hasPermission)
+            if (!suntimesInfo.isInstalled) {
+                Messages.showMissingDependencyMessage(this, view);
+            } else if (!suntimesInfo.hasPermission) {
                 Messages.showPermissionDeniedMessage(this, view);
-            else Messages.showMissingDependencyMessage(this, view);
+            }
         }
         return checkVersion;
     }
