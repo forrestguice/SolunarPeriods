@@ -17,6 +17,8 @@
         <item name="colorAction">@color/colorAction_light</item>
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
+        <item name="cardViewStyle">@style/CardView.Light</item>
+
         <item name="colorDate">@color/colorDate_light</item>
         <item name="colorLabel">@color/colorLabel_light</item>
         <item name="colorTime">@color/colorTime_light</item>
@@ -42,6 +44,8 @@
 
         <item name="colorAction">@color/colorAction_dark</item>
         <item name="colorDisabled">@color/colorDisabled_dark</item>
+
+        <item name="cardViewStyle">@style/CardView.Dark</item>
 
         <item name="colorDate">@color/colorDate_dark</item>
         <item name="colorLabel">@color/colorLabel_dark</item>
