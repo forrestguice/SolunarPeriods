@@ -95,7 +95,6 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         data.clear();
         invalidated = false;
 
-        //options.init(context);
         initData(TODAY_POSITION - 1);
         d = initData(TODAY_POSITION);
         initData(TODAY_POSITION + 1);
@@ -154,7 +153,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
     {
         holder.text_date.setOnClickListener(onDateClick(position));
-        holder.layout_font.setOnClickListener(onCardClick(position));
+        holder.layout_font.setOnClickListener(onCardClick(holder));
     }
 
     private void detachClickListeners(@NonNull SolunarCardHolder holder)
@@ -180,11 +179,12 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
             }
         };
     }
-    private View.OnClickListener onCardClick(final int position) {
+    private View.OnClickListener onCardClick(@NonNull final SolunarCardHolder holder) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapterListener.onCardClick(position);
+                holder.text_debug.setVisibility( holder.text_debug.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                adapterListener.onCardClick(holder.position);
             }
         };
     }
