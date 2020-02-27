@@ -74,11 +74,13 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         {
             long sunrise = data.getDateMillis(SolunarData.KEY_SUNRISE);
             long sunset = data.getDateMillis(SolunarData.KEY_SUNSET);
-            //long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
-            //long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
+            long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
+            long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
             text_sunrise.setText(formatTime(context, sunrise, timezone, options.suntimes_options.time_is24));
             text_sunset.setText(formatTime(context, sunset, timezone, options.suntimes_options.time_is24));
+            text_moonrise.setText(formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
+            text_moonset.setText(formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
 
             text_moonillum.setText((int)(data.getMoonIllumination() * 100) + "%");
 
@@ -108,25 +110,23 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
-            text_moonrise_period.setVisibility(View.GONE);
-            text_moonset_period.setVisibility(View.GONE);
 
             if (minorPeriods[0] != null)
             {
-                text_moonrise.setText(
+                text_moonrise_period.setText(
                         context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, minorPeriods[0].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
                                                                   SolunarCardHolder.formatTime(context, minorPeriods[0].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonset.setText(context.getString(R.string.time_none));
+                text_moonset_period.setText(context.getString(R.string.time_none));
             }
 
             if (minorPeriods[1] != null)
             {
-                text_moonset.setText(
+                text_moonset_period.setText(
                         context.getString(R.string.format_period,  SolunarCardHolder.formatTime(context, minorPeriods[1].getStartMillis(), data.getTimezone(), options.suntimes_options.time_is24),
                                                                    SolunarCardHolder.formatTime(context, minorPeriods[1].getEndMillis(), data.getTimezone(), options.suntimes_options.time_is24)) );
             } else {
-                text_moonset.setText(context.getString(R.string.time_none));
+                text_moonset_period.setText(context.getString(R.string.time_none));
             }
 
             if (majorPeriods[0] != null)

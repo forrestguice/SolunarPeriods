@@ -52,21 +52,27 @@
 
         <LinearLayout android:id="@+id/layout_sun"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:orientation="vertical" android:gravity="end"
-            app:layout_constraintTop_toTopOf="@+id/layout_moon" app:layout_constraintBottom_toBottomOf="@+id/layout_moon"
-            app:layout_constraintStart_toEndOf="@+id/layout_moon" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="8dp">
+            android:orientation="vertical" android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout_moon"
+            android:layout_marginTop="0dp">
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <ImageView style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall" android:layout_gravity="center" android:layout_margin="8dp" />
-                <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor"
+                <ImageView style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall" android:layout_gravity="center"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="7:00 AM" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <ImageView style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall" android:layout_gravity="center" android:layout_margin="8dp" />
-                <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"
+                <ImageView style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall" android:layout_gravity="center"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="6:00 PM"/>
             </LinearLayout>
@@ -76,64 +82,77 @@
         <LinearLayout android:id="@+id/layout_moon"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/layout_moonphase" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_moonphase"
+            app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1"
             android:layout_marginTop="8dp" android:layout_marginBottom="8dp">
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                <TextView android:id="@+id/text_moonset_period"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    tools:text="7:00 AM - 8:00 AM" />
+                <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+                    tools:text="7:00 AM" android:visibility="gone" />
                 <TextView android:id="@+id/text_moonset_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     android:text="Minor" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center" android:layout_margin="8dp" />
-                <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    tools:text="7:00 AM" />
-                <TextView android:id="@+id/text_moonset_period"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:textSize="12sp"
-                    tools:text="7:00 AM - 8:00 AM" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                <TextView android:id="@+id/text_moonnight"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    tools:text="11:00 AM : 12:00 PM" />
                 <TextView android:id="@+id/text_moonnight_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     android:text="Major" />
-                <TextView android:id="@+id/text_moonnight"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    tools:text="11:00 AM" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                <TextView android:id="@+id/text_moonrise_period" android:textColor="?attr/moonriseColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    tools:text="6:00 PM - 7:00 PM"/>
+                <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+                    tools:text="6:00 PM" android:visibility="gone" />
                 <TextView android:id="@+id/text_moonrise_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     android:text="Minor" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center" android:layout_margin="8dp" />
-                <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="12sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    tools:text="6:00 PM"/>
-                <TextView android:id="@+id/text_moonrise_period"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:textSize="12sp"
-                    tools:text="6:00 PM - 7:00 PM" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                <TextView android:id="@+id/text_moonnoon"  android:textColor="?attr/moonriseColor" android:textSize="12sp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    tools:text="11:00 AM - 12:00 PM" />
                 <TextView android:id="@+id/text_moonnoon_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     android:text="Major" />
-                <TextView android:id="@+id/text_moonnoon"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    tools:text="11:00 AM" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <TextView android:id="@+id/text_debug"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView android:id="@+id/text_debug" android:visibility="gone"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Hello World!"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintHorizontal_bias="0"
             app:layout_constraintTop_toBottomOf="@+id/layout_moon" />
 
     </android.support.constraint.ConstraintLayout>
