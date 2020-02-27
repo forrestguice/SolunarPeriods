@@ -28,6 +28,8 @@ public class SolunarData implements Parcelable
     public static final String KEY_MOONPHASE = "moonphase";
     public static final String KEY_MOONAGE = "moonage";
     public static final String KEY_MOONPERIOD = "moonperiod";
+    public static final String KEY_MOONFULL = "moonfull";
+    public static final String KEY_MOONNEW = "moonnew";
 
     public static final String KEY_MAJOR0_START = "major0_start";
     public static final String KEY_MAJOR0_END = "major0_end";
@@ -50,6 +52,7 @@ public class SolunarData implements Parcelable
     protected long sunrise = -1, sunset = -1, noon = -1;
     protected long moonrise = -1, moonset = -1;
     protected long moonnoon = -1, moonnight = -1;
+    protected long moonnew = -1, moonfull = -1;
     protected long moonage = -1, moonperiod = -1;
     protected double moonillum = -1;  // [0,1]
     protected String moonphase;       // display string
@@ -95,6 +98,8 @@ public class SolunarData implements Parcelable
         this.moonset = values.getAsLong(KEY_MOONSET);
         this.moonnoon = values.getAsLong(KEY_MOONNOON);
         this.moonnight = values.getAsLong(KEY_MOONNIGHT);
+        this.moonnew = values.getAsLong(KEY_MOONNEW);
+        this.moonfull = values.getAsLong(KEY_MOONFULL);
 
         this.moonillum = values.getAsDouble(KEY_MOONILLUM);
         this.moonphase = values.getAsString(KEY_MOONPHASE);
@@ -130,6 +135,8 @@ public class SolunarData implements Parcelable
         values.put(KEY_MOONSET, moonset);
         values.put(KEY_MOONNOON, moonnoon);
         values.put(KEY_MOONNIGHT, moonnight);
+        values.put(KEY_MOONNEW, moonnew);
+        values.put(KEY_MOONFULL, moonfull);
 
         values.put(KEY_MOONILLUM, moonillum);
         values.put(KEY_MOONPHASE, moonphase);
@@ -174,6 +181,8 @@ public class SolunarData implements Parcelable
         moonset = in.readLong();
         moonnoon = in.readLong();
         moonnight = in.readLong();
+        moonnew = in.readLong();
+        moonfull = in.readLong();
 
         moonillum = in.readDouble();
         moonphase = in.readString();
@@ -203,6 +212,8 @@ public class SolunarData implements Parcelable
         out.writeLong(moonset);
         out.writeLong(moonnoon);
         out.writeLong(moonnight);
+        out.writeLong(moonnew);
+        out.writeLong(moonfull);
 
         out.writeDouble(moonillum);
         out.writeString(moonphase);
@@ -242,6 +253,8 @@ public class SolunarData implements Parcelable
             case KEY_MOONSET: return moonset;
             case KEY_MOONNOON: return moonnoon;
             case KEY_MOONNIGHT: return moonnight;
+            case KEY_MOONNEW: return moonnew;
+            case KEY_MOONFULL: return moonfull;
 
             case KEY_DATE:
             default: return date;
