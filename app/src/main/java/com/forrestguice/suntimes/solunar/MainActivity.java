@@ -127,6 +127,12 @@ public class MainActivity extends AppCompatActivity
             Snackbar.make(cardView, "date clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
             // TODO
         }
+
+        @Override
+        public void onCardClick(int i) {
+            Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            // TODO
+        }
     };
 
     private View.OnClickListener fabOnClickListener = new View.OnClickListener()

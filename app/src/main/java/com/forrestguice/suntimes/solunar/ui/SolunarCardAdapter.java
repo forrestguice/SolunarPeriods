@@ -153,19 +153,15 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
     {
-        final Context context = contextRef.get();
-
         holder.text_date.setOnClickListener(onDateClick(position));
-
-        // TODO
+        holder.layout_font.setOnClickListener(onCardClick(position));
     }
 
     private void detachClickListeners(@NonNull SolunarCardHolder holder)
     {
         holder.text_date.setOnClickListener(null);
-        // TODO
+        holder.layout_font.setOnClickListener(null);
     }
-
 
     /**
      * setCardAdapterListener
@@ -176,12 +172,19 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     }
     private SolunarCardAdapterListener adapterListener = new SolunarCardAdapterListener();
 
-    private View.OnClickListener onDateClick(final int position)
-    {
+    private View.OnClickListener onDateClick(final int position) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapterListener.onDateClick(position);
+            }
+        };
+    }
+    private View.OnClickListener onCardClick(final int position) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterListener.onCardClick(position);
             }
         };
     }
@@ -192,6 +195,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static class SolunarCardAdapterListener
     {
         public void onDateClick(int position) {}
+        public void onCardClick(int position) {}
     }
 
     /**
