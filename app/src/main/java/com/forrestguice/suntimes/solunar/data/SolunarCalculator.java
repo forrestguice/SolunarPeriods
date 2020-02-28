@@ -347,17 +347,16 @@ public class SolunarCalculator
     protected MoonPhaseDisplay findPhaseOf(Calendar calendar, HashMap<MoonPhase, Calendar> phases)
     {
         MoonPhase nextPhase = nextPhase(calendar, phases);
-        Calendar nextPhaseDate = phases.get(nextPhase);
+        return (isSameDay(calendar, phases.get(nextPhase)) ? toPhase(nextPhase) : prevMinorPhase(nextPhase));
+    }
 
+    public static boolean isSameDay(Calendar calendar, Calendar otherCalendar)
+    {
         int year = calendar.get(Calendar.YEAR);
-        int phaseYear = nextPhaseDate.get(Calendar.YEAR);
-
+        int otherYear = otherCalendar.get(Calendar.YEAR);
         int day = calendar.get(Calendar.DAY_OF_YEAR);
-        int phaseDay = nextPhaseDate.get(Calendar.DAY_OF_YEAR);
-        Log.d("DEBUG", "nextPhaseDate:" + nextPhase + " .. " + day + " =? " + phaseDay);
-
-        boolean isToday = (year == phaseYear) && (day == phaseDay) || (phaseDay - day == 29);
-        return (isToday ? toPhase(nextPhase) : prevMinorPhase(nextPhase));
+        int otherDay = otherCalendar.get(Calendar.DAY_OF_YEAR);
+        return (year == otherYear) && (day == otherDay);
     }
 
     public MoonPhase nextPhase(Calendar calendar, HashMap<MoonPhase, Calendar> phases) {
