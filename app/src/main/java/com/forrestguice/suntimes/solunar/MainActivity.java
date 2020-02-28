@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private RecyclerView cardView;
     private SolunarCardAdapter cardAdapter;
+    private LinearLayoutManager cardLayout;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -107,8 +108,9 @@ public class MainActivity extends AppCompatActivity
 
         cardView = (RecyclerView)findViewById(R.id.cardView);
         cardView.setHasFixedSize(true);
-        cardView.setLayoutManager(new LinearLayoutManager(this));
+        cardView.setLayoutManager(cardLayout = new LinearLayoutManager(this));
         cardView.addItemDecoration(cardDecoration);
+        cardView.setOnScrollListener(onCardScrollChanged);
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(cardView);
@@ -160,6 +162,20 @@ public class MainActivity extends AppCompatActivity
             toolbar.setSubtitle(getString(R.string.format_location, suntimesInfo.location[1], suntimesInfo.location[2], suntimesInfo.location[3]));
         }
     }
+
+    private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
+        {
+            super.onScrollStateChanged(recyclerView, newState);
+            /**int[] position = new int[] { cardLayout.findFirstCompletelyVisibleItemPosition(), cardLayout.findLastVisibleItemPosition() };
+            if (SolunarCardAdapter.TODAY_POSITION >= position[0] && SolunarCardAdapter.TODAY_POSITION < position[1]) {
+                fab.hide();
+            } else {
+                fab.show();
+            }*/
+        }
+    };
 
     private SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
     {
