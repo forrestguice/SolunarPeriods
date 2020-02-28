@@ -1,5 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dialog_margin">8dp</dimen>
 
     <dimen name="card_margin_left">7dp</dimen>
     <dimen name="card_margin_right">7dp</dimen>

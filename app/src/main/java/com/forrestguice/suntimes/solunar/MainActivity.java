@@ -1,7 +1,6 @@
 package com.forrestguice.suntimes.solunar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -25,11 +24,14 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
+import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 
 import java.lang.reflect.Method;
 public class MainActivity extends AppCompatActivity
 {
+    public static final String DIALOG_HELP = "helpDialog";
+
     private SuntimesInfo suntimesInfo = null;
 
     private FloatingActionButton fab;
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity
         suntimesInfo = SuntimesInfo.queryInfo(context.getContentResolver());    // obtain Suntimes version info
         super.attachBaseContext( (suntimesInfo != null && suntimesInfo.appLocale != null) ?    // override the locale
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -218,8 +225,9 @@ public class MainActivity extends AppCompatActivity
 
     protected void showHelp()
     {
-        // TODO
-        Snackbar.make(cardView, "show help", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+        HelpDialog dialog = new HelpDialog();
+        dialog.setContent("TODO");    // TODO
+        dialog.show(getSupportFragmentManager(), DIALOG_HELP);
     }
 
     protected void showAbout()
