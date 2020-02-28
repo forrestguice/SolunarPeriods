@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.solunar.R;
+import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 
@@ -85,7 +86,18 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_moonillum.setText((int)(data.getMoonIllumination() * 100) + "%");
 
             MoonPhaseDisplay phase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
-            text_moonphase.setText(phase.getLongDisplayString());
+            boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));
+            boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONFULL));
+
+            if (isNewMoon) {
+                text_moonphase.setText(phase.getLongDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONNEW), timezone, options.suntimes_options.time_is24));
+
+            } else if (isFullMoon) {
+                text_moonphase.setText(phase.getLongDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONFULL), timezone, options.suntimes_options.time_is24));
+
+            } else {
+                text_moonphase.setText(phase.getLongDisplayString());
+            }
 
             hideMoonPhaseIcons();
             ImageView icon = icon_moonphases.get(phase);
