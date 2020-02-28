@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/text_date" style="@style/dateText"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            tools:text="February 18, 2020"
+            tools:text="February 27\n Thursday"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,16 +55,16 @@
             android:orientation="vertical" android:gravity="start|top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/layout_moon"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp">
+            app:layout_constraintBottom_toBottomOf="@+id/layout_moon"
+            android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
                     android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
-                <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="12sp"
+                <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="14sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="7:00 AM" />
             </LinearLayout>
@@ -74,7 +74,7 @@
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
                     android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
-                <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="12sp"
+                <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="14sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="6:00 PM"/>
             </LinearLayout>
@@ -84,7 +84,7 @@
         <LinearLayout android:id="@+id/layout_moon"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/layout_moonphase"
+            app:layout_constraintTop_toBottomOf="@+id/rating"
             app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1"
             android:layout_marginTop="8dp" android:layout_marginBottom="8dp">
 

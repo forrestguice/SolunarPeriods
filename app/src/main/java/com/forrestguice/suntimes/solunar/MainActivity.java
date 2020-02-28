@@ -1,10 +1,14 @@
 package com.forrestguice.suntimes.solunar;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -24,6 +28,7 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
+import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 
@@ -47,15 +52,40 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+
+        String appTheme = queryAppTheme(getContentResolver());
+        if (appTheme != null && !appTheme.equals(suntimesInfo.appTheme)) {
+            recreate();
+        }
+    }
+
+    public static String queryAppTheme(@Nullable ContentResolver resolver)
+    {
+        String theme = SuntimesInfo.THEME_DARK;
+        if (resolver != null) {
+            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
+            try {
+                Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_CONFIG_APP_THEME } , null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    theme = (cursor.isNull(0) ? SuntimesInfo.THEME_DARK : cursor.getString(0));
+                    cursor.close();
+                }
+            } catch (SecurityException e) {
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+            }
+        }
+        return theme;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (suntimesInfo.appTheme != null) {    // override the theme
-            setTheme(suntimesInfo.appTheme.equals(SuntimesInfo.THEME_LIGHT) ? R.style.SolunarAppTheme_Light : R.style.SolunarAppTheme_Dark);
+            setTheme(getThemeResID(suntimesInfo.appTheme));
         }
 
         setContentView(R.layout.activity_main);
@@ -89,6 +119,10 @@ public class MainActivity extends AppCompatActivity
             updateViews();
             cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
         }
+    }
+
+    private int getThemeResID(@NonNull String themeName) {
+        return themeName.equals(SuntimesInfo.THEME_LIGHT) ? R.style.SolunarAppTheme_Light : R.style.SolunarAppTheme_Dark;
     }
 
     private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
@@ -226,7 +260,14 @@ public class MainActivity extends AppCompatActivity
     protected void showHelp()
     {
         HelpDialog dialog = new HelpDialog();
-        dialog.setContent("TODO");    // TODO
+        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+
+        String[] help = new String[] { getString(R.string.help_major_periods), getString(R.string.help_minor_periods) };
+        String helpContent = help[0];
+        for (int i=1; i<help.length; i++) {
+            helpContent = getString(R.string.format_help, helpContent, help[i]);
+        }
+        dialog.setContent(helpContent + "<br/>");
         dialog.show(getSupportFragmentManager(), DIALOG_HELP);
     }
 

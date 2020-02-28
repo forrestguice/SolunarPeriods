@@ -24,6 +24,7 @@
         <item name="colorTime">@color/colorTime_light</item>
         <item name="colorValue">@color/colorValue_light</item>
 
+        <item name="dialogBackground">@color/grey_50</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleLight</item>
         <item name="fab_backgroundColor">@color/colorFabBackground_light</item>
@@ -52,6 +53,7 @@
         <item name="colorTime">@color/colorTime_dark</item>
         <item name="colorValue">@color/colorValue_dark</item>
 
+        <item name="dialogBackground">@color/grey_850</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleDark</item>
         <item name="fab_backgroundColor">@color/colorFabBackground_dark</item>

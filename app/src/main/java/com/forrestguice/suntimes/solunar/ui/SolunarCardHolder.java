@@ -1,7 +1,9 @@
 package com.forrestguice.suntimes.solunar.ui;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -70,6 +72,18 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
         this.position = position;
         text_date.setText(formatDate(context, data.getDate()));
+        if (position == SolunarCardAdapter.TODAY_POSITION)
+        {
+            text_date.setTypeface(text_date.getTypeface(), Typeface.BOLD);
+
+        } else {
+            text_date.setTypeface(text_date.getTypeface(), Typeface.NORMAL);
+            if (position < SolunarCardAdapter.TODAY_POSITION) {
+                // TODO
+            } else {
+                // TODO
+            }
+        }
 
         if (data.isCalculated())
         {

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -21,6 +22,12 @@ import com.forrestguice.suntimes.solunar.R;
 public class HelpDialog extends BottomSheetDialogFragment
 {
     public static final String KEY_HELPTEXT = "helpText";
+    public static final String KEY_DIALOGTHEME = "themeResID";
+
+    private int themeResID = R.style.SolunarAppTheme_Dark;
+    public void setTheme(int themeResID) {
+        this.themeResID = themeResID;
+    }
 
     private TextView txtView;
     private CharSequence rawContent = "";
@@ -49,11 +56,10 @@ public class HelpDialog extends BottomSheetDialogFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
-        // TODO
-        //ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), AppSettings.loadTheme(getContext()));    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);
+        themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
+        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
+        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
         txtView = (TextView) dialogContent.findViewById(R.id.help_content);
-
         if (savedState != null) {
             rawContent = savedState.getCharSequence(KEY_HELPTEXT);
         }
@@ -86,6 +92,7 @@ public class HelpDialog extends BottomSheetDialogFragment
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {
         out.putCharSequence(KEY_HELPTEXT, rawContent);
+        out.putInt(KEY_DIALOGTHEME, themeResID);
         super.onSaveInstanceState(out);
     }
 }
