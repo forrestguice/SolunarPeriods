@@ -2,11 +2,13 @@ package com.forrestguice.suntimes.solunar;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -83,16 +85,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState)
+    {
         if (suntimesInfo.appTheme != null) {    // override the theme
             setTheme(getThemeResID(suntimesInfo.appTheme));
         }
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
         }
-
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(fabOnClickListener);
@@ -269,8 +270,11 @@ public class MainActivity extends AppCompatActivity
 
     protected void showSettings()
     {
-        // TODO
-        Snackbar.make(cardView, "show settings", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra( SettingsActivity.EXTRA_THEMERESID, getThemeResID(suntimesInfo.appTheme) );
+        intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName() );
+        intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+        startActivity(intent);
     }
 
     protected void showHelp()

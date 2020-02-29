@@ -1,0 +1,8 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+        android:fragment="com.forrestguice.suntimes.solunar.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="?attr/icSettings"
+        android:title="@string/pref_header_general" />
+
+</preference-headers>

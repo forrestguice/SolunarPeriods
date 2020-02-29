@@ -71,11 +71,12 @@ public class SolunarCalculator
         long moonAgeMillis = data.getMoonAge();
         double d1 = Math.abs(moonPeriod - moonAgeMillis) / 1000d / 60d / 60d / 24d;
         double d2 = moonAgeMillis / 1000d / 60d / 60d / 24d;
+        double d3 = (moonPeriod / 1000d / 60d / 60d / 24d) / 2d;
 
         //long d, d1;
         //d = (Math.abs(moonPeriod - moonAge)); // / (24L * 60L * 60L * 1000L);
 
-        if (d1 <= 0.5 || d2 <= 0.5) {
+        if (d1 <= 0.5 || d2 <= 0.5 || (d2 >= (d3 - 0.5) && d2 <= (d3 + 0.5) )) {
             r += 3;
         } else if (d1 <= 2.5 || d2 <= 2.5) {
             r += 2;
@@ -142,7 +143,7 @@ public class SolunarCalculator
                 long nextNewMoon = phases.get(MoonPhase.NEW).getTimeInMillis();
                 long prevNewMoon = queryMoonPhase(resolver, MoonPhase.NEW, (nextNewMoon - AVG_MONTH_MILLIS));
                 data.moonperiod = (nextNewMoon - prevNewMoon);
-                data.moonage = (data.getDate(SolunarData.KEY_NOON).getTimeInMillis()) - prevNewMoon;   // age of moon at start of calendar day
+                data.moonage = (data.getDate(SolunarData.KEY_MOONNOON).getTimeInMillis()) - prevNewMoon;   // age of moon at start of calendar day
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {

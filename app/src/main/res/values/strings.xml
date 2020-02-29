@@ -11,6 +11,7 @@
     <string name="format_date">MMMM d\nEEEE</string>   <!-- February 27, Thursday -->
     <string name="format_location">%s, %s [%s]</string>
     <string name="format_period">%s - %s</string>   <!-- "startTime - endTime" -->
+    <string name="format_summary_minutes">%s minutes</string>
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
 
     <string name="help_minor_periods">Minor periods occur at moonrise and moonset and last for 2 hours.</string>
@@ -45,6 +46,17 @@
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>
+
+    <!-- Settings -->
+
+    <string name="title_activity_settings">@string/action_settings</string>
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_length_minor_period">Minor period length</string>
+    <string name="pref_def_length_minor_period">60</string>
+
+    <string name="pref_title_length_major_period">Major period length</string>
+    <string name="pref_def_length_major_period">120</string>
 
 
 </resources>

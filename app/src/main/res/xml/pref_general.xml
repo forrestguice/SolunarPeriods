@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="pref_length_minor_period"
+        android:defaultValue="@string/pref_def_length_minor_period"
+        android:inputType="number" android:maxLines="1" android:selectAllOnFocus="true" android:singleLine="true"
+        android:title="@string/pref_title_length_minor_period" />
+
+    <EditTextPreference
+        android:key="pref_length_major_period"
+        android:defaultValue="@string/pref_def_length_major_period"
+        android:inputType="number" android:maxLines="1" android:selectAllOnFocus="true" android:singleLine="true"
+        android:title="@string/pref_title_length_major_period" />
+
+</PreferenceScreen>
