@@ -20,6 +20,7 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.TooltipCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(fabOnClickListener);
+        TooltipCompat.setTooltipText(fab, getString(R.string.action_today));
 
         cardView = (RecyclerView)findViewById(R.id.cardView);
         cardView.setHasFixedSize(true);
