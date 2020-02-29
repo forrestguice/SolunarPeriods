@@ -30,6 +30,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public TextView text_date;
     public TextView text_debug;
     public RatingBar rating;
+    public TextView text_rating;
 
     public TextView text_sunrise, text_sunset;
     public TextView text_moonrise, text_moonset;
@@ -45,6 +46,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         text_date = itemView.findViewById(R.id.text_date);
         text_debug = itemView.findViewById(R.id.text_debug);
         rating = itemView.findViewById(R.id.rating);
+        text_rating = itemView.findViewById(R.id.text_rating);
 
         text_sunrise = itemView.findViewById(R.id.text_sunrise);
         text_sunset = itemView.findViewById(R.id.text_sunset);
@@ -183,6 +185,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 rating.setNumStars(1);
                 rating.setRating(1);
             }
+            text_rating.setText(formatRating(context, dayRating));
 
         } else {
             text_debug.setText("not calculated");
@@ -199,6 +202,26 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 view.setVisibility(View.GONE);
             }
         }
+    }
+
+    public static String formatRating(@NonNull Context context, double rating)
+    {
+        String[] labels = context.getResources().getStringArray(R.array.ratings_labels);
+        int[] brackets = context.getResources().getIntArray(R.array.ratings_brackets);
+        if (brackets.length != labels.length) {
+            throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
+        }
+
+        int last = -1;
+        for (int i=0; i<brackets.length; i++)
+        {
+            if (rating > (last * 0.01d)
+                    && rating <= (brackets[i] * 0.01d)) {
+                return labels[i];
+            }
+            last = brackets[i];
+        }
+        return "nodef";
     }
 
     public static CharSequence formatDate(@NonNull Context context, long date)

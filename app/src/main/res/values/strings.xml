@@ -47,6 +47,21 @@
     <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>
 
+    <string-array name="ratings_labels">      <!-- one-to-one with ratings_brackets -->
+        <item>Poor</item>
+        <item>Fair</item>
+        <item>Good</item>
+        <item>Better</item>
+        <item>Best</item>
+    </string-array>
+    <integer-array name="ratings_brackets">      <!-- one-to-one with ratings_labels -->
+        <item>20</item>
+        <item>40</item>
+        <item>60</item>
+        <item>80</item>
+        <item>100</item>
+    </integer-array>
+
     <!-- Settings -->
 
     <string name="title_activity_settings">@string/action_settings</string>
