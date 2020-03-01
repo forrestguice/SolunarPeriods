@@ -14,38 +14,9 @@
     <string name="format_summary_minutes">%s minutes</string>
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
 
-    <string name="help_minor_periods">Minor periods occur at moonrise and moonset and last for 2 hours.</string>
-    <string name="help_major_periods">Major periods occur at lunar noon and lunar midnight and last for 3 hours.</string>
-
-    <string name="time_none">none</string>  <!-- no time / time does not occur -->
-    <string name="timeMode_moon">Moon</string>                               <!-- label -->
-    <string name="timeMode_moon_new">New Moon</string>                               <!-- setting -->
-    <string name="timeMode_moon_new_short">New</string>                              <!-- setting -->
-    <string name="timeMode_moon_waxingcrescent_short">Waxing Crescent</string>               <!-- label -->
-    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>                     <!-- label -->
-    <string name="timeMode_moon_firstquarter">First Quarter</string>                 <!-- setting -->
-    <string name="timeMode_moon_firstquarter_short">First Quarter</string>           <!-- setting -->
-    <string name="timeMode_moon_waxinggibbous_short">Waxing Gibbous</string>               <!-- label -->
-    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>                     <!-- label -->
-    <string name="timeMode_moon_full">Full Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_full_short">Full</string>                            <!-- setting -->
-    <string name="timeMode_moon_waninggibbous_short">Waning Gibbous</string>               <!-- label -->
-    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>                     <!-- label -->
-    <string name="timeMode_moon_thirdquarter">Third Quarter</string>                 <!-- setting -->
-    <string name="timeMode_moon_thirdquarter_short">Third Quarter</string>           <!-- setting -->
-    <string name="timeMode_moon_waningcrescent_short">Waning Crescent</string>               <!-- label -->
-    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>                     <!-- label -->
-
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>
+    <string name="help_minor_periods">Minor periods occur at moonrise and moonset and generally last for 2 hours.</string>
+    <string name="help_major_periods">Major periods occur at lunar noon and lunar midnight and generally last for 3 hours.</string>
+    <string name="help_configuration">The location and time zone (and most settings) are configured from Suntimes.</string>
 
     <string-array name="ratings_labels">      <!-- one-to-one with ratings_brackets -->
         <item>Poor</item>

@@ -27,29 +27,28 @@ import com.forrestguice.suntimes.solunar.R;
  */
 public enum MoonPhaseDisplay
 {
-    NEW("New", "New Moon", R.drawable.ic_moon_new, R.id.icon_info_moonphase_new),
-    WAXING_CRESCENT("Waxing Crescent", "Waxing Crescent", R.drawable.ic_moon_waxing_crescent, R.id.icon_info_moonphase_waxing_crescent),
-    FIRST_QUARTER("First Quarter", "First Quarter", R.drawable.ic_moon_waxing_quarter, R.id.icon_info_moonphase_waxing_quarter),
-    WAXING_GIBBOUS("Waxing Gibbous", "Waxing Gibbous", R.drawable.ic_moon_waxing_gibbous, R.id.icon_info_moonphase_waxing_gibbous),
-    FULL("Full", "Full Moon", R.drawable.ic_moon_full, R.id.icon_info_moonphase_full),
-    WANING_GIBBOUS("Waning Gibbous", "Waning Gibbous", R.drawable.ic_moon_waning_gibbous, R.id.icon_info_moonphase_waning_gibbous),
-    THIRD_QUARTER("Third Quarter", "Third Quarter", R.drawable.ic_moon_waning_quarter, R.id.icon_info_moonphase_waning_quarter),
-    WANING_CRESCENT("Waning Crescent", "Waning Crescent", R.drawable.ic_moon_waning_crescent, R.id.icon_info_moonphase_waning_crescent);
+    NEW("New Moon", R.drawable.ic_moon_new, R.id.icon_info_moonphase_new),
+    WAXING_CRESCENT("Waxing Crescent", R.drawable.ic_moon_waxing_crescent, R.id.icon_info_moonphase_waxing_crescent),
+    FIRST_QUARTER("First Quarter", R.drawable.ic_moon_waxing_quarter, R.id.icon_info_moonphase_waxing_quarter),
+    WAXING_GIBBOUS("Waxing Gibbous", R.drawable.ic_moon_waxing_gibbous, R.id.icon_info_moonphase_waxing_gibbous),
+    FULL("Full Moon", R.drawable.ic_moon_full, R.id.icon_info_moonphase_full),
+    WANING_GIBBOUS("Waning Gibbous", R.drawable.ic_moon_waning_gibbous, R.id.icon_info_moonphase_waning_gibbous),
+    THIRD_QUARTER("Third Quarter", R.drawable.ic_moon_waning_quarter, R.id.icon_info_moonphase_waning_quarter),
+    WANING_CRESCENT("Waning Crescent", R.drawable.ic_moon_waning_crescent, R.id.icon_info_moonphase_waning_crescent);
 
     private int iconResource, viewResource;
-    private String shortDisplayString, longDisplayString;
+    private String displayString;
 
-    private MoonPhaseDisplay(String shortDisplayString, String longDisplayString, int iconResource, int viewResource)
+    private MoonPhaseDisplay(String displayString, int iconResource, int viewResource)
     {
-        this.shortDisplayString = shortDisplayString;
-        this.longDisplayString = longDisplayString;
+        this.displayString = displayString;
         this.iconResource = iconResource;
         this.viewResource = viewResource;
     }
 
     public String toString()
     {
-        return longDisplayString;
+        return displayString;
     }
 
     public int getIcon()
@@ -62,32 +61,25 @@ public enum MoonPhaseDisplay
         return viewResource;
     }
 
-    public String getShortDisplayString()
+    public String getDisplayString()
     {
-        return shortDisplayString;
+        return displayString;
     }
 
-    public String getLongDisplayString()
-    {
-        return longDisplayString;
-    }
-
-    public void setDisplayString(String shortDisplayString, String longDisplayString)
-    {
-        this.shortDisplayString = shortDisplayString;
-        this.longDisplayString = longDisplayString;
+    public void setDisplayString(String displayString) {
+        this.displayString = displayString;
     }
 
     public static void initDisplayStrings(Context context)
     {
-         NEW.setDisplayString(context.getString(R.string.timeMode_moon_new_short), context.getString(R.string.timeMode_moon_new));
-         WAXING_CRESCENT.setDisplayString(context.getString(R.string.timeMode_moon_waxingcrescent_short), context.getString(R.string.timeMode_moon_waxingcrescent));
-         FIRST_QUARTER.setDisplayString(context.getString(R.string.timeMode_moon_firstquarter_short), context.getString(R.string.timeMode_moon_firstquarter));
-         WAXING_GIBBOUS.setDisplayString(context.getString(R.string.timeMode_moon_waxinggibbous_short), context.getString(R.string.timeMode_moon_waxinggibbous));
-         FULL.setDisplayString(context.getString(R.string.timeMode_moon_full_short), context.getString(R.string.timeMode_moon_full));
-         WANING_GIBBOUS.setDisplayString(context.getString(R.string.timeMode_moon_waninggibbous_short), context.getString(R.string.timeMode_moon_waninggibbous));
-         THIRD_QUARTER.setDisplayString(context.getString(R.string.timeMode_moon_thirdquarter_short), context.getString(R.string.timeMode_moon_thirdquarter));
-         WANING_CRESCENT.setDisplayString(context.getString(R.string.timeMode_moon_waningcrescent_short),context.getString(R.string.timeMode_moon_waningcrescent));
+         NEW.setDisplayString(context.getString(R.string.timeMode_moon_new));
+         WAXING_CRESCENT.setDisplayString(context.getString(R.string.timeMode_moon_waxingcrescent));
+         FIRST_QUARTER.setDisplayString(context.getString(R.string.timeMode_moon_firstquarter));
+         WAXING_GIBBOUS.setDisplayString(context.getString(R.string.timeMode_moon_waxinggibbous));
+         FULL.setDisplayString(context.getString(R.string.timeMode_moon_full));
+         WANING_GIBBOUS.setDisplayString(context.getString(R.string.timeMode_moon_waninggibbous));
+         THIRD_QUARTER.setDisplayString(context.getString(R.string.timeMode_moon_thirdquarter));
+         WANING_CRESCENT.setDisplayString(context.getString(R.string.timeMode_moon_waningcrescent));
     }
 
 }
