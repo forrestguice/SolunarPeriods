@@ -6,7 +6,9 @@ import android.content.Context;
 
 import android.support.annotation.NonNull;
 
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,6 +210,23 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         public SolunarCardOptions() {}
         public SolunarCardOptions(SuntimesInfo.SuntimesOptions options) {
             suntimes_options = options;
+        }
+    }
+
+    /**
+     * CardViewScroller
+     */
+    public static class CardScroller extends LinearSmoothScroller
+    {
+        private static final float MILLISECONDS_PER_INCH = 125f;
+
+        public CardScroller(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+            return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
         }
     }
 }

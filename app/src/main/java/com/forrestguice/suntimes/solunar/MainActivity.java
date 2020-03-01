@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView cardView;
     private SolunarCardAdapter cardAdapter;
     private LinearLayoutManager cardLayout;
+    private SolunarCardAdapter.CardScroller cardScroller;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -99,7 +100,9 @@ public class MainActivity extends AppCompatActivity
         cardView.setOnScrollListener(onCardScrollChanged);
 
         SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(cardView);
+        //snapHelper.attachToRecyclerView(cardView);  // TODO: snap?
+
+        cardScroller = new SolunarCardAdapter.CardScroller(this);
 
         if (checkVersion())
         {
@@ -148,6 +151,20 @@ public class MainActivity extends AppCompatActivity
             toolbar.setSubtitle(getString(R.string.format_location, suntimesInfo.location[1], suntimesInfo.location[2], suntimesInfo.location[3]));
         }
     }
+
+    protected void scrollToPosition(int position)
+    {
+        int current =  cardLayout.findFirstCompletelyVisibleItemPosition();
+        if (Math.abs(SolunarCardAdapter.TODAY_POSITION - current) <= SCROLL_THRESHOLD)
+        {
+            cardScroller.setTargetPosition(position);
+            cardLayout.startSmoothScroll(cardScroller);
+
+        } else {
+            cardView.scrollToPosition(position);
+        }
+    }
+    private static int SCROLL_THRESHOLD = 14;  // days
 
     private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
         @Override
@@ -250,7 +267,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void showToday() {
-        cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+        scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
     }
 
     protected void showSettings()
