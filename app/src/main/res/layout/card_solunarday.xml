@@ -63,21 +63,25 @@
             android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
             android:layout_marginBottom="16dp">
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center"
+                tools:ignore="UseCompoundDrawables">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_sunrise" />
                 <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="14sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="7:00 AM" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center"
+                tools:ignore="UseCompoundDrawables">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_sunset" />
                 <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="14sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="6:00 PM"/>
@@ -96,7 +100,8 @@
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_moonset" />
                 <TextView android:id="@+id/text_moonset_period"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="7:00 AM - 8:00 AM" />
@@ -105,7 +110,7 @@
                     tools:text="7:00 AM" android:visibility="gone" />
                 <TextView android:id="@+id/text_moonset_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:text="Minor" />
+                    android:text="@string/label_minor_period" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
@@ -113,20 +118,22 @@
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_moonnight" />
                 <TextView android:id="@+id/text_moonnight"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="11:00 AM : 12:00 PM" />
                 <TextView android:id="@+id/text_moonnight_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:text="Major" />
+                    android:text="@string/label_minor_period" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" />
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_moonrise" />
                 <TextView android:id="@+id/text_moonrise_period" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="6:00 PM - 7:00 PM"/>
@@ -135,7 +142,7 @@
                     tools:text="6:00 PM" android:visibility="gone" />
                 <TextView android:id="@+id/text_moonrise_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:text="Minor" />
+                    android:text="@string/label_minor_period" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
@@ -143,13 +150,14 @@
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+                    android:contentDescription="@string/label_moonnoon" />
                 <TextView android:id="@+id/text_moonnoon"  android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="11:00 AM - 12:00 PM" />
                 <TextView android:id="@+id/text_moonnoon_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:text="Major" />
+                    android:text="@string/label_major_period" />
             </LinearLayout>
 
         </LinearLayout>
