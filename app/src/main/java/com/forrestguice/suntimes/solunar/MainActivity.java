@@ -32,6 +32,7 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimes.solunar.ui.AboutDialog;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 
@@ -39,6 +40,7 @@ import java.lang.reflect.Method;
 public class MainActivity extends AppCompatActivity
 {
     public static final String DIALOG_HELP = "helpDialog";
+    public static final String DIALOG_ABOUT = "aboutDialog";
 
     private SuntimesInfo suntimesInfo = null;
 
@@ -276,8 +278,9 @@ public class MainActivity extends AppCompatActivity
 
     protected void showAbout()
     {
-        Snackbar.make(cardView, "show about", Snackbar.LENGTH_LONG).setAction("TODO", null).show();
-        // TODO
+        AboutDialog dialog = new AboutDialog();
+        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
     }
 
     /**
