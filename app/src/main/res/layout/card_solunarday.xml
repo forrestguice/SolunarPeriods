@@ -39,23 +39,20 @@
 
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/layout_moonphase"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end"
-            android:layout_marginTop="2dp" android:layout_marginLeft="4dp" android:layout_marginRight="4dp"
+        <TextView android:id="@+id/text_moonillum"  android:textColor="?attr/moonsetColor"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:gravity="end" android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/icon_moonphase" app:layout_constraintStart_toStartOf="@+id/icon_moonphase" app:layout_constraintEnd_toEndOf="@+id/icon_moonphase"
+            tools:text="100%" />
+
+        <TextView android:id="@+id/text_moonphase"  android:textColor="?attr/moonsetColor"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:gravity="end"  android:textSize="12sp" android:layout_margin="4dp"
             app:layout_constraintEnd_toStartOf="@+id/icon_moonphase"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/icon_moonphase"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_moonphase"
+            tools:text="Full Moon" />
 
-            <TextView android:id="@+id/text_moonillum"  android:textColor="?attr/moonsetColor"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:gravity="end" android:textSize="12sp"
-                tools:text="100%" />
-
-            <TextView android:id="@+id/text_moonphase"  android:textColor="?attr/moonsetColor"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:gravity="end"  android:textSize="12sp"
-                tools:text="Full Moon" />
-
-        </LinearLayout>
 
         <LinearLayout android:id="@+id/layout_sun"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

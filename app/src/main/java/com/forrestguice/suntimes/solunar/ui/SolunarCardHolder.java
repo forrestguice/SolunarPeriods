@@ -79,7 +79,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_date.setTypeface(text_date.getTypeface(), Typeface.BOLD);
 
         } else {
-            text_date.setTypeface(text_date.getTypeface(), Typeface.NORMAL);
+            text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
             if (position < SolunarCardAdapter.TODAY_POSITION) {
                 // TODO
             } else {
@@ -99,20 +99,20 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_moonrise.setText(formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
             text_moonset.setText(formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
 
-            text_moonillum.setText((int)(data.getMoonIllumination() * 100) + "%");
+            text_moonillum.setText( context.getString(R.string.format_illumination, (int)(data.getMoonIllumination() * 100) + "") );
 
             MoonPhaseDisplay phase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
             boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));
             boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONFULL));
 
             if (isNewMoon) {
-                text_moonphase.setText(phase.getLongDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONNEW), timezone, options.suntimes_options.time_is24));
+                text_moonphase.setText(phase.getDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONNEW), timezone, options.suntimes_options.time_is24));
 
             } else if (isFullMoon) {
-                text_moonphase.setText(phase.getLongDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONFULL), timezone, options.suntimes_options.time_is24));
+                text_moonphase.setText(phase.getDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONFULL), timezone, options.suntimes_options.time_is24));
 
             } else {
-                text_moonphase.setText(phase.getLongDisplayString());
+                text_moonphase.setText(phase.getDisplayString());
             }
 
             hideMoonPhaseIcons();
