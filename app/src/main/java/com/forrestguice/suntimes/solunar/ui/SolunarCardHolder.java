@@ -270,9 +270,11 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                         context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
                                 SolunarCardHolder.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))
                 );
+                layout.setVisibility(View.VISIBLE);
 
             } else {
                 text.setText(context.getString(R.string.time_none));
+                layout.setVisibility(View.GONE);
             }
         }
 
