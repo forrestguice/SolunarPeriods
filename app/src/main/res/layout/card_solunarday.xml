@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/card_front" style="@style/SuntimesCard" android:background="?attr/selectableItemBackground"
+        android:id="@+id/card_front"
         android:paddingTop="@dimen/card_padding_top" android:paddingBottom="@dimen/card_padding_bottom"
         android:paddingStart="@dimen/card_padding_left" android:paddingEnd="@dimen/card_padding_right" android:paddingLeft="@dimen/card_padding_left" android:paddingRight="@dimen/card_padding_right"
         android:layout_width="match_parent" android:layout_height="match_parent">
@@ -96,7 +96,8 @@
             app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1"
             android:layout_marginTop="8dp" android:layout_marginBottom="8dp">
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout  android:id="@+id/layout_moonset_period"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
@@ -113,7 +114,8 @@
                     android:text="@string/label_minor_period" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout  android:id="@+id/layout_moonnight_period"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
@@ -125,10 +127,11 @@
                     tools:text="11:00 AM : 12:00 PM" />
                 <TextView android:id="@+id/text_moonnight_label" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                    android:text="@string/label_minor_period" />
+                    android:text="@string/label_major_period" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout android:id="@+id/layout_moonrise_period"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
@@ -145,7 +148,8 @@
                     android:text="@string/label_minor_period" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+            <LinearLayout  android:id="@+id/layout_moonnoon_period"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
