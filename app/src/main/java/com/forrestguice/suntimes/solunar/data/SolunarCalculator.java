@@ -136,10 +136,11 @@ public class SolunarCalculator
 
                 // phase
                 HashMap<MoonPhase, Calendar> phases = new HashMap<>(4);
-                queryMoonPhases(resolver, data, midnight(data.getDate()), phases);
+                Calendar midnightBefore = midnight(data.getDate());
+                queryMoonPhases(resolver, data, midnightBefore, phases);
                 data.moonnew = phases.get(MoonPhase.NEW).getTimeInMillis();
                 data.moonfull = phases.get(MoonPhase.FULL).getTimeInMillis();
-                data.moonphase = findPhaseOf(data.getDate(), phases).name();
+                data.moonphase = findPhaseOf(midnightBefore, phases).name();
 
                 long nextNewMoon = phases.get(MoonPhase.NEW).getTimeInMillis();
                 long prevNewMoon = queryMoonPhase(resolver, MoonPhase.NEW, (nextNewMoon - AVG_MONTH_MILLIS));
