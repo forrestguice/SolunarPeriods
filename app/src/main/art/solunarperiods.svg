@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="solunarperiods.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="C:\Users\Forrest\Documents\GitHub\SuntimesCalendars\app\src\main\artwork\suntimes-calendar31.png"
+   inkscape:export-xdpi="2048"
+   inkscape:export-ydpi="2048">
+  <metadata
+     id="metadata32">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs30" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     id="namedview28"
+     showgrid="false"
+     inkscape:zoom="10.28125"
+     inkscape:cx="-0.84836347"
+     inkscape:cy="20.420041"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg26" />
+  <path
+     fill="none"
+     d="M0 0h24v24H0V0z"
+     id="path22" />
+  <g
+     id="g4681"
+     transform="matrix(1.0903354,0,0,1.0903354,-1.1860578,-1.0777819)">
+    <g
+       transform="rotate(135,12.109759,11.993986)"
+       id="g4673">
+      <path
+         style="display:inline;fill:#404040;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.85437679;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1.2647944,11.992671 A 10.847424,10.973945 0 0 0 12.11195,22.774 10.847424,10.973945 0 0 0 22.946124,11.983978 H 12.107622 Z"
+         id="path3797-4"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         style="display:inline;fill:#bfbfbf;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.85437679;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1.2734506,11.995306 A 10.847424,10.973945 0 0 1 12.120607,1.2139734 10.847424,10.973945 0 0 1 22.954781,12.004 H 12.116278 Z"
+         id="path3797-8-1" />
+    </g>
+    <g
+       style="stroke:#404040"
+       transform="translate(-4.3013229,-4.3938253)"
+       id="g4583">
+      <path
+         style="display:inline;fill:#ff9900;fill-opacity:1;fill-rule:evenodd;stroke:#404040;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 8.777932,16.139516 a 7.3120419,7.3973268 0 0 0 7.311861,7.267488 7.3120419,7.3973268 0 0 0 7.303109,-7.273348 h -7.306027 z"
+         id="path3797"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         style="display:inline;fill:#ffcc00;fill-opacity:1;fill-rule:evenodd;stroke:#404040;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 8.783767,16.006144 a 7.3120419,7.3973268 0 0 1 7.311861,-7.2674905 7.3120419,7.3973268 0 0 1 7.303109,7.2733505 H 16.09271 Z"
+         id="path3797-8" />
+    </g>
+  </g>
+</svg>
