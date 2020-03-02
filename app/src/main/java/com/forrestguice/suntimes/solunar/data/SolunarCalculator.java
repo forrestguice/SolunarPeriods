@@ -9,6 +9,7 @@ import android.util.Pair;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,8 +198,16 @@ public class SolunarCalculator
         if (cursor != null)
         {
             cursor.moveToFirst();
-            for (int i=0; i<3 && !cursor.isAfterLast(); i++)
+            for (int i=0; i<3; i++) {
+                riseSet[i] = new Pair<>(null, null);
+            }
+            for (int i=0; i<3; i++)
             {
+                if (cursor.isAfterLast())
+                {
+                    Log.w(getClass().getSimpleName(), "queryMoonriseMoonset: cursor contains fewer rows than expected (3); got " + i + ": " + data.getDateMillis());
+                    break;
+                }
                 Calendar rising = null, setting = null;
                 if (!cursor.isNull(0)) {
                     rising = Calendar.getInstance();
@@ -326,6 +335,7 @@ public class SolunarCalculator
                     noon.add(midpoint(rise, set));         // case0: moonrise / moonset same day
 
                 } else if ((i+1) < riseSet.length) {
+                    //Log.d("DEBUG", "i: " + i + " .. " + riseSet[i] + ".." + riseSet[i+1]);
                     set = riseSet[i+1].second;
                     if (set != null)                  // check for moonset next day..
                     {
