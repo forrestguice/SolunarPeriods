@@ -121,7 +121,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         Calendar date = Calendar.getInstance();
         date.setTimeZone(TimeZone.getTimeZone(timezone));
         date.add(Calendar.DATE, position - TODAY_POSITION);
-        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.HOUR_OF_DAY, 12);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude, timezone));
