@@ -3,25 +3,28 @@ package com.forrestguice.suntimes.solunar.data;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Calendar;
 
 /**
  * SolunarPeriod
  */
-public class SolunarPeriod implements Parcelable
+public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
 {
     public static final int TYPE_MAJOR = 0;
     public static final int TYPE_MINOR = 1;
 
     protected int type;
     protected long start, end;
+    protected String timezone;
 
-    public SolunarPeriod(int type, long start, long end)
+    public SolunarPeriod(int type, long start, long end, @NonNull String timezone)
     {
         this.type = type;
         this.start = start;
         this.end = end;
+        this.timezone = timezone;
     }
 
     private SolunarPeriod(Parcel in)
@@ -29,6 +32,7 @@ public class SolunarPeriod implements Parcelable
         this.type = in.readInt();
         this.start = in.readLong();
         this.end = in.readLong();
+        this.timezone = in.readString();
     }
 
     @Override
@@ -37,6 +41,7 @@ public class SolunarPeriod implements Parcelable
         out.writeInt(type);
         out.writeLong(start);
         out.writeLong(end);
+        out.writeString(timezone);
     }
 
     public int getType() {
@@ -67,6 +72,10 @@ public class SolunarPeriod implements Parcelable
         return (Math.abs(start - event) < millis);
     }
 
+    public String getTimezone() {
+        return timezone;
+    }
+
     public Calendar[] getCalendar()
     {
         Calendar[] calendar = new Calendar[] { Calendar.getInstance(), Calendar.getInstance() };
@@ -94,12 +103,24 @@ public class SolunarPeriod implements Parcelable
         }
     };
 
-    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd)
+    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd, String timezone)
     {
         Long start = values.getAsLong(keyStart);
         Long end = values.getAsLong(keyEnd);
-        if (start != null && end != null) {
-            return new SolunarPeriod(type, start, end);
+        if (start != null && end != null && timezone != null) {
+            return new SolunarPeriod(type, start, end, timezone);
         } else return null;
+    }
+
+    @Override
+    public int compareTo(@NonNull SolunarPeriod o)
+    {
+        if (start == o.start && end == o.end) {
+            return 0;
+        } else if (start > o.start) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

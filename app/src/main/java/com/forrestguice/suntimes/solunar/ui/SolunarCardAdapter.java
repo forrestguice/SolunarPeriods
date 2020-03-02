@@ -36,13 +36,14 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     private double altitude;
     private String timezone;
 
-    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, String timezone)
+    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, String timezone, SolunarCardOptions options)
     {
         contextRef = new WeakReference<>(context);
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
         this.timezone = timezone;
+        this.options = options;
     }
 
     @NonNull
@@ -51,7 +52,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     {
         LayoutInflater layout = LayoutInflater.from(viewGroup.getContext());
         View view = layout.inflate(R.layout.card_solunarday, viewGroup, false);
-        return new SolunarCardHolder(view);
+        return new SolunarCardHolder(view, options);
     }
 
     @Override
@@ -155,13 +156,13 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
     {
         holder.text_date.setOnClickListener(onDateClick(position));
-        holder.layout_font.setOnClickListener(onCardClick(holder));
+        holder.layout_front.setOnClickListener(onCardClick(holder));
     }
 
     private void detachClickListeners(@NonNull SolunarCardHolder holder)
     {
         holder.text_date.setOnClickListener(null);
-        holder.layout_font.setOnClickListener(null);
+        holder.layout_front.setOnClickListener(null);
     }
 
     /**

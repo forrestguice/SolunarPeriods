@@ -147,19 +147,19 @@ public class SolunarCalculator
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {
-                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS);
+                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.getTimezone());
                 }
                 if (data.moonset != -1) {
-                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS);
+                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS, data.getTimezone());
                 }
 
                 // major periods at lunar noon and lunar midnight
                 int today = data.getDate(null).get(Calendar.DAY_OF_YEAR);
-                if (lunarMidnight != null && lunarMidnight.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS);
-                }
                 if (lunarNoon != null && lunarNoon.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS);
+                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone());
+                }
+                if (lunarMidnight != null && lunarMidnight.get(Calendar.DAY_OF_YEAR) == today) {
+                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone());
                 }
 
             } catch (SecurityException e) {

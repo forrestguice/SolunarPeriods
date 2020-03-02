@@ -108,12 +108,12 @@ public class SolunarData implements Parcelable
 
         this.dayRating = values.getAsDouble(KEY_DAY_RATING);
         this.major_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, timezone),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, timezone)
         };
         this.minor_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END, timezone),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END, timezone)
         };
     }
 
