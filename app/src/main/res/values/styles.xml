@@ -67,13 +67,8 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light">
-        <item name="android:background">@color/grey_50</item>
-    </style>
-    <style name="PopupMenuStyleDark" parent="Theme.AppCompat">
-        <item name="android:background">@color/grey_900</item>
-    </style>
+    <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light" />
+    <style name="PopupMenuStyleDark" parent="Theme.AppCompat" />
 
     <style name="dateText">
         <item name="android:textColor">@color/textbutton_date</item>
@@ -83,6 +78,16 @@
         <item name="colorAccent">?attr/colorAccent</item>
         <item name="colorControlNormal">?attr/colorAccent</item>
         <item name="colorControlActivated">?attr/colorAction</item>
+    </style>
+
+    <style name="SolunarCard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/card_background</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
 </resources>

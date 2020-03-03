@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/card_front"
+        android:id="@+id/card_front" android:background="?attr/selectableItemBackground"
         android:paddingTop="@dimen/card_padding_top" android:paddingBottom="@dimen/card_padding_bottom"
         android:paddingStart="@dimen/card_padding_left" android:paddingEnd="@dimen/card_padding_right" android:paddingLeft="@dimen/card_padding_left" android:paddingRight="@dimen/card_padding_right"
         android:layout_width="match_parent" android:layout_height="match_parent">
