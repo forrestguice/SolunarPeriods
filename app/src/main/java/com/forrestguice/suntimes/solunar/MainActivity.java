@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
             cardLayout.startSmoothScroll(cardScroller);
 
         } else {
-            cardView.scrollToPosition(position);
+            cardLayout.scrollToPositionWithOffset(position, 0);
         }
     }
     private static int SCROLL_THRESHOLD = 14;  // days
