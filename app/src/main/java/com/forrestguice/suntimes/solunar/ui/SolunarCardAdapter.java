@@ -156,12 +156,14 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
     {
         holder.text_date.setOnClickListener(onDateClick(position));
+        holder.click_moonphase.setOnClickListener(onMoonPhaseClick(position));
         holder.layout_front.setOnClickListener(onCardClick(holder));
     }
 
     private void detachClickListeners(@NonNull SolunarCardHolder holder)
     {
         holder.text_date.setOnClickListener(null);
+        holder.click_moonphase.setOnClickListener(null);
         holder.layout_front.setOnClickListener(null);
     }
 
@@ -182,6 +184,14 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
             }
         };
     }
+    private View.OnClickListener onMoonPhaseClick(final int position) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterListener.onMoonPhaseClick(position);
+            }
+        };
+    }
     private View.OnClickListener onCardClick(@NonNull final SolunarCardHolder holder) {
         return new View.OnClickListener() {
             @Override
@@ -198,6 +208,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static class SolunarCardAdapterListener
     {
         public void onDateClick(int position) {}
+        public void onMoonPhaseClick(int position) {}
         public void onCardClick(int position) {}
     }
 

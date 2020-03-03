@@ -8,6 +8,12 @@
         android:paddingStart="@dimen/card_padding_left" android:paddingEnd="@dimen/card_padding_right" android:paddingLeft="@dimen/card_padding_left" android:paddingRight="@dimen/card_padding_right"
         android:layout_width="match_parent" android:layout_height="match_parent">
 
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.55"
+            android:orientation="vertical" />
+
         <TextView
             android:id="@+id/text_date" style="@style/dateText"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -39,19 +45,27 @@
 
         </LinearLayout>
 
-        <TextView android:id="@+id/text_moonillum"  android:textColor="?attr/moonsetColor"
+        <TextView android:id="@+id/text_moonillum" android:textColor="@color/textbutton_moonset"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:gravity="end" android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/icon_moonphase" app:layout_constraintStart_toStartOf="@+id/icon_moonphase" app:layout_constraintEnd_toEndOf="@+id/icon_moonphase"
             tools:text="100%" />
 
-        <TextView android:id="@+id/text_moonphase"  android:textColor="?attr/moonsetColor"
+        <TextView android:id="@+id/text_moonphase" android:textColor="@color/textbutton_moonset"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:gravity="end"  android:textSize="12sp" android:layout_margin="4dp"
+            android:gravity="end|center_vertical"  android:textSize="12sp" android:layout_margin="4dp"
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toStartOf="@+id/icon_moonphase"
             app:layout_constraintTop_toTopOf="@+id/icon_moonphase"
             app:layout_constraintBottom_toBottomOf="@+id/icon_moonphase"
             tools:text="Full Moon" />
+
+        <View android:id="@+id/clickarea_moonphase"
+            android:layout_width="0dp" android:layout_height="0dp" android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/text_moonillum"
+            app:layout_constraintStart_toStartOf="@id/text_moonphase"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <LinearLayout android:id="@+id/layout_sun"

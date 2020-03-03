@@ -188,6 +188,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
+        public void onMoonPhaseClick(int i) {
+            Snackbar.make(cardView, "phase clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            // TODO
+        }
+
+        @Override
         public void onCardClick(int i) {
             Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
             // TODO

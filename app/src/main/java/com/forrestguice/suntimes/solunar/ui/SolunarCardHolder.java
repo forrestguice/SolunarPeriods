@@ -46,6 +46,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
     public TextView text_sunrise, text_sunset;
     public TextView text_moonrise, text_moonset;
+
+    public View click_moonphase;
     public TextView text_moonphase, text_moonillum;
     public HashMap<MoonPhaseDisplay, ImageView> icon_moonphases;
 
@@ -70,6 +72,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_period, options));
         rows.add(row_moonnoon = new SolunarPeriodRow(itemView, R.id.layout_moonnoon_period, R.id.text_moonnoon_label, R.id.text_moonnoon, options));
 
+        click_moonphase = itemView.findViewById(R.id.clickarea_moonphase);
         text_moonphase = itemView.findViewById(R.id.text_moonphase);
         text_moonillum = itemView.findViewById(R.id.text_moonillum);
 
