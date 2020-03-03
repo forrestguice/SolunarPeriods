@@ -17,7 +17,7 @@
         <item name="colorAction">@color/colorAction_light</item>
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
-        <item name="cardViewStyle">@style/CardView.Light</item>
+        <item name="cardViewStyle">@style/SolunarCardView.Light</item>
 
         <item name="colorDate">@color/colorDate_light</item>
         <item name="colorLabel">@color/colorLabel_light</item>
@@ -46,7 +46,7 @@
         <item name="colorAction">@color/colorAction_dark</item>
         <item name="colorDisabled">@color/colorDisabled_dark</item>
 
-        <item name="cardViewStyle">@style/CardView.Dark</item>
+        <item name="cardViewStyle">@style/SolunarCardView.Dark</item>
 
         <item name="colorDate">@color/colorDate_dark</item>
         <item name="colorLabel">@color/colorLabel_dark</item>
@@ -70,6 +70,14 @@
     <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light" />
     <style name="PopupMenuStyleDark" parent="Theme.AppCompat" />
 
+    <style name="SolunarCardView" parent="Base.CardView" />
+    <style name="SolunarCardView.Dark">
+        <item name="cardBackgroundColor">@color/card_background_dark</item>
+    </style>
+    <style name="SolunarCardView.Light">
+        <item name="cardBackgroundColor">@color/card_background_light</item>
+    </style>
+
     <style name="dateText">
         <item name="android:textColor">@color/textbutton_date</item>
     </style>
@@ -78,16 +86,6 @@
         <item name="colorAccent">?attr/colorAccent</item>
         <item name="colorControlNormal">?attr/colorAccent</item>
         <item name="colorControlActivated">?attr/colorAction</item>
-    </style>
-
-    <style name="SolunarCard">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/card_background</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">8dp</item>
     </style>
 
 </resources>
