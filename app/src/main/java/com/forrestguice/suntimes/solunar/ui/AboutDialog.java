@@ -19,7 +19,6 @@
 
 package com.forrestguice.suntimes.solunar.ui;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;

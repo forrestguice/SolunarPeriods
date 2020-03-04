@@ -28,10 +28,8 @@ import android.util.Pair;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TimeZone;

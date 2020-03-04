@@ -19,17 +19,13 @@
 
 package com.forrestguice.suntimes.solunar;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -50,7 +46,6 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
-import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimes.solunar.ui.AboutDialog;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
