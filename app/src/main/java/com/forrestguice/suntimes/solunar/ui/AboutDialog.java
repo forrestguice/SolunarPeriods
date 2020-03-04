@@ -1,5 +1,6 @@
 package com.forrestguice.suntimes.solunar.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,31 +19,37 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.BuildConfig;
 import com.forrestguice.suntimes.solunar.R;
 
 public class AboutDialog extends BottomSheetDialogFragment
 {
     public static final String KEY_DIALOGTHEME = "themeResID";
+    public static final String KEY_APPVERSION = "paramAppVersion";
+    public static final String KEY_PROVIDERVERSION = "paramProviderVersion";
+    public static final String KEY_PROVIDER_PERMISSIONDENIED = "paramProviderDenied";
 
     private int themeResID = R.style.SolunarAppTheme_Dark;
     public void setTheme(int themeResID) {
         this.themeResID = themeResID;
     }
 
-    //private TextView txtView;
-
-    public static Spanned fromHtml(String htmlString )
+    private String appVersion = null;
+    private Integer providerVersion = null;
+    private boolean providerPermissionsDenied = false;
+    public void setVersion(SuntimesInfo info)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
+        this.appVersion = info.appName;
+        this.providerVersion = info.providerCode;
+        this.providerPermissionsDenied = !info.hasPermission;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
-        themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
+        restoreInstanceState(savedState);
+
         ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_about, parent, false);
 
@@ -50,9 +57,16 @@ public class AboutDialog extends BottomSheetDialogFragment
         version.setMovementMethod(LinkMovementMethod.getInstance());
         version.setText(fromHtml(htmlVersionString()));
 
+        TextView providerView = (TextView) dialogContent.findViewById(R.id.txt_about_provider);
+        providerView.setText(fromHtml(providerVersionString()));
+
         TextView support = (TextView)dialogContent.findViewById(R.id.txt_about_support);
         support.setMovementMethod(LinkMovementMethod.getInstance());
         support.setText(fromHtml(getString(R.string.app_support_url)));
+
+        TextView legalView1 = (TextView) dialogContent.findViewById(R.id.txt_about_legal1);
+        legalView1.setMovementMethod(LinkMovementMethod.getInstance());
+        legalView1.setText(fromHtml(getString(R.string.app_legal1)));
 
         TextView url = (TextView)dialogContent.findViewById(R.id.txt_about_url);
         url.setMovementMethod(LinkMovementMethod.getInstance());
@@ -80,11 +94,40 @@ public class AboutDialog extends BottomSheetDialogFragment
         }
     }
 
+    protected void restoreInstanceState( Bundle savedState )
+    {
+        if (savedState != null)
+        {
+            if (savedState.containsKey(KEY_DIALOGTHEME)) {
+                themeResID = savedState.getInt(KEY_DIALOGTHEME);
+            }
+            if (savedState.containsKey(KEY_PROVIDER_PERMISSIONDENIED)) {
+                providerPermissionsDenied = savedState.getBoolean(KEY_PROVIDER_PERMISSIONDENIED);
+            }
+            if (savedState.containsKey(KEY_APPVERSION)) {
+                appVersion = savedState.getString(KEY_APPVERSION);
+            }
+            if (savedState.containsKey(KEY_PROVIDERVERSION)) {
+                providerVersion = savedState.getInt(KEY_PROVIDERVERSION);
+            }
+        }
+    }
+
     @Override
-    public void onSaveInstanceState( @NonNull Bundle out ) {
+    public void onSaveInstanceState( @NonNull Bundle out )
+    {
         out.putInt(KEY_DIALOGTHEME, themeResID);
+        out.putBoolean(KEY_PROVIDER_PERMISSIONDENIED, providerPermissionsDenied);
+        if (appVersion != null) {
+            out.putString(KEY_APPVERSION, appVersion);
+        }
+        if (providerVersion != null) {
+            out.putInt(KEY_PROVIDERVERSION, providerVersion);
+        }
         super.onSaveInstanceState(out);
     }
+
+
 
     public String htmlVersionString()
     {
@@ -96,6 +139,15 @@ public class AboutDialog extends BottomSheetDialogFragment
         return getString(R.string.app_version, versionString);
     }
 
+    protected String providerVersionString()
+    {
+        String denied = getString(R.string.app_provider_version_denied);
+        String missingVersion = getString(R.string.app_provider_version_missing);
+        String versionString = (appVersion == null) ? missingVersion
+                : (appVersion + " (" + ((providerVersion != null) ? providerVersion
+                : (providerPermissionsDenied ? denied : missingVersion)) + ")");
+        return getString(R.string.app_provider_version, versionString);
+    }
 
     public static String anchor(String url, String text) {
         return "<a href=\"" + url + "\">" + text + "</a>";
@@ -104,6 +156,13 @@ public class AboutDialog extends BottomSheetDialogFragment
     protected static String smallText(String text)
     {
         return "<small>" + text + "</small>";
+    }
+
+    public static Spanned fromHtml(String htmlString )
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
+        else return Html.fromHtml(htmlString);
     }
 
 }

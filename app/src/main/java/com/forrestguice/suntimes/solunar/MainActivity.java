@@ -302,6 +302,7 @@ public class MainActivity extends AppCompatActivity
     {
         AboutDialog dialog = new AboutDialog();
         dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.setVersion(suntimesInfo);
         dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
     }
 
