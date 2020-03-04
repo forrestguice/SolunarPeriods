@@ -45,7 +45,6 @@ public class SolunarData implements Parcelable
     public static final String KEY_MOONNIGHT = "moonnight";
     public static final String KEY_MOONILLUM = "moonillum";
     public static final String KEY_MOONPHASE = "moonphase";
-    public static final String KEY_MOONAGE = "moonage";
     public static final String KEY_MOONPERIOD = "moonperiod";
     public static final String KEY_MOONFULL = "moonfull";
     public static final String KEY_MOONNEW = "moonnew";
@@ -71,8 +70,7 @@ public class SolunarData implements Parcelable
     protected long sunrise = -1, sunset = -1, noon = -1;
     protected long moonrise = -1, moonset = -1;
     protected long moonnoon = -1, moonnight = -1;
-    protected long moonnew = -1, moonfull = -1;
-    protected long moonage = -1, moonperiod = -1;
+    protected long moonnew = -1, moonfull = -1, moonperiod = -1;
     protected double moonillum = -1;  // [0,1]
     protected String moonphase;       // display string
 
@@ -122,17 +120,16 @@ public class SolunarData implements Parcelable
 
         this.moonillum = values.getAsDouble(KEY_MOONILLUM);
         this.moonphase = values.getAsString(KEY_MOONPHASE);
-        this.moonage = values.getAsLong(KEY_MOONILLUM);
         this.moonperiod = values.getAsLong(KEY_MOONPERIOD);
 
         this.dayRating = values.getAsDouble(KEY_DAY_RATING);
         this.major_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, timezone),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, timezone)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, timezone, KEY_SUNRISE, KEY_SUNSET),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, timezone, KEY_SUNRISE, KEY_SUNSET)
         };
         this.minor_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END, timezone),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END, timezone)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END, timezone, KEY_SUNRISE, KEY_SUNSET),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END, timezone, KEY_SUNRISE, KEY_SUNSET)
         };
     }
 
@@ -159,7 +156,6 @@ public class SolunarData implements Parcelable
 
         values.put(KEY_MOONILLUM, moonillum);
         values.put(KEY_MOONPHASE, moonphase);
-        values.put(KEY_MOONAGE, moonage);
         values.put(KEY_MOONPERIOD, moonperiod);
 
         values.put(KEY_DAY_RATING, dayRating);
@@ -205,7 +201,6 @@ public class SolunarData implements Parcelable
 
         moonillum = in.readDouble();
         moonphase = in.readString();
-        moonage = in.readLong();
         moonperiod = in.readLong();
 
         dayRating = in.readDouble();
@@ -236,7 +231,6 @@ public class SolunarData implements Parcelable
 
         out.writeDouble(moonillum);
         out.writeString(moonphase);
-        out.writeLong(moonage);
         out.writeLong(moonperiod);
 
         out.writeDouble(dayRating);
@@ -330,13 +324,6 @@ public class SolunarData implements Parcelable
 
     public String getMoonPhase() {
         return moonphase;
-    }
-
-    /**
-     * @return milliseconds since the new moon
-     */
-    public long getMoonAge() {
-        return moonage;
     }
 
     /**

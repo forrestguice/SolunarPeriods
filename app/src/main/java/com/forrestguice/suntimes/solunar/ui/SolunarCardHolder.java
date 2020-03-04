@@ -158,11 +158,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             ImageView icon = icon_moonphases.get(phase);
             icon.setVisibility(View.VISIBLE);
 
-            long moonAgeMillis = data.getMoonAge();
-            double moonAgeDays = moonAgeMillis / 1000d / 60d / 60d / 24d;
             double moonPeriodDays = data.getMoonPeriod() / 1000d / 60d / 60d / 24d;
 
-            String debug = "moon age: " + moonAgeDays + "\n" + //; //"date: " + SolunarCardHolder.formatDate(context, data.getDateMillis()) + "\n" +
+            String debug =
                     "moon period: " + moonPeriodDays + "\n" + //; //"date: " + SolunarCardHolder.formatDate(context, data.getDateMillis()) + "\n" +
                     //"timezone: " + data.getTimezone() + "\n" +
                     //"location: " + data.getLatitude() + ", " + data.getLongitude() + " [" + data.getAltitude() + "]\n\n" +
