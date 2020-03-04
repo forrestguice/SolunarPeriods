@@ -3,8 +3,6 @@
     <string name="app_desc">A hunting and fishing addon for Suntimes.</string>
     <string name="app_version"><![CDATA[<b>Version:</b>]]> %s</string>
     <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
-    <string name="app_provider_version_denied"><![CDATA[<font color="#e65100"><b>Permission Denied!</b></font>]]></string>
-    <string name="app_provider_version_missing"><![CDATA[<font color="#e65100"><b>Missing!</b></font>]]></string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SolunarPeriods/issues">issue tracker</a> to submit a request.
