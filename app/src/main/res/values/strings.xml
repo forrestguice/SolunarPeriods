@@ -7,16 +7,13 @@
     <string name="app_provider_version_missing"><![CDATA[<font color="#e65100"><b>Missing!</b></font>]]></string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
+        <a href="https://github.com/forrestguice/SolunarPeriods/issues">issue tracker</a> to submit a request.
     ]]></string>    <!-- formatted link -->  <!-- TODO -->
     <string name="app_source_url"><![CDATA[
-        <a href="https://github.com/forrestguice/SuntimesWidget/">github.com/forrestguice/SuntimesWidget/</a>
+        <a href="https://github.com/forrestguice/SolunarPeriods/">github.com/forrestguice/SolunarPeriods/</a>
     ]]></string>    <!-- formatted link -->  <!-- TODO -->
-    <string name="app_url"><![CDATA[
-        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
-    ]]></string>    <!-- formatted link -->
-    <string name="app_changelog_url">https://github.com/forrestguice/SolunarPeriods/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->  <!-- TODO -->
-    <string name="app_commit_url">https://github.com/forrestguice/SolunarPeriods/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
+    <string name="app_changelog_url">https://github.com/forrestguice/SolunarPeriods/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->
+    <string name="app_commit_url">https://github.com/forrestguice/SolunarPeriods/commit/</string>   <!-- url only (no formatting) -->
 
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
@@ -38,9 +35,19 @@
     <string name="format_summary_minutes">%s minutes</string>
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
 
-    <string name="help_minor_periods">Minor periods occur at moonrise and moonset and generally last for 2 hours.</string>
-    <string name="help_major_periods">Major periods occur at lunar noon and lunar midnight and generally last for 3 hours.</string>
-    <string name="help_configuration">The location and time zone (and most settings) are configured from Suntimes.</string>
+    <string name="help_configuration"><![CDATA[<h4>Configuration</h4>The location, time zone, and other options are configured from Suntimes.]]></string>
+    <string name="help_rating_day"><![CDATA[<h4>Solunar Rating</h4>The <b>best</b> days occur on the <em>new moon</em> and <em>full moon</em>, with <b>good</b>, and <b>better</b> days leading and following these events.]]></string>
+    <string name="help_minor_periods"><![CDATA[<b>Minor</b> periods occur at <em>moonrise</em> and <em>moonset</em> and generally last for an hour.]]></string>
+    <string name="help_major_periods"><![CDATA[<b>Major</b> periods occur at <em>lunar noon</em> and <em>lunar midnight</em> and generally last for 2 hours.]]></string>
+    <string name="help_rating_period"><![CDATA[A period is (<b>+</b>) enhanced when it occurs within 30 minutes of <em>sunrise</em> or <em>sunset</em>.]]></string>
+
+    <string-array name="help_topics">      <!-- in order of appearance -->
+        <item>@string/help_configuration</item>
+        <item>@string/help_rating_day</item>
+        <item>@string/help_minor_periods</item>
+        <item>@string/help_major_periods</item>
+        <item>@string/help_rating_period</item>
+    </string-array>
 
     <string name="label_sunrise">Sunrise</string>
     <string name="label_sunset">Sunset</string>

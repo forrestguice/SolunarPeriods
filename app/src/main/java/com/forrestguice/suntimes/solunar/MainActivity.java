@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity
         HelpDialog dialog = new HelpDialog();
         dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
 
-        String[] help = new String[] { getString(R.string.help_major_periods), getString(R.string.help_minor_periods), getString(R.string.help_configuration) };
+        String[] help = getResources().getStringArray(R.array.help_topics);
         String helpContent = help[0];
         for (int i=1; i<help.length; i++) {
             helpContent = getString(R.string.format_help, helpContent, help[i]);
