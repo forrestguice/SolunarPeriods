@@ -43,7 +43,6 @@ public class SolunarCalculator
 {
     public static final long MINOR_PERIOD_MILLIS = 1L * 60 * 60 * 1000;       // 1 hr
     public static final long MAJOR_PERIOD_MILLIS = 2L * 60 * 60 * 1000;       // 2 hr
-    public static final long SOLUNAR_CONCURRENCE_MILLIS = 30 * 60 * 1000;     // 30 m
 
     public static final long SUN_PERIOD_MILLIS = 24L * 60 * 60 * 1000;        // 24 hr
     public static final long MOON_PERIOD_MILLIS = 24L * 60 * 60 * 1000 +
@@ -66,44 +65,58 @@ public class SolunarCalculator
 
     public void calculateRating(@NonNull SolunarData data)
     {
-        long sunrise = data.getDateMillis(SolunarData.KEY_SUNRISE);
-        long sunset = data.getDateMillis(SolunarData.KEY_SUNSET);
+        long noonMillis = noon(data.getDate()).getTimeInMillis();
+        double monthDays = data.getMoonPeriod() / 1000d / 60d / 60d / 24d;
 
-        double r = 0;
-       /* double c = 0;
-        ArrayList<SolunarPeriod> periods = new ArrayList<>(Arrays.asList(data.getMajorPeriods()));
-        periods.addAll(Arrays.asList(data.getMinorPeriods()));
+        long newMoonMillis = data.getDateMillis(SolunarData.KEY_MOONNEW);
+        long millisToNew = Math.abs(newMoonMillis - noonMillis);
+        double daysToNew = (millisToNew / 1000d / 60d / 60d / 24d);
+
+        long fullMoonMillis = data.getDateMillis(SolunarData.KEY_MOONFULL);
+        long millisToFull = Math.abs(fullMoonMillis - noonMillis);
+        double daysToFull = (millisToFull / 1000d / 60d / 60d / 24d);
+
+        double c0 = 1;
+        ArrayList<Pair<Double, Integer>> components = new ArrayList<>();
+        components.add(new Pair<>(0.5d, 3));
+        components.add(new Pair<>(2.5d, 2));
+        components.add(new Pair<>(3.5d, 1));
+        for (int i=0; i<components.size(); i++)
+        {
+            Pair<Double, Integer> p = components.get(i);
+            if (daysToNew <= p.first || daysToNew >= (monthDays - p.first) ||
+                daysToFull <= p.first || daysToFull >= (monthDays - p.first))
+            {
+                c0 += p.second;
+                break;
+            }
+        }
+        c0 /= 4;
+
+        double c1 = (tallyPeriods(data.getMajorPeriods()) / 2d) * 0.1;
+        double c2 = (tallyPeriods(data.getMinorPeriods()) / 2d) * 0.1;
+
+        data.dayRating = c0;
+    }
+
+    protected int tallyPeriods( SolunarPeriod[] periods)
+    {
+        int c = 0;
         for (SolunarPeriod period : periods)
         {
             if (period == null) {
                 continue;
             }
-
-            if (period.withinStart(sunrise, SOLUNAR_CONCURRENCE_MILLIS) || period.withinStart(sunset, SOLUNAR_CONCURRENCE_MILLIS)) {
-                Log.d("DEBUG", "sunrise/sunset concurrence: " + period);
+            if (period.occursAtSunrise()) {
+                // TODO: note
+                c++;
+            }
+            if (period.occursAtSunset()) {
+                // TODO: note
                 c++;
             }
         }
-        r += Math.min(c, 2);*/
-
-
-        long moonPeriod = data.getMoonPeriod();
-        long moonAgeMillis = data.getMoonAge();
-        double d1 = Math.abs(moonPeriod - moonAgeMillis) / 1000d / 60d / 60d / 24d;
-        double d2 = moonAgeMillis / 1000d / 60d / 60d / 24d;
-        double d3 = (moonPeriod / 1000d / 60d / 60d / 24d) / 2d;
-
-        //long d, d1;
-        //d = (Math.abs(moonPeriod - moonAge)); // / (24L * 60L * 60L * 1000L);
-
-        if (d1 <= 0.5 || d2 <= 0.5 || (d2 >= (d3 - 0.5) && d2 <= (d3 + 0.5) )) {
-            r += 3;
-        } else if (d1 <= 2.5 || d2 <= 2.5) {
-            r += 2;
-        } else if (d1 <= 3.5 || d2 <= 3.5) {
-            r += 1;
-        }
-        data.dayRating = (r / 3d);
+        return c;
     }
 
     /**
@@ -164,23 +177,22 @@ public class SolunarCalculator
                 long nextNewMoon = phases.get(MoonPhase.NEW).getTimeInMillis();
                 long prevNewMoon = queryMoonPhase(resolver, MoonPhase.NEW, (nextNewMoon - AVG_MONTH_MILLIS));
                 data.moonperiod = (nextNewMoon - prevNewMoon);
-                data.moonage = (data.getDate(SolunarData.KEY_MOONNOON).getTimeInMillis()) - prevNewMoon;   // age of moon at start of calendar day
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {
-                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.getTimezone());
+                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                 }
                 if (data.moonset != -1) {
-                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS, data.getTimezone());
+                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                 }
 
                 // major periods at lunar noon and lunar midnight
                 int today = data.getDate(null).get(Calendar.DAY_OF_YEAR);
                 if (lunarNoon != null && lunarNoon.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone());
+                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                 }
                 if (lunarMidnight != null && lunarMidnight.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone());
+                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                 }
 
             } catch (SecurityException e) {
@@ -457,6 +469,18 @@ public class SolunarCalculator
         {
             midnight = (Calendar) calendar.clone();
             midnight.set(Calendar.HOUR_OF_DAY, 0);
+            midnight.set(Calendar.MINUTE, 0);
+            midnight.set(Calendar.SECOND, 0);
+        }
+        return midnight;
+    }
+    public Calendar noon(Calendar calendar)
+    {
+        Calendar midnight = null;
+        if (calendar != null)
+        {
+            midnight = (Calendar) calendar.clone();
+            midnight.set(Calendar.HOUR_OF_DAY, 12);
             midnight.set(Calendar.MINUTE, 0);
             midnight.set(Calendar.SECOND, 0);
         }

@@ -31,19 +31,24 @@ import java.util.Calendar;
  */
 public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
 {
+    public static final long SOLUNAR_CONCURRENCE_MILLIS = 30 * 60 * 1000;     // 30 m
+
     public static final int TYPE_MAJOR = 0;
     public static final int TYPE_MINOR = 1;
 
     protected int type;
     protected long start, end;
     protected String timezone;
+    protected long toSunrise, toSunset;
 
-    public SolunarPeriod(int type, long start, long end, @NonNull String timezone)
+    public SolunarPeriod(int type, long start, long end, @NonNull String timezone, long sunrise, long sunset)
     {
         this.type = type;
         this.start = start;
         this.end = end;
         this.timezone = timezone;
+        this.toSunrise = sunrise - start;
+        this.toSunset = sunset - start;
     }
 
     private SolunarPeriod(Parcel in)
@@ -52,6 +57,8 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         this.start = in.readLong();
         this.end = in.readLong();
         this.timezone = in.readString();
+        this.toSunrise = in.readLong();
+        this.toSunset = in.readLong();
     }
 
     @Override
@@ -61,6 +68,8 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         out.writeLong(start);
         out.writeLong(end);
         out.writeString(timezone);
+        out.writeLong(toSunrise);
+        out.writeLong(toSunset);
     }
 
     public int getType() {
@@ -89,6 +98,20 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
 
     public boolean withinStart(long event, long millis) {
         return (Math.abs(start - event) < millis);
+    }
+
+    public long getMillisToSunrise() {
+        return toSunrise;
+    }
+    public boolean occursAtSunrise() {
+        return Math.abs(toSunrise) < SOLUNAR_CONCURRENCE_MILLIS;
+    }
+
+    public long getMillisToSunset() {
+        return toSunset;
+    }
+    public boolean occursAtSunset() {
+        return Math.abs(toSunset) < SOLUNAR_CONCURRENCE_MILLIS;
     }
 
     public String getTimezone() {
@@ -122,12 +145,14 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         }
     };
 
-    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd, String timezone)
+    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd, String timezone, String keySunrise, String keySunset)
     {
         Long start = values.getAsLong(keyStart);
         Long end = values.getAsLong(keyEnd);
+        Long sunrise = values.getAsLong(keySunrise);
+        Long sunset = values.getAsLong(keySunrise);
         if (start != null && end != null && timezone != null) {
-            return new SolunarPeriod(type, start, end, timezone);
+            return new SolunarPeriod(type, start, end, timezone, sunrise, sunset);
         } else return null;
     }
 
