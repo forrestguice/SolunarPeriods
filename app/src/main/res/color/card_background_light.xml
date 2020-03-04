@@ -7,7 +7,7 @@
         android:color="@color/card_light_selected" />
 
     <item android:state_pressed="true" android:state_enabled="true"
-        android:color="?attr/colorAction" />
+        android:color="@color/colorAction_light" />
 
     <item android:state_pressed="true" android:state_enabled="false"
         android:color="@color/card_light" />
