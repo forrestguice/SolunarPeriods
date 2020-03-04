@@ -31,6 +31,7 @@
 
 
     <string name="format_date">EEEE\nMMMM d</string>   <!-- Thursday, February 27 -->
+    <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
     <string name="format_location">%s, %s [%s]</string>
     <string name="format_period">%s - %s</string>   <!-- "startTime - endTime" -->
     <string name="format_illumination">%s%%</string>   <!-- 75 % -->

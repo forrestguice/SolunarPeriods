@@ -231,8 +231,11 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
     public static CharSequence formatDate(@NonNull Context context, Calendar date)
     {
+        Calendar now = Calendar.getInstance();
+        boolean isThisYear = now.get(Calendar.YEAR) == date.get(Calendar.YEAR);
+
         Locale locale = Locale.getDefault();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.format_date), locale);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString( isThisYear ? R.string.format_date : R.string.format_date_long), locale);
         dateFormat.setTimeZone(date.getTimeZone());
         return dateFormat.format(date.getTime());
     }
