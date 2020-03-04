@@ -11,9 +11,4 @@
     <attr name="colorTime" format="reference" />
     <attr name="colorValue" format="reference" />
 
-    <attr name="dialogBackground" format="reference" />
-    <attr name="toolbarTheme" format="reference" />
-    <attr name="fab_backgroundColor" format="reference" />
-    <attr name="fab_rippleColor" format="reference" />
-
 </resources>

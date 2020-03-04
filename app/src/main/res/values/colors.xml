@@ -17,9 +17,6 @@
     <color name="colorTime_light">#FF4081</color>
     <color name="colorValue_light">#3F51B5</color>
 
-    <color name="colorFabBackground_light">@color/deep_teal_500</color>
-    <color name="colorFabRipple_light">@color/sun_setting_light</color>
-
 
     <!-- dark theme colors -->
 
@@ -36,9 +33,6 @@
     <color name="colorLabel_dark">#FFFFFF</color>
     <color name="colorTime_dark">#FFFFFF</color>
     <color name="colorValue_dark">#3F51B5</color>
-
-    <color name="colorFabBackground_dark">@color/colorAction_dark</color>
-    <color name="colorFabRipple_dark">@color/colorAccent_dark</color>
 
 
 </resources>
