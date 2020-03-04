@@ -15,8 +15,8 @@
     <string name="app_url"><![CDATA[
         <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
     ]]></string>    <!-- formatted link -->
-    <string name="app_changelog_url">https://github.com/forrestguice/SuntimesWidget/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->  <!-- TODO -->
-    <string name="app_commit_url">https://github.com/forrestguice/SuntimesWidget/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
+    <string name="app_changelog_url">https://github.com/forrestguice/SolunarPeriods/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->  <!-- TODO -->
+    <string name="app_commit_url">https://github.com/forrestguice/SolunarPeriods/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
 
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
