@@ -184,13 +184,13 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             double dayRating = data.getDayRating();
             if (dayRating > 0)
             {
-                float numStars = (float)(data.getDayRating() * 5);
+                float numStars = (float)(data.getDayRating() * 4);
                 rating.setNumStars((int)Math.ceil(numStars));
                 rating.setRating(numStars);
 
             } else {
                 rating.setNumStars(1);
-                rating.setRating(1);
+                rating.setRating(0.25f);
             }
             text_rating.setText(formatRating(context, dayRating));
 
@@ -228,7 +228,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             }
             last = brackets[i];
         }
-        return "nodef";
+        return "";
     }
 
     public static String formatType(Context context, int periodType) {
@@ -292,7 +292,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             this.period = period;
             if (period != null)
             {
-                label.setText(formatType(context, period.getType()));
+                String plus = (period.occursAtSunrise() || period.occursAtSunset()) ? "+" : "";  // TODO
+                label.setText(formatType(context, period.getType()) + plus);  // TODO
                 text.setText(
                         context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
                                 SolunarCardHolder.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))
