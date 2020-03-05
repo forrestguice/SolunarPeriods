@@ -159,12 +159,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));
             boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONFULL));
 
-            if (isNewMoon) {
-                text_moonphase.setText(phase.getDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONNEW), timezone, options.suntimes_options.time_is24));
-
-            } else if (isFullMoon) {
-                text_moonphase.setText(phase.getDisplayString() + "\n" + formatTime(context, data.getDateMillis(SolunarData.KEY_MOONFULL), timezone, options.suntimes_options.time_is24));
-
+            if (isNewMoon || isFullMoon) {
+                long event = (isNewMoon ? data.getDateMillis(SolunarData.KEY_MOONNEW) : data.getDateMillis(SolunarData.KEY_MOONFULL));
+                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), formatTime(context, event, timezone, options.suntimes_options.time_is24)));
             } else {
                 text_moonphase.setText(phase.getDisplayString());
             }

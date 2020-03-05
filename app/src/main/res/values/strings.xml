@@ -29,6 +29,7 @@
     <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
     <string name="format_location">%s, %s [%s]</string>
     <string name="format_period">%s - %s</string>   <!-- "startTime - endTime" -->
+    <string name="format_moonphase_long">%s\n@ %s</string>   <!-- "Full Moon @ 8:45 PM" -->
     <string name="format_illumination">%s%%</string>   <!-- 75 % -->
     <string name="format_summary_minutes">%s minutes</string>
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
