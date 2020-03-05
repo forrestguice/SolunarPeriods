@@ -113,9 +113,6 @@ public class MainActivity extends AppCompatActivity
         cardView.addItemDecoration(cardDecoration);
         cardView.setOnScrollListener(onCardScrollChanged);
 
-        SnapHelper snapHelper = new LinearSnapHelper();
-        //snapHelper.attachToRecyclerView(cardView);  // TODO: snap?
-
         cardScroller = new SolunarCardAdapter.CardScroller(this);
 
         if (checkVersion())

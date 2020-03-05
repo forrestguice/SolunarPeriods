@@ -16,6 +16,8 @@
         android:orderInCategory="200"
         android:title="@string/action_settings"
         android:icon="?attr/icSettings"
+        android:visible="false"
+        android:enabled="false"
         app:showAsAction="never" />
 
     <item
