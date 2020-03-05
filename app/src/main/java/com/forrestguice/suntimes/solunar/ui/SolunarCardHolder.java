@@ -20,9 +20,14 @@
 package com.forrestguice.suntimes.solunar.ui;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,9 +73,22 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public TextView text_moonphase, text_moonillum;
     public HashMap<MoonPhaseDisplay, ImageView> icon_moonphases;
 
+    protected static int color_sunrise, color_sunset;
+
     public SolunarCardHolder(@NonNull View itemView, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         super(itemView);
+
+        Context context = itemView.getContext();
+        int[] attrs = new int[] {
+                R.attr.sunriseColor,
+                R.attr.sunsetColor,
+        };
+        TypedArray a = context.obtainStyledAttributes(attrs);
+        color_sunrise = ContextCompat.getColor(context, a.getResourceId(0, R.color.sun_rising_dark));
+        color_sunset = ContextCompat.getColor(context, a.getResourceId(1, R.color.sun_setting_dark));
+        a.recycle();
+
         layout_card = itemView.findViewById(R.id.card);
         layout_front = itemView.findViewById(R.id.card_front);
         text_date = itemView.findViewById(R.id.text_date);
@@ -85,10 +103,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
         layout_rows = itemView.findViewById(R.id.layout_moon);
         rows = new ArrayList<SolunarPeriodRow>();
-        rows.add(row_moonset = new SolunarPeriodRow(itemView, R.id.layout_moonset_period, R.id.text_moonset_label, R.id.text_moonset_period, options));
-        rows.add(row_moonnight = new SolunarPeriodRow(itemView, R.id.layout_moonnight_period, R.id.text_moonnight_label, R.id.text_moonnight, options));
-        rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_period, options));
-        rows.add(row_moonnoon = new SolunarPeriodRow(itemView, R.id.layout_moonnoon_period, R.id.text_moonnoon_label, R.id.text_moonnoon, options));
+        rows.add(row_moonset = new SolunarPeriodRow(itemView, R.id.layout_moonset_period, R.id.text_moonset_label, R.id.text_moonset_period, R.id.text_moonset_plus, options));
+        rows.add(row_moonnight = new SolunarPeriodRow(itemView, R.id.layout_moonnight_period, R.id.text_moonnight_label, R.id.text_moonnight, R.id.text_moonnight_plus, options));
+        rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_period, R.id.text_moonrise_plus, options));
+        rows.add(row_moonnoon = new SolunarPeriodRow(itemView, R.id.layout_moonnoon_period, R.id.text_moonnoon_label, R.id.text_moonnoon, R.id.text_moonnoon_plus, options));
 
         click_moonphase = itemView.findViewById(R.id.clickarea_moonphase);
         text_moonphase = itemView.findViewById(R.id.text_moonphase);
@@ -274,12 +292,15 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         public View layout;
         public TextView label;
         public TextView text;
+        public TextView plus;
         private SolunarCardAdapter.SolunarCardOptions options;
 
-        public SolunarPeriodRow(View parent, int layoutID, int labelViewID, int textViewID, SolunarCardAdapter.SolunarCardOptions options) {
+        public SolunarPeriodRow(View parent, int layoutID, int labelViewID, int textViewID, int plusViewID, SolunarCardAdapter.SolunarCardOptions options) {
             layout = parent.findViewById(layoutID);
             label = parent.findViewById(labelViewID);
             text = parent.findViewById(textViewID);
+            text = parent.findViewById(textViewID);
+            plus = parent.findViewById(plusViewID);
             this.options = options;
         }
 
@@ -289,8 +310,19 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             this.period = period;
             if (period != null)
             {
-                String plus = (period.occursAtSunrise() || period.occursAtSunset()) ? "+" : "";  // TODO
-                label.setText(formatType(context, period.getType()) + plus);  // TODO
+                if (period.occursAtSunrise())
+                {
+                    plus.setVisibility(View.VISIBLE);
+                    plus.setTextColor(color_sunrise);
+
+                } else if (period.occursAtSunset()) {
+                    plus.setVisibility(View.VISIBLE);
+                    plus.setTextColor(color_sunset);
+                } else {
+                    plus.setVisibility(View.INVISIBLE);
+                    plus.setTextColor(Color.TRANSPARENT);
+                }
+                label.setText(formatType(context, period.getType()));
                 text.setText(
                         context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
                                 SolunarCardHolder.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))

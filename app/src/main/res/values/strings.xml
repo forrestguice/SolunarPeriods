@@ -55,6 +55,7 @@
     <string name="label_moonnight">Lunar Midnight</string>
     <string name="label_major_period">Major</string>
     <string name="label_minor_period">Minor</string>
+    <string name="label_enhanced_period">+</string>
 
     <string-array name="ratings_labels">      <!-- one-to-one with ratings_brackets -->
         <item>Average</item>

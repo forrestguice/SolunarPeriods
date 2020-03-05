@@ -125,6 +125,7 @@
 
             <LinearLayout  android:id="@+id/layout_moonset_period"
                 android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <TextView android:id="@+id/text_moonset_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
@@ -143,6 +144,7 @@
 
             <LinearLayout  android:id="@+id/layout_moonnight_period"
                 android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <TextView android:id="@+id/text_moonnight_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
@@ -159,6 +161,7 @@
 
             <LinearLayout android:id="@+id/layout_moonrise_period"
                 android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <TextView android:id="@+id/text_moonrise_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="visible" />
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
                     android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
@@ -177,6 +180,7 @@
 
             <LinearLayout  android:id="@+id/layout_moonnoon_period"
                 android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <TextView android:id="@+id/text_moonnoon_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
                 <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
                     android:visibility="invisible"
                     android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"

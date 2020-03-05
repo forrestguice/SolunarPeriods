@@ -66,6 +66,15 @@
         <item name="android:textColor">@color/textbutton_date</item>
     </style>
 
+    <style name="plusText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">@string/label_enhanced_period</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+    </style>
+
     <style name="SolunarRatingBar" parent="Theme.AppCompat">
         <item name="colorAccent">?attr/colorAccent</item>
         <item name="colorControlNormal">?attr/colorAccent</item>
