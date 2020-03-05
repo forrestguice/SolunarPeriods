@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity
             cardLayout.scrollToPositionWithOffset(position, 0);
         }
     }
-    private static int SCROLL_THRESHOLD = 14;  // days
+    private static final int SCROLL_THRESHOLD = 14;  // days
 
     private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
         @Override

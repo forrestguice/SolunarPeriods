@@ -25,9 +25,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -116,8 +114,6 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         for (MoonPhaseDisplay phaseDisplay : MoonPhaseDisplay.values()) {
             icon_moonphases.put(phaseDisplay, (ImageView)itemView.findViewById(phaseDisplay.getView()));
         }
-
-        // TODO
     }
 
     public void onBindViewHolder(@NonNull Context context, int position, SolunarData data, SolunarCardAdapter.SolunarCardOptions options)
@@ -134,11 +130,11 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         } else {
             layout_card.setSelected(false);
             text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
-            if (position < SolunarCardAdapter.TODAY_POSITION) {
-                // TODO
+            /*if (position < SolunarCardAdapter.TODAY_POSITION) {
+                // TODO: "past" appearance
             } else {
-                // TODO
-            }
+                // TODO: "future" appearance
+            }*/
         }
 
         if (data.isCalculated())
@@ -210,8 +206,6 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_debug.setText(context.getString(R.string.time_none));
             rating.setNumStars(0);
         }
-
-        // TODO
     }
 
     private void hideMoonPhaseIcons()
@@ -276,7 +270,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         String format = (is24Hr ? context.getString(R.string.format_time24) : context.getString(R.string.format_time12));
         SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
         timeFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        return timeFormat.format(calendar.getTime());
+        String formatted = timeFormat.format(calendar.getTime());
+        return formatted;
+        //String padding = "        ";
+        //return padding.substring(Math.min(formatted.length(), padding.length())) + formatted;
     }
 
 
