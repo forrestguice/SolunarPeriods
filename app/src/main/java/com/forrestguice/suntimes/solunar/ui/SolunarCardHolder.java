@@ -186,7 +186,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     //"moonillum: " + data.getMoonIllumination() + "\n\n" +
                     "rating: " + data.getDayRating();
                             //;
-            text_debug.setText(debug);
+            text_debug.setText(debug);  // TODO
 
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
@@ -210,7 +210,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_rating.setText(formatRating(context, dayRating));
 
         } else {
-            text_debug.setText("not calculated");
+            text_debug.setText(context.getString(R.string.time_none));
             rating.setNumStars(0);
         }
 
@@ -248,9 +248,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
     public static String formatType(Context context, int periodType) {
         if (periodType == SolunarPeriod.TYPE_MAJOR) {
-            return "Major";  // TODO
+            return context.getString(R.string.label_major_period);
         } else {
-            return "Minor";  // TODO
+            return context.getString(R.string.label_minor_period);
         }
     }
 
