@@ -31,9 +31,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.TooltipCompat;
 import android.util.Log;
@@ -194,19 +192,26 @@ public class MainActivity extends AppCompatActivity
     {
         @Override
         public void onDateClick(int i) {
-            Snackbar.make(cardView, "date clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            //Snackbar.make(cardView, "date clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
             // TODO
         }
 
         @Override
         public void onMoonPhaseClick(int i) {
-            Snackbar.make(cardView, "phase clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            //Snackbar.make(cardView, "phase clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
             // TODO
         }
 
         @Override
         public void onCardClick(int i) {
+            //Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            // TODO
+        }
+
+        @Override
+        public boolean onCardLongClick(int i) {
             Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            return true;
             // TODO
         }
     };

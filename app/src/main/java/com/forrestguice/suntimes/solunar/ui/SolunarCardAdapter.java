@@ -180,6 +180,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         holder.text_date.setOnClickListener(onDateClick(position));
         holder.click_moonphase.setOnClickListener(onMoonPhaseClick(position));
         holder.layout_front.setOnClickListener(onCardClick(holder));
+        holder.layout_front.setOnLongClickListener(onCardLongClick(holder));
     }
 
     private void detachClickListeners(@NonNull SolunarCardHolder holder)
@@ -187,6 +188,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         holder.text_date.setOnClickListener(null);
         holder.click_moonphase.setOnClickListener(null);
         holder.layout_front.setOnClickListener(null);
+        holder.layout_front.setOnLongClickListener(null);
     }
 
     /**
@@ -218,8 +220,16 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.text_debug.setVisibility( holder.text_debug.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 adapterListener.onCardClick(holder.position);
+            }
+        };
+    }
+    private View.OnLongClickListener onCardLongClick(@NonNull final SolunarCardHolder holder) {
+        return new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                holder.text_debug.setVisibility( holder.text_debug.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                return adapterListener.onCardLongClick(holder.position);
             }
         };
     }
@@ -232,6 +242,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         public void onDateClick(int position) {}
         public void onMoonPhaseClick(int position) {}
         public void onCardClick(int position) {}
+        public boolean onCardLongClick(int position) { return false; }
     }
 
     /**
