@@ -45,8 +45,10 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
 import com.forrestguice.suntimes.solunar.ui.AboutDialog;
+import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
+import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
 import java.lang.reflect.Method;
 public class MainActivity extends AppCompatActivity
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         ActionBar toolbar = getSupportActionBar();
         if (toolbar != null) {
             toolbar.setTitle(suntimesInfo.location[0]);
-            toolbar.setSubtitle(getString(R.string.format_location, suntimesInfo.location[1], suntimesInfo.location[2], suntimesInfo.location[3]));
+            toolbar.setSubtitle(DisplayStrings.formatLocation(this, suntimesInfo));
         }
     }
 

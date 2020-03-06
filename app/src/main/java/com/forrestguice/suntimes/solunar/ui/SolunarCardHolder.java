@@ -38,13 +38,9 @@ import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class SolunarCardHolder extends RecyclerView.ViewHolder
 {
@@ -121,7 +117,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         String timezone = data.getTimezone();
 
         this.position = position;
-        text_date.setText(formatDate(context, data.getDate()));
+        text_date.setText(DisplayStrings.formatDate(context, data.getDate()));
         if (position == SolunarCardAdapter.TODAY_POSITION)
         {
             layout_card.setSelected(true);
@@ -144,10 +140,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
-            text_sunrise.setText(formatTime(context, sunrise, timezone, options.suntimes_options.time_is24));
-            text_sunset.setText(formatTime(context, sunset, timezone, options.suntimes_options.time_is24));
-            text_moonrise.setText(formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
-            text_moonset.setText(formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
+            text_sunrise.setText(DisplayStrings.formatTime(context, sunrise, timezone, options.suntimes_options.time_is24));
+            text_sunset.setText(DisplayStrings.formatTime(context, sunset, timezone, options.suntimes_options.time_is24));
+            text_moonrise.setText(DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
+            text_moonset.setText(DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
 
             text_moonillum.setText( context.getString(R.string.format_illumination, (int)(data.getMoonIllumination() * 100) + "") );
 
@@ -157,7 +153,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
             if (isNewMoon || isFullMoon) {
                 long event = (isNewMoon ? data.getDateMillis(SolunarData.KEY_MOONNEW) : data.getDateMillis(SolunarData.KEY_MOONFULL));
-                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), formatTime(context, event, timezone, options.suntimes_options.time_is24)));
+                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), DisplayStrings.formatTime(context, event, timezone, options.suntimes_options.time_is24)));
             } else {
                 text_moonphase.setText(phase.getDisplayString());
             }
@@ -200,7 +196,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 rating.setNumStars(1);
                 rating.setRating(0.25f);
             }
-            text_rating.setText(formatRating(context, dayRating));
+            text_rating.setText(DisplayStrings.formatRating(context, dayRating));
 
         } else {
             text_debug.setText(context.getString(R.string.time_none));
@@ -216,67 +212,6 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             }
         }
     }
-
-    public static String formatRating(@NonNull Context context, double rating)
-    {
-        String[] labels = context.getResources().getStringArray(R.array.ratings_labels);
-        int[] brackets = context.getResources().getIntArray(R.array.ratings_brackets);
-        if (brackets.length != labels.length) {
-            throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
-        }
-
-        int last = -1;
-        for (int i=0; i<brackets.length; i++)
-        {
-            if (rating > (last * 0.01d)
-                    && rating <= (brackets[i] * 0.01d)) {
-                return labels[i];
-            }
-            last = brackets[i];
-        }
-        return "";
-    }
-
-    public static String formatType(Context context, int periodType) {
-        if (periodType == SolunarPeriod.TYPE_MAJOR) {
-            return context.getString(R.string.label_major_period);
-        } else {
-            return context.getString(R.string.label_minor_period);
-        }
-    }
-
-    public static CharSequence formatDate(@NonNull Context context, long date)
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date);
-        return formatDate(context, calendar);
-    }
-
-    public static CharSequence formatDate(@NonNull Context context, Calendar date)
-    {
-        Calendar now = Calendar.getInstance();
-        boolean isThisYear = now.get(Calendar.YEAR) == date.get(Calendar.YEAR);
-
-        Locale locale = Locale.getDefault();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString( isThisYear ? R.string.format_date : R.string.format_date_long), locale);
-        dateFormat.setTimeZone(date.getTimeZone());
-        return dateFormat.format(date.getTime());
-    }
-
-    public static CharSequence formatTime(@NonNull Context context, long dateTime, String timezone, boolean is24Hr)
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(dateTime);
-        String format = (is24Hr ? context.getString(R.string.format_time24) : context.getString(R.string.format_time12));
-        SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
-        timeFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        String formatted = timeFormat.format(calendar.getTime());
-        return formatted;
-        //String padding = "        ";
-        //return padding.substring(Math.min(formatted.length(), padding.length())) + formatted;
-    }
-
-
 
     /**
      * SolunarPeriodRow
@@ -316,10 +251,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     plus.setVisibility(View.INVISIBLE);
                     plus.setTextColor(Color.TRANSPARENT);
                 }
-                label.setText(formatType(context, period.getType()));
+                label.setText(DisplayStrings.formatType(context, period.getType()));
                 text.setText(
-                        context.getString(R.string.format_period, SolunarCardHolder.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
-                                SolunarCardHolder.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))
+                        context.getString(R.string.format_period, DisplayStrings.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
+                                DisplayStrings.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))
                 );
                 layout.setVisibility(View.VISIBLE);
 
