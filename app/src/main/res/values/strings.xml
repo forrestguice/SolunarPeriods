@@ -25,14 +25,22 @@
     <string name="action_about">About</string>
 
 
-    <string name="format_date">EEEE\nMMMM d</string>   <!-- Thursday, February 27 -->
+    <string name="format_date">EEEE\nMMMM d</string>              <!-- Thursday, February 27 -->
     <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
-    <string name="format_location">%s, %s [%s]</string>
-    <string name="format_period">%s - %s</string>   <!-- "startTime - endTime" -->
-    <string name="format_moonphase_long">%s\n@ %s</string>   <!-- "Full Moon @ 8:45 PM" -->
-    <string name="format_illumination">%s%%</string>   <!-- 75 % -->
+    <string name="format_location">%s, %s</string>                <!-- lat, lon -->
+    <string name="format_location_long">%s, %s %s</string>      <!-- lat, lon [alt] -->
+    <string name="format_location_altitude">%1$s%2$s</string>     <!-- altitude, e.g. 1600m -->
+    <string name="format_tag">[%1$s]</string>                     <!-- [tag] -->
+    <string name="format_period">%s - %s</string>                 <!-- "startTime - endTime" -->
+    <string name="format_moonphase_long">%s\n@ %s</string>        <!-- "Full Moon @ 8:45 PM" -->
+    <string name="format_illumination">%s%%</string>              <!-- 75 % -->
     <string name="format_summary_minutes">%s minutes</string>
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
+
+    <string name="units_feet">feet</string>
+    <string name="units_feet_short">ft</string>
+    <string name="units_meters">meters</string>
+    <string name="units_meters_short">m</string>
 
     <string name="help_configuration"><![CDATA[<h4>Configuration</h4>The location, time zone, and other options are configured from Suntimes.]]></string>
     <string name="help_rating_day"><![CDATA[<h4>Solunar Rating</h4>The <b>best</b> days occur on the <em>new moon</em> and <em>full moon</em>, with <b>good</b>, and <b>better</b> days leading and following these events.]]></string>
