@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.LocaleHelper;
@@ -159,6 +160,11 @@ public class MainActivity extends AppCompatActivity
         if (toolbar != null) {
             toolbar.setTitle(suntimesInfo.location[0]);
             toolbar.setSubtitle(DisplayStrings.formatLocation(this, suntimesInfo));
+        }
+
+        TextView text_timezone = findViewById(R.id.text_timezone);
+        if (text_timezone != null) {
+            text_timezone.setText(suntimesInfo.timezone);
         }
     }
 
