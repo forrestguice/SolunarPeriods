@@ -1,5 +1,5 @@
 <resources>
-    <integer name="min_provider_version">1</integer>
-    <string name="min_suntimes_version">Suntimes v0.10.3</string>
+    <integer name="min_provider_version">3</integer>
+    <string name="min_suntimes_version">Suntimes v0.12.6</string>
     <string name="min_suntimes_url">https://forrestguice.github.io/SuntimesWidget/</string>
 </resources>
