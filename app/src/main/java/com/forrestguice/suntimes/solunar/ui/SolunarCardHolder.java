@@ -97,10 +97,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
         layout_rows = itemView.findViewById(R.id.layout_moon);
         rows = new ArrayList<SolunarPeriodRow>();
-        rows.add(row_moonset = new SolunarPeriodRow(itemView, R.id.layout_moonset_period, R.id.text_moonset_label, R.id.text_moonset_period, R.id.text_moonset_plus, options));
-        rows.add(row_moonnight = new SolunarPeriodRow(itemView, R.id.layout_moonnight_period, R.id.text_moonnight_label, R.id.text_moonnight, R.id.text_moonnight_plus, options));
-        rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_period, R.id.text_moonrise_plus, options));
-        rows.add(row_moonnoon = new SolunarPeriodRow(itemView, R.id.layout_moonnoon_period, R.id.text_moonnoon_label, R.id.text_moonnoon, R.id.text_moonnoon_plus, options));
+        rows.add(row_moonset = new SolunarPeriodRow(itemView, R.id.layout_moonset_period, R.id.text_moonset_label, R.id.text_moonset_start, R.id.text_moonset_end, R.id.text_moonset_plus, options));
+        rows.add(row_moonnight = new SolunarPeriodRow(itemView, R.id.layout_moonnight_period, R.id.text_moonnight_label, R.id.text_moonnight_start, R.id.text_moonnight_end, R.id.text_moonnight_plus, options));
+        rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_start, R.id.text_moonrise_end, R.id.text_moonrise_plus, options));
+        rows.add(row_moonnoon = new SolunarPeriodRow(itemView, R.id.layout_moonnoon_period, R.id.text_moonnoon_label, R.id.text_moonnoon_start, R.id.text_moonnoon_end, R.id.text_moonnoon_plus, options));
 
         click_moonphase = itemView.findViewById(R.id.clickarea_moonphase);
         text_moonphase = itemView.findViewById(R.id.text_moonphase);
@@ -220,15 +220,15 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     {
         public View layout;
         public TextView label;
-        public TextView text;
+        public TextView start, end;
         public TextView plus;
         private SolunarCardAdapter.SolunarCardOptions options;
 
-        public SolunarPeriodRow(View parent, int layoutID, int labelViewID, int textViewID, int plusViewID, SolunarCardAdapter.SolunarCardOptions options) {
+        public SolunarPeriodRow(View parent, int layoutID, int labelViewID, int startViewID, int endViewID, int plusViewID, SolunarCardAdapter.SolunarCardOptions options) {
             layout = parent.findViewById(layoutID);
             label = parent.findViewById(labelViewID);
-            text = parent.findViewById(textViewID);
-            text = parent.findViewById(textViewID);
+            start = parent.findViewById(startViewID);
+            end = parent.findViewById(endViewID);
             plus = parent.findViewById(plusViewID);
             this.options = options;
         }
@@ -252,14 +252,13 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     plus.setTextColor(Color.TRANSPARENT);
                 }
                 label.setText(DisplayStrings.formatType(context, period.getType()));
-                text.setText(
-                        context.getString(R.string.format_period, DisplayStrings.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24),
-                                DisplayStrings.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24))
-                );
+                start.setText(DisplayStrings.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24));
+                end.setText(DisplayStrings.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24));
                 layout.setVisibility(View.VISIBLE);
 
             } else {
-                text.setText(context.getString(R.string.time_none));
+                start.setText(context.getString(R.string.time_none));
+                end.setText(context.getString(R.string.time_none));
                 layout.setVisibility(View.GONE);
             }
         }
