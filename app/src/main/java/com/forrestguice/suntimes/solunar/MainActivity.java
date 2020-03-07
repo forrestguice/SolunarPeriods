@@ -104,8 +104,13 @@ public class MainActivity extends AppCompatActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
         }
 
+        TextView text_timezone = findViewById(R.id.text_timezone);
+        if (text_timezone != null) {
+            text_timezone.setOnClickListener(onTimeZoneClicked);
+        }
+
         fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(fabOnClickListener);
+        fab.setOnClickListener(onFabClicked);
         TooltipCompat.setTooltipText(fab, getString(R.string.action_today));
 
         cardView = (RecyclerView)findViewById(R.id.cardView);
@@ -196,12 +201,29 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    private View.OnClickListener onFabClicked = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v) {
+            showToday();
+        }
+    };
+
+    private View.OnClickListener onTimeZoneClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Snackbar.make(cardView, DisplayStrings.fromHtml(getString(R.string.snack_timezone, suntimesInfo.timezone)), Snackbar.LENGTH_LONG).show();
+        }
+    };
+
     private SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
     {
         @Override
-        public void onDateClick(int i) {
-            //Snackbar.make(cardView, "date clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
-            // TODO
+        public void onDateClick(int i)
+        {
+            //SolunarData data = cardAdapter.initData(i);
+            //CharSequence dateDisplay = DisplayStrings.formatDate(MainActivity.this, data.getDate());
+            //Snackbar.make(cardView, dateDisplay, Snackbar.LENGTH_LONG).show();
         }
 
         @Override
@@ -218,20 +240,13 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public boolean onCardLongClick(int i) {
-            Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
-            return true;
+            //scrollToPosition(i);
+            //Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
+            return false;
             // TODO
         }
     };
-
-    private View.OnClickListener fabOnClickListener = new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v) {
-            showToday();
-        }
-    };
-
+    
     protected boolean checkVersion()
     {
         boolean checkVersion = SuntimesInfo.checkVersion(this, suntimesInfo);
