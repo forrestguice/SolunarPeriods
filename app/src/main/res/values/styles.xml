@@ -17,6 +17,7 @@
         <item name="icAbout">@drawable/ic_about_light</item>
 
         <item name="cardViewStyle">@style/SolunarCardView.Light</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
 
         <item name="colorDate">@color/colorDate_light</item>
         <item name="colorLabel">@color/colorLabel_light</item>
@@ -39,6 +40,7 @@
         <item name="icAbout">@drawable/ic_about</item>
 
         <item name="cardViewStyle">@style/SolunarCardView.Dark</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
         <item name="colorDate">@color/colorDate_dark</item>
         <item name="colorLabel">@color/colorLabel_dark</item>
@@ -66,28 +68,65 @@
         <item name="android:textColor">@color/textbutton_date</item>
     </style>
 
-    <style name="plusText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:text">@string/label_enhanced_period</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-    </style>
+
     <style name="periodText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">end</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
     </style>
-    <style name="periodLabel">
+    <style name="periodText.Spacer">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_weight">0</item>
+    </style>
+    <style name="periodText.Start" parent="periodText">
+        <item name="android:minWidth">60dp</item>
+    </style>
+    <style name="periodText.End" parent="periodText">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:gravity">end</item>
+    </style>
+    <style name="periodText.Dash" parent="periodText">
+        <item name="android:text">@string/period_separator</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="periodText.Label" parent="periodText">
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="periodText.Plus" parent="periodText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/label_enhanced_period</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+    <style name="periodText.Icon" parent="SunIconImageView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">@dimen/sunIcon_width</item>
+        <item name="android:layout_height">@dimen/sunIcon_height</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/table_row_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/table_row_spacing</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+    <style name="periodText.Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">start</item>
     </style>
 
 
