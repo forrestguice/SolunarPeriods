@@ -130,12 +130,10 @@
                 <ImageView style="@style/periodText.Icon"
                     android:background="?attr/moonsetIconSmall" android:contentDescription="@string/label_moonset" />
                 <TextView android:id="@+id/text_moonset_start" style="@style/periodText.Start"
-                    android:textColor="?attr/moonsetColor"
-                    tools:text="7:00 AM" />
+                    android:textColor="?attr/moonsetColor" tools:text="7:00 AM" />
                 <TextView style="@style/periodText.Dash" />
                 <TextView android:id="@+id/text_moonset_end" style="@style/periodText.End"
-                    android:textColor="?attr/moonsetColor"
-                    tools:text="8:00 AM" />
+                    android:textColor="?attr/moonsetColor" tools:text="8:00 AM" />
                 <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     tools:text="7:00 AM" android:visibility="gone" />
@@ -150,12 +148,10 @@
                     android:background="?attr/moonsetIconSmall" android:contentDescription="@string/label_moonnight"
                     android:visibility="invisible" />
                 <TextView android:id="@+id/text_moonnight_start" style="@style/periodText.Start"
-                    android:textColor="?attr/moonsetColor"
-                    tools:text="11:00 AM" />
+                    android:textColor="?attr/moonsetColor" tools:text="11:00 AM" />
                 <TextView style="@style/periodText.Dash" />
                 <TextView android:id="@+id/text_moonnight_end" style="@style/periodText.End"
-                    android:textColor="?attr/moonsetColor"
-                    tools:text="12:00 PM" />
+                    android:textColor="?attr/moonsetColor" tools:text="12:00 PM" />
                 <TextView android:id="@+id/text_moonnight_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_major_period" />
             </LinearLayout>
@@ -166,12 +162,10 @@
                 <ImageView style="@style/periodText.Icon"
                     android:background="?attr/moonriseIconSmall" android:contentDescription="@string/label_moonrise" />
                 <TextView android:id="@+id/text_moonrise_start" style="@style/periodText.Start"
-                    android:textColor="?attr/moonriseColor"
-                    tools:text="6:00 PM"/>
+                    android:textColor="?attr/moonriseColor" tools:text="6:00 PM"/>
                 <TextView style="@style/periodText.Dash" />
                 <TextView android:id="@+id/text_moonrise_end" style="@style/periodText.End"
-                    android:textColor="?attr/moonriseColor"
-                    tools:text="7:00 PM"/>
+                    android:textColor="?attr/moonriseColor" tools:text="7:00 PM"/>
                 <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     tools:text="6:00 PM" android:visibility="gone" />
@@ -186,12 +180,10 @@
                     android:background="?attr/moonriseIconSmall" android:contentDescription="@string/label_moonnoon"
                     android:visibility="invisible" />
                 <TextView android:id="@+id/text_moonnoon_start" style="@style/periodText.Start"
-                    android:textColor="?attr/moonriseColor"
-                    tools:text="11:00 AM" />
+                    android:textColor="?attr/moonriseColor" tools:text="11:00 AM" />
                 <TextView style="@style/periodText.Dash" />
                 <TextView android:id="@+id/text_moonnoon_end" style="@style/periodText.End"
-                    android:textColor="?attr/moonriseColor"
-                    tools:text="12:00 PM" />
+                    android:textColor="?attr/moonriseColor" tools:text="12:00 PM" />
                 <TextView android:id="@+id/text_moonnoon_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_major_period" />
             </LinearLayout>
@@ -200,7 +192,7 @@
 
         <TextView android:id="@+id/text_debug" android:visibility="gone"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Hello World!"
+            tools:text="More here..."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintHorizontal_bias="0"
             app:layout_constraintTop_toBottomOf="@+id/layout_moon" />
