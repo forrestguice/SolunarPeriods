@@ -120,74 +120,79 @@
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/rating"
-            app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1"
-            android:layout_marginTop="8dp" android:layout_marginBottom="8dp">
+            app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp" android:layout_marginLeft="8dp">
 
-            <LinearLayout  android:id="@+id/layout_moonset_period"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <TextView android:id="@+id/text_moonset_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
-                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    android:contentDescription="@string/label_moonset" />
-                <TextView android:id="@+id/text_moonset_period" style="@style/periodText"
+            <LinearLayout  android:id="@+id/layout_moonset_period" style="@style/periodText.Layout">
+                <View style="@style/periodText.Spacer" />
+                <TextView android:id="@+id/text_moonset_plus" style="@style/periodText.Plus" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
+                <ImageView style="@style/periodText.Icon"
+                    android:background="?attr/moonsetIconSmall" android:contentDescription="@string/label_moonset" />
+                <TextView android:id="@+id/text_moonset_start" style="@style/periodText.Start"
                     android:textColor="?attr/moonsetColor"
-                    tools:text="7:00 AM - 8:00 AM" />
+                    tools:text="7:00 AM" />
+                <TextView style="@style/periodText.Dash" />
+                <TextView android:id="@+id/text_moonset_end" style="@style/periodText.End"
+                    android:textColor="?attr/moonsetColor"
+                    tools:text="8:00 AM" />
                 <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     tools:text="7:00 AM" android:visibility="gone" />
-                <TextView android:id="@+id/text_moonset_label" style="@style/periodLabel"
+                <TextView android:id="@+id/text_moonset_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_minor_period" />
             </LinearLayout>
 
-            <LinearLayout  android:id="@+id/layout_moonnight_period"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <TextView android:id="@+id/text_moonnight_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall" android:layout_gravity="center"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
-                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    android:contentDescription="@string/label_moonnight" />
-                <TextView android:id="@+id/text_moonnight" style="@style/periodText"
+            <LinearLayout  android:id="@+id/layout_moonnight_period" style="@style/periodText.Layout">
+                <View style="@style/periodText.Spacer" />
+                <TextView android:id="@+id/text_moonnight_plus" style="@style/periodText.Plus" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
+                <ImageView style="@style/periodText.Icon"
+                    android:background="?attr/moonsetIconSmall" android:contentDescription="@string/label_moonnight"
+                    android:visibility="invisible" />
+                <TextView android:id="@+id/text_moonnight_start" style="@style/periodText.Start"
                     android:textColor="?attr/moonsetColor"
-                    tools:text="11:00 AM : 12:00 PM" />
-                <TextView android:id="@+id/text_moonnight_label" style="@style/periodLabel"
+                    tools:text="11:00 AM" />
+                <TextView style="@style/periodText.Dash" />
+                <TextView android:id="@+id/text_moonnight_end" style="@style/periodText.End"
+                    android:textColor="?attr/moonsetColor"
+                    tools:text="12:00 PM" />
+                <TextView android:id="@+id/text_moonnight_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_major_period" />
             </LinearLayout>
 
-            <LinearLayout android:id="@+id/layout_moonrise_period"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <TextView android:id="@+id/text_moonrise_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="visible" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
-                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    android:contentDescription="@string/label_moonrise" />
-                <TextView android:id="@+id/text_moonrise_period" style="@style/periodText"
+            <LinearLayout android:id="@+id/layout_moonrise_period" style="@style/periodText.Layout">
+                <View style="@style/periodText.Spacer" />
+                <TextView android:id="@+id/text_moonrise_plus" style="@style/periodText.Plus" android:textColor="?attr/sunriseColor" android:visibility="visible" />
+                <ImageView style="@style/periodText.Icon"
+                    android:background="?attr/moonriseIconSmall" android:contentDescription="@string/label_moonrise" />
+                <TextView android:id="@+id/text_moonrise_start" style="@style/periodText.Start"
                     android:textColor="?attr/moonriseColor"
-                    tools:text="6:00 PM - 7:00 PM"/>
+                    tools:text="6:00 PM"/>
+                <TextView style="@style/periodText.Dash" />
+                <TextView android:id="@+id/text_moonrise_end" style="@style/periodText.End"
+                    android:textColor="?attr/moonriseColor"
+                    tools:text="7:00 PM"/>
                 <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="12sp"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                     tools:text="6:00 PM" android:visibility="gone" />
-                <TextView android:id="@+id/text_moonrise_label" style="@style/periodLabel"
+                <TextView android:id="@+id/text_moonrise_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_minor_period" />
             </LinearLayout>
 
-            <LinearLayout  android:id="@+id/layout_moonnoon_period"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
-                <TextView android:id="@+id/text_moonnoon_plus" style="@style/plusText" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
-                <ImageView style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall" android:layout_gravity="center"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/table_row_spacing" android:layout_marginBottom="@dimen/table_row_spacing"
-                    android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    android:contentDescription="@string/label_moonnoon" />
-                <TextView android:id="@+id/text_moonnoon" style="@style/periodText"
+            <LinearLayout  android:id="@+id/layout_moonnoon_period" style="@style/periodText.Layout">
+                <View style="@style/periodText.Spacer" />
+                <TextView android:id="@+id/text_moonnoon_plus" style="@style/periodText.Plus" android:textColor="?attr/sunriseColor" android:visibility="invisible" />
+                <ImageView style="@style/periodText.Icon"
+                    android:background="?attr/moonriseIconSmall" android:contentDescription="@string/label_moonnoon"
+                    android:visibility="invisible" />
+                <TextView android:id="@+id/text_moonnoon_start" style="@style/periodText.Start"
                     android:textColor="?attr/moonriseColor"
-                    tools:text="11:00 AM - 12:00 PM" />
-                <TextView android:id="@+id/text_moonnoon_label" style="@style/periodLabel"
+                    tools:text="11:00 AM" />
+                <TextView style="@style/periodText.Dash" />
+                <TextView android:id="@+id/text_moonnoon_end" style="@style/periodText.End"
+                    android:textColor="?attr/moonriseColor"
+                    tools:text="12:00 PM" />
+                <TextView android:id="@+id/text_moonnoon_label" style="@style/periodText.Label"
                     android:textColor="?attr/moonriseColor" android:text="@string/label_major_period" />
             </LinearLayout>
 

@@ -17,16 +17,11 @@
     You should have received a copy of the GNU General Public License
     along with SolunarPeriods.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -34,9 +29,30 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="?attr/toolbarTheme"
+            app:title="test"
             app:popupTheme="?attr/actionBarPopupTheme" />
 
-        <include layout="@layout/content_main" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout android:id="@+id/layout_bottomBar" android:background="?attr/colorPrimary"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="start" android:elevation="5dp">
+
+            <View android:background="?attr/colorControlHighlight"
+                android:layout_width="match_parent" android:layout_height="1dp" />
+
+            <TextView android:id="@+id/text_timezone" android:textSize="12sp"
+                android:textStyle="bold" android:textColor="@color/textbutton_date"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+                android:layout_marginTop="6dp" android:layout_marginBottom="8dp"
+                tools:text="US/Pacific" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
