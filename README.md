@@ -1,5 +1,5 @@
 # Solunar Periods
-A hunting and fishing addon for Suntimes. This app displays the solunar periods for a given location. It depends on [Suntimes v0.10.3](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
+A hunting and fishing addon for Suntimes. This app displays the solunar periods for a given location. It depends on [Suntimes v0.12.6](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SolunarPeriods.svg)](https://github.com/forrestguice/SolunarPeriods/releases)
 
