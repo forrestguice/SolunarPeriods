@@ -20,10 +20,13 @@
 package com.forrestguice.suntimes.solunar.ui;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 
@@ -92,10 +95,7 @@ public class DisplayStrings
         String format = (is24Hr ? context.getString(R.string.format_time24) : context.getString(R.string.format_time12));
         SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
         timeFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        String formatted = timeFormat.format(calendar.getTime());
-        return formatted;
-        //String padding = "        ";
-        //return padding.substring(Math.min(formatted.length(), padding.length())) + formatted;
+        return timeFormat.format(calendar.getTime());
     }
 
     public static SpannableString formatLocation(@NonNull Context context, @NonNull SuntimesInfo info)
@@ -150,6 +150,13 @@ public class DisplayStrings
             span.setSpan(new RelativeSizeSpan(relativeSize), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return span;
+    }
+
+    public static Spanned fromHtml(String htmlString )
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
+        else return Html.fromHtml(htmlString);
     }
 
 }

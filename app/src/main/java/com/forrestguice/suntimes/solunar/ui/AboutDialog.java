@@ -31,6 +31,7 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,22 +74,22 @@ public class AboutDialog extends BottomSheetDialogFragment
 
         TextView version = (TextView)dialogContent.findViewById(R.id.txt_about_version);
         version.setMovementMethod(LinkMovementMethod.getInstance());
-        version.setText(fromHtml(htmlVersionString()));
+        version.setText(DisplayStrings.fromHtml(htmlVersionString()));
 
         TextView providerView = (TextView) dialogContent.findViewById(R.id.txt_about_provider);
-        providerView.setText(fromHtml(providerVersionString()));
+        providerView.setText(DisplayStrings.fromHtml(providerVersionString()));
 
         TextView support = (TextView)dialogContent.findViewById(R.id.txt_about_support);
         support.setMovementMethod(LinkMovementMethod.getInstance());
-        support.setText(fromHtml(getString(R.string.app_support_url)));
+        support.setText(DisplayStrings.fromHtml(getString(R.string.app_support_url)));
 
         TextView legalView1 = (TextView) dialogContent.findViewById(R.id.txt_about_legal1);
         legalView1.setMovementMethod(LinkMovementMethod.getInstance());
-        legalView1.setText(fromHtml(getString(R.string.app_legal1)));
+        legalView1.setText(DisplayStrings.fromHtml(getString(R.string.app_legal1)));
 
         TextView url = (TextView)dialogContent.findViewById(R.id.txt_about_url);
         url.setMovementMethod(LinkMovementMethod.getInstance());
-        url.setText(fromHtml(getString(R.string.app_url)));
+        url.setText(DisplayStrings.fromHtml(getString(R.string.app_url)));
 
         return dialogContent;
     }
@@ -176,11 +177,5 @@ public class AboutDialog extends BottomSheetDialogFragment
         return "<small>" + text + "</small>";
     }
 
-    public static Spanned fromHtml(String htmlString )
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
-    }
 
 }
