@@ -19,6 +19,7 @@
 
 package com.forrestguice.suntimes.solunar.ui;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -100,7 +101,7 @@ public class DisplayStrings
 
     public static SpannableString formatLocation(@NonNull Context context, @NonNull SuntimesInfo info)
     {
-        SuntimesInfo.SuntimesOptions options = info.getOptions();
+        SuntimesInfo.SuntimesOptions options = info.getOptions(context);
         boolean useAltitude = options.use_altitude;
         if (!useAltitude || info.location[2] == null || info.location[2].equals("0") || info.location[2].isEmpty()) {
             return new SpannableString(context.getString(R.string.format_location, info.location[1], info.location[2]));

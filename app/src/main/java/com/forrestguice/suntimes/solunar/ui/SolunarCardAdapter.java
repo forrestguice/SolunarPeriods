@@ -92,7 +92,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         holder.position = RecyclerView.NO_POSITION;
     }
 
-    private SolunarCardOptions options = new SolunarCardOptions();
+    private SolunarCardOptions options;
     public void setCardOptions(SolunarCardOptions options) {
         this.options = options;
     }
@@ -247,9 +247,10 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
      */
     public static class SolunarCardOptions
     {
-        public SuntimesInfo.SuntimesOptions suntimes_options = new SuntimesInfo.SuntimesOptions();
-
-        public SolunarCardOptions() {}
+        public SuntimesInfo.SuntimesOptions suntimes_options;
+        public SolunarCardOptions(@NonNull Context context) {
+            suntimes_options = new SuntimesInfo.SuntimesOptions(context);
+        }
         public SolunarCardOptions(SuntimesInfo.SuntimesOptions options) {
             suntimes_options = options;
         }

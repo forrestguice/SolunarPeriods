@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void attachBaseContext(Context context)
     {
-        suntimesInfo = SuntimesInfo.queryInfo(context.getContentResolver());    // obtain Suntimes version info
+        suntimesInfo = SuntimesInfo.queryInfo(context);    // obtain Suntimes version info
         super.attachBaseContext( (suntimesInfo != null && suntimesInfo.appLocale != null) ?    // override the locale
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
     }
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
         double latitude = Double.parseDouble(suntimesInfo.location[1]);
         double longitude = Double.parseDouble(suntimesInfo.location[2]);
         double altitude = Double.parseDouble(suntimesInfo.location[3]);
-        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, suntimesInfo.timezone, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions()));
+        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, suntimesInfo.timezone, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this)));
         cardAdapter.setCardAdapterListener(cardListener);
 
         cardAdapter.initData();
