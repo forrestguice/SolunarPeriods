@@ -104,14 +104,14 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         return toSunrise;
     }
     public boolean occursAtSunrise() {
-        return Math.abs(toSunrise) < SOLUNAR_CONCURRENCE_MILLIS;
+        return toSunrise >= (-1 * SOLUNAR_CONCURRENCE_MILLIS) && (toSunrise <= getLength() + SOLUNAR_CONCURRENCE_MILLIS);
     }
 
     public long getMillisToSunset() {
         return toSunset;
     }
     public boolean occursAtSunset() {
-        return Math.abs(toSunset) < SOLUNAR_CONCURRENCE_MILLIS;
+        return toSunset >= (-1 * SOLUNAR_CONCURRENCE_MILLIS) && (toSunset <= getLength() + SOLUNAR_CONCURRENCE_MILLIS);
     }
 
     public String getTimezone() {
