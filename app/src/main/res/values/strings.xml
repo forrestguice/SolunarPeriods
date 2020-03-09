@@ -46,7 +46,7 @@
     <string name="help_rating_day"><![CDATA[<h4>Solunar Rating</h4>The <b>best</b> days occur on the <em>new moon</em> and <em>full moon</em>, with <b>good</b>, and <b>better</b> days leading and following these events.]]></string>
     <string name="help_minor_periods"><![CDATA[<b>Minor</b> periods occur at <em>moonrise</em> and <em>moonset</em> and generally last for an hour.]]></string>
     <string name="help_major_periods"><![CDATA[<b>Major</b> periods occur at <em>lunar noon</em> and <em>lunar midnight</em> and generally last for 2 hours.]]></string>
-    <string name="help_rating_period"><![CDATA[A period is (<b>+</b>) enhanced when it occurs within 30 minutes of <em>sunrise</em> or <em>sunset</em>.]]></string>
+    <string name="help_rating_period"><![CDATA[<b>&#x2299;</b> A period is heightened when it occurs within 30 minutes of <em>sunrise</em> or <em>sunset</em>.]]></string>
 
     <string-array name="help_topics">      <!-- in order of appearance -->
         <item>@string/help_configuration</item>
@@ -64,7 +64,7 @@
     <string name="label_moonnight">Lunar Midnight</string>
     <string name="label_major_period">Major</string>
     <string name="label_minor_period">Minor</string>
-    <string name="label_enhanced_period">+</string>
+    <string name="label_enhanced_period">&#x2299;</string>
     <string name="period_separator">-</string>
 
     <string-array name="ratings_labels">      <!-- one-to-one with ratings_brackets -->
