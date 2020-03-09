@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView cardView;
     private SolunarCardAdapter cardAdapter;
     private LinearLayoutManager cardLayout;
-    private SolunarCardAdapter.CardScroller cardScroller;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -118,8 +117,6 @@ public class MainActivity extends AppCompatActivity
         cardView.setLayoutManager(cardLayout = new LinearLayoutManager(this));
         cardView.addItemDecoration(cardDecoration);
         cardView.setOnScrollListener(onCardScrollChanged);
-
-        cardScroller = new SolunarCardAdapter.CardScroller(this);
 
         if (checkVersion())
         {
@@ -178,6 +175,7 @@ public class MainActivity extends AppCompatActivity
         int current =  cardLayout.findFirstCompletelyVisibleItemPosition();
         if (Math.abs(SolunarCardAdapter.TODAY_POSITION - current) <= SCROLL_THRESHOLD)
         {
+            SolunarCardAdapter.CardScroller cardScroller = new SolunarCardAdapter.CardScroller(this);;
             cardScroller.setTargetPosition(position);
             cardLayout.startSmoothScroll(cardScroller);
 
