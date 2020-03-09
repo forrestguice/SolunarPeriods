@@ -73,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/icon_moonphase"
             tools:text="Full Moon" />
 
-        <View android:id="@+id/clickarea_moonphase"
+        <View android:id="@+id/clickarea_moonphase" android:visibility="gone"
             android:layout_width="0dp" android:layout_height="0dp" android:background="?attr/selectableItemBackground"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/text_moonillum"
