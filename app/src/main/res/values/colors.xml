@@ -11,6 +11,8 @@
 
     <color name="card_light">@color/grey_50</color>
     <color name="card_light_selected">@android:color/white</color>
+    <color name="fab_background_light">@color/colorAction_light</color>
+    <color name="fab_ripple_light">#971000</color>
 
     <color name="colorDate_light">#000000</color>
     <color name="colorLabel_light">#000000</color>
@@ -28,6 +30,8 @@
 
     <color name="card_dark">@color/grey_900</color>
     <color name="card_dark_selected">@color/grey_800</color>
+    <color name="fab_background_dark">@color/colorAction_dark</color>
+    <color name="fab_ripple_dark">#c66a00</color>
 
     <color name="colorDate_dark">#FFFFFF</color>
     <color name="colorLabel_dark">#FFFFFF</color>
