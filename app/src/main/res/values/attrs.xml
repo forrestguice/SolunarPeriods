@@ -6,6 +6,9 @@
     <attr name="icHelp" format="reference" />
     <attr name="icAbout" format="reference" />
 
+    <attr name="icMoonNoon" format="reference" />
+    <attr name="icMoonNight" format="reference" />
+
     <attr name="colorDate" format="reference" />
     <attr name="colorLabel" format="reference" />
     <attr name="colorTime" format="reference" />

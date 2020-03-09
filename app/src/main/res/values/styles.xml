@@ -16,6 +16,9 @@
         <item name="icHelp">@drawable/ic_help_light</item>
         <item name="icAbout">@drawable/ic_about_light</item>
 
+        <item name="icMoonNoon">@drawable/moonnoon_light</item>
+        <item name="icMoonNight">@drawable/moonnight_light</item>
+
         <item name="cardViewStyle">@style/SolunarCardView.Light</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
 
@@ -38,6 +41,9 @@
         <item name="icSettings">@drawable/ic_settings</item>
         <item name="icHelp">@drawable/ic_help</item>
         <item name="icAbout">@drawable/ic_about</item>
+
+        <item name="icMoonNoon">@drawable/moonnoon_dark</item>
+        <item name="icMoonNight">@drawable/moonnight_dark</item>
 
         <item name="cardViewStyle">@style/SolunarCardView.Dark</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
@@ -121,6 +127,9 @@
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
+    </style>
+    <style name="periodText.Icon2" parent="periodText.Icon">
+        <item name="android:layout_height">4dp</item>
     </style>
     <style name="periodText.Layout">
         <item name="android:layout_width">match_parent</item>
