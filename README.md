@@ -12,8 +12,7 @@ Solunar theory is a hypothesis that patterns of animal movement are governed by 
 
 This app displays sunrise, sunset, moonrise, moonset, lunar noon, lunar midnight, phase, and illumination of the moon. It makes a daily prediction (average, good, better, best) and identifies periods of activity that coincide with sunrise and sunset.
 
-<img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" />
-<img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/2.png' width="280px" />
+<img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" /> <img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/2.png' width="280px" />
 
 ## Donations ##
 Do you find value in this software? Please pay as you feel.
