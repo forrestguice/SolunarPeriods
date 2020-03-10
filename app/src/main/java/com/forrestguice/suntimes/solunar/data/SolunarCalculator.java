@@ -214,7 +214,7 @@ public class SolunarCalculator
             cursor.moveToFirst();
             data.sunrise = cursor.isNull(0) ? -1 : cursor.getLong(0);
             data.sunset = cursor.isNull(1) ? -1 : cursor.getLong(1);
-            data.noon = (data.sunrise == -1 || data.sunrise == -1) ? -1 : data.sunrise;
+            data.noon = (data.sunrise == -1 || data.sunset == -1) ? -1 : data.sunrise;
             cursor.close();
         }
     }
