@@ -39,7 +39,7 @@ import java.util.TimeZone;
  */
 public class SolunarCalculator
 {
-    public static final long MINOR_PERIOD_MILLIS = 1L * 60 * 60 * 1000;       // 1 hr
+    public static final long MINOR_PERIOD_MILLIS = 60L * 60 * 1000;           // 1 hr
     public static final long MAJOR_PERIOD_MILLIS = 2L * 60 * 60 * 1000;       // 2 hr
 
     public static final long SUN_PERIOD_MILLIS = 24L * 60 * 60 * 1000;        // 24 hr
@@ -487,7 +487,7 @@ public class SolunarCalculator
 
     enum MoonPhase {
         NEW, FIRST_QUARTER, FULL, THIRD_QUARTER;
-        private MoonPhase() {}
+        MoonPhase() {}
     }
 
 

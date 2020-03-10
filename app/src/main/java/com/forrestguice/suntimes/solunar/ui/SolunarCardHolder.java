@@ -96,7 +96,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         text_moonset = itemView.findViewById(R.id.text_moonset);
 
         layout_rows = itemView.findViewById(R.id.layout_moon);
-        rows = new ArrayList<SolunarPeriodRow>();
+        rows = new ArrayList<>();
         rows.add(row_moonset = new SolunarPeriodRow(itemView, R.id.layout_moonset_period, R.id.text_moonset_label, R.id.text_moonset_start, R.id.text_moonset_end, R.id.text_moonset_plus, options));
         rows.add(row_moonnight = new SolunarPeriodRow(itemView, R.id.layout_moonnight_period, R.id.text_moonnight_label, R.id.text_moonnight_start, R.id.text_moonnight_end, R.id.text_moonnight_plus, options));
         rows.add(row_moonrise = new SolunarPeriodRow(itemView, R.id.layout_moonrise_period,  R.id.text_moonrise_label, R.id.text_moonrise_start, R.id.text_moonrise_end, R.id.text_moonrise_plus, options));

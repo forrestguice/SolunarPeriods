@@ -34,6 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--suppress AndroidUnknownAttribute -->
         <android.support.v7.widget.AppCompatRatingBar
             android:id="@+id/rating" style="@style/Widget.AppCompat.RatingBar.Small" theme="@style/SolunarRatingBar"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

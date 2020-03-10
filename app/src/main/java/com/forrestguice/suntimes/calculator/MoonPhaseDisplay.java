@@ -40,7 +40,7 @@ public enum MoonPhaseDisplay
     private int iconResource, viewResource;
     private String displayString;
 
-    private MoonPhaseDisplay(String displayString, int iconResource, int viewResource)
+    MoonPhaseDisplay(String displayString, int iconResource, int viewResource)
     {
         this.displayString = displayString;
         this.iconResource = iconResource;

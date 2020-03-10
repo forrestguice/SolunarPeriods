@@ -49,7 +49,6 @@ import com.forrestguice.suntimes.solunar.ui.AboutDialog;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
-import com.forrestguice.suntimes.solunar.ui.SolunarCardHolder;
 
 import java.lang.reflect.Method;
 public class MainActivity extends AppCompatActivity
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         cardView.setHasFixedSize(true);
         cardView.setLayoutManager(cardLayout = new LinearLayoutManager(this));
         cardView.addItemDecoration(cardDecoration);
-        cardView.setOnScrollListener(onCardScrollChanged);
+        //cardView.setOnScrollListener(onCardScrollChanged);
 
         if (checkVersion())
         {
@@ -175,7 +174,7 @@ public class MainActivity extends AppCompatActivity
         int current =  cardLayout.findFirstCompletelyVisibleItemPosition();
         if (Math.abs(SolunarCardAdapter.TODAY_POSITION - current) <= SCROLL_THRESHOLD)
         {
-            SolunarCardAdapter.CardScroller cardScroller = new SolunarCardAdapter.CardScroller(this);;
+            SolunarCardAdapter.CardScroller cardScroller = new SolunarCardAdapter.CardScroller(this);
             cardScroller.setTargetPosition(position);
             cardLayout.startSmoothScroll(cardScroller);
 
@@ -185,19 +184,19 @@ public class MainActivity extends AppCompatActivity
     }
     private static final int SCROLL_THRESHOLD = 14;  // days
 
-    private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
+    /*private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
         {
             super.onScrollStateChanged(recyclerView, newState);
-            /**int[] position = new int[] { cardLayout.findFirstCompletelyVisibleItemPosition(), cardLayout.findLastVisibleItemPosition() };
+            int[] position = new int[] { cardLayout.findFirstCompletelyVisibleItemPosition(), cardLayout.findLastVisibleItemPosition() };
             if (SolunarCardAdapter.TODAY_POSITION >= position[0] && SolunarCardAdapter.TODAY_POSITION < position[1]) {
                 fab.hide();
             } else {
                 fab.show();
-            }*/
+            }
         }
-    };
+    };*/
 
     private View.OnClickListener onFabClicked = new View.OnClickListener()
     {
