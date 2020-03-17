@@ -145,7 +145,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_moonrise.setText(DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
             text_moonset.setText(DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
 
-            text_moonillum.setText( context.getString(R.string.format_illumination, (int)(data.getMoonIllumination() * 100) + "") );
+            text_moonillum.setText( DisplayStrings.formatIllumination(context, data.getMoonIllumination()));
 
             MoonPhaseDisplay phase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
             boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));

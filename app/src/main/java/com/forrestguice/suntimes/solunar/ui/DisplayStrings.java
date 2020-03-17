@@ -139,6 +139,14 @@ public class DisplayStrings
         return context.getString(R.string.format_location_altitude, formatter.format(value), unitsString);
     }
 
+    public static String formatIllumination(@NonNull Context context, double illumination)
+    {
+        NumberFormat formatter = NumberFormat.getPercentInstance();
+        formatter.setMinimumFractionDigits(0);
+        formatter.setMaximumFractionDigits(0);
+        return context.getString(R.string.format_illumination, formatter.format(illumination));
+    }
+
     public static SpannableString createRelativeSpan(@Nullable SpannableString span, @NonNull String text, @NonNull String toRelative, float relativeSize)
     {
         if (span == null) {
