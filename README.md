@@ -1,5 +1,5 @@
 # Solunar Periods
-A hunting and fishing addon for Suntimes. This app displays the solunar periods for a given location. It depends on [Suntimes v0.12.6](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
+A hunting and fishing add-on for Suntimes. This app displays the solunar periods for a given location. It depends on [Suntimes v0.12.6](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SolunarPeriods.svg)](https://github.com/forrestguice/SolunarPeriods/releases)
 
@@ -8,9 +8,9 @@ A hunting and fishing addon for Suntimes. This app displays the solunar periods 
 * [Privacy and Permissions](#privacy-and-permissions)
 * [Legal Stuff](#legal-stuff)
 
-Solunar theory is a hypothesis that patterns of animal movement are governed by the relative position of the sun and moon. The theory predicts peak activity on the approach of the new and full moon. It also predicts daily major periods of animal activity at lunar noon and lunar midnight, and intermediate minor periods at moonrise and moonset, with heigtened activity whenever these solunar periods coincide with sunrise or sunset.
+Solunar theory is a hypothesis that patterns of animal movement are influenced by the relative position of the sun and moon. The theory predicts peak activity on the approach of each new and full moon, with daily major periods of activity at lunar noon and lunar midnight, and intermediate minor periods at moonrise and moonset. These "solunar periods" are heightened whenever they coincide with sunrise or sunset.
 
-This app displays sunrise, sunset, moonrise, moonset, lunar noon, lunar midnight, phase, and illumination of the moon. It makes a daily prediction (average, good, better, best) and identifies periods of activity that coincide with sunrise and sunset.
+This app displays sunrise, sunset, moonrise, moonset, lunar noon, lunar midnight, phase, and illumination of the moon. It makes a daily prediction (average, good, better, best) and identifies periods of major and minor activity that coincide with sunrise and sunset.
 
 <img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" /> <img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/2.png' width="280px" />
 
