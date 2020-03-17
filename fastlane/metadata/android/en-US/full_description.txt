@@ -1,6 +1,6 @@
 A hunting and fishing add-on for Suntimes that displays the solunar periods for a given location. This app displays sunrise, sunset, moonrise, moonset, lunar noon, lunar midnight, phase, and illumination of the moon. It makes a daily prediction (average, good, better, best) and identifies periods of activity that coincide with sunrise and sunset.
 
-This is an add-on for Suntimes. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.
+This is an add-on for Suntimes. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.12.6</a> or later.
 
 The following permissions are required:
 * <small><u>suntimes.permission.READ_CALCULATOR</u></small> is used to read data from the Suntimes provider.
