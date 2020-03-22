@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.forrestguice.suntimes.solunar">
 
+    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
+
     <application
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
@@ -11,6 +13,7 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor">
 
+        <!-- Activities -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -24,6 +27,15 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
+
+        <!-- Content Provider -->
+        <provider
+            android:name="com.forrestguice.suntimes.solunar.data.SolunarProvider"
+            android:authorities="solunarperiods.calculator.provider"
+            android:permission="suntimes.permission.READ_CALCULATOR"
+            android:exported="true"
+            android:syncable="false" />
+
     </application>
 
 </manifest>
