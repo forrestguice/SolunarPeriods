@@ -39,27 +39,35 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.AUTHORITY;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_ALTITUDE;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_ALTITUDE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_APP_VERSION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_LATITUDE;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_LOCATION;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_LONGITUDE;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_MAJOR_LENGTH;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_MINOR_LENGTH;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_LATITUDE;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_LOCATION;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_LONGITUDE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_PROVIDER_VERSION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_PROVIDER_VERSION_CODE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_DATE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_NIGHT;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_NOON;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_RISE;
-import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_SET;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_RATING;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_SUNRISE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_SUNSET;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_NONE;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNRISE;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNSET;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR_CONFIG;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR_CONFIG_PROJECTION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR_PROJECTION;
 
 public class SolunarProvider extends ContentProvider
@@ -172,36 +180,81 @@ public class SolunarProvider extends ContentProvider
                 Object[] row = new Object[columns.length];
                 for (int i=0; i<columns.length; i++)
                 {
+                    SolunarPeriod period;
                     switch (columns[i])
                     {
+                        case COLUMN_SOLUNAR_LOCATION:
+                            row[i] = config.location[0];
+                            break;
+
+                        case COLUMN_SOLUNAR_LATITUDE:
+                            row[i] = Double.parseDouble(config.location[1]);
+                            break;
+
+                        case COLUMN_SOLUNAR_LONGITUDE:
+                            row[i] = Double.parseDouble(config.location[2]);
+                            break;
+
+                        case COLUMN_SOLUNAR_ALTITUDE:
+                            row[i] = Double.parseDouble(config.location[3]);
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH:
+                            row[i] = SolunarCalculator.MAJOR_PERIOD_MILLIS;  // TODO: configurable
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH:
+                            row[i] = SolunarCalculator.MINOR_PERIOD_MILLIS;  // TODO: configurable
+                            break;
+
                         case COLUMN_SOLUNAR_SUNRISE:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.sunrise;
                             break;
-
                         case COLUMN_SOLUNAR_SUNSET:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.sunset;
                             break;
 
-                        case COLUMN_SOLUNAR_MOON_RISE:
+                        case COLUMN_SOLUNAR_PERIOD_MOONRISE:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonrise;
                             break;
-
-                        case COLUMN_SOLUNAR_MOON_SET:
+                        case COLUMN_SOLUNAR_PERIOD_MOONSET:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonset;
                             break;
-
-                        case COLUMN_SOLUNAR_MOON_NOON:
+                        case COLUMN_SOLUNAR_PERIOD_MOONNOON:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonnoon;
                             break;
-
-                        case COLUMN_SOLUNAR_MOON_NIGHT:
+                        case COLUMN_SOLUNAR_PERIOD_MOONNIGHT:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonnight;
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP:
+                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP:
+                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP:
+                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            break;
+
+                        case COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP:
+                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_MOON_ILLUMINATION:
@@ -237,7 +290,7 @@ public class SolunarProvider extends ContentProvider
      */
     public Cursor querySolunarConfig(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
     {
-        String[] columns = (projection != null ? projection : QUERY_SOLUNAR_PROJECTION);
+        String[] columns = (projection != null ? projection : QUERY_SOLUNAR_CONFIG_PROJECTION);
         MatrixCursor cursor = new MatrixCursor(columns);
 
         Context context = getContext();
@@ -263,30 +316,6 @@ public class SolunarProvider extends ContentProvider
 
                     case COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE:
                         row[i] = BuildConfig.VERSION_CODE;
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_LOCATION:
-                        row[i] = config.location[0];
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_LATITUDE:
-                        row[i] = Double.parseDouble(config.location[1]);
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_LONGITUDE:
-                        row[i] = Double.parseDouble(config.location[2]);
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_ALTITUDE:
-                        row[i] = Double.parseDouble(config.location[3]);
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_MAJOR_LENGTH:
-                        row[i] = SolunarCalculator.MAJOR_PERIOD_MILLIS;  // TODO: configurable
-                        break;
-
-                    case COLUMN_SOLUNAR_CONFIG_MINOR_LENGTH:
-                        row[i] = SolunarCalculator.MINOR_PERIOD_MILLIS;  // TODO: configurable
                         break;
 
                     default:

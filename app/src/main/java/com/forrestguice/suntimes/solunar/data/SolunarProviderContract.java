@@ -34,42 +34,58 @@ public interface SolunarProviderContract
     String COLUMN_SOLUNAR_CONFIG_APP_VERSION = "app_version";                       // String (app version string)
     String COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE = "app_version_code";             // int (app version code)
 
-    String COLUMN_SOLUNAR_CONFIG_LOCATION = "location";            // String (locationName)
-    String COLUMN_SOLUNAR_CONFIG_LATITUDE = "latitude";            // String (dd)
-    String COLUMN_SOLUNAR_CONFIG_LONGITUDE = "longitude";          // String (dd)
-    String COLUMN_SOLUNAR_CONFIG_ALTITUDE = "altitude";            // String (meters)
-    String COLUMN_SOLUNAR_CONFIG_TIMEZONE = "timezone";            // String (timezoneID)
-
-    String COLUMN_SOLUNAR_CONFIG_MAJOR_LENGTH = "majorlength";     // long (duration) major period millis
-    String COLUMN_SOLUNAR_CONFIG_MINOR_LENGTH = "minorlength";     // long (duration) minor period millis
-
-    String QUERY_SOLUNAR_CONFIG = "solunar_config";
+    String QUERY_SOLUNAR_CONFIG = "config";
     String[] QUERY_SOLUNAR_CONFIG_PROJECTION = new String[] {
             COLUMN_SOLUNAR_CONFIG_PROVIDER_VERSION, COLUMN_SOLUNAR_CONFIG_PROVIDER_VERSION_CODE,
-            COLUMN_SOLUNAR_CONFIG_APP_VERSION, COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE,
-            COLUMN_SOLUNAR_CONFIG_LOCATION, COLUMN_SOLUNAR_CONFIG_LATITUDE, COLUMN_SOLUNAR_CONFIG_LONGITUDE, COLUMN_SOLUNAR_CONFIG_ALTITUDE, COLUMN_SOLUNAR_CONFIG_TIMEZONE,
-            COLUMN_SOLUNAR_CONFIG_MAJOR_LENGTH, COLUMN_SOLUNAR_CONFIG_MINOR_LENGTH
+            COLUMN_SOLUNAR_CONFIG_APP_VERSION, COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE
     };
 
     /**
      * SOLUNAR INFO
      */
+    String COLUMN_SOLUNAR_LOCATION = "location";            // String (locationName)
+    String COLUMN_SOLUNAR_LATITUDE = "latitude";            // String (dd)
+    String COLUMN_SOLUNAR_LONGITUDE = "longitude";          // String (dd)
+    String COLUMN_SOLUNAR_ALTITUDE = "altitude";            // String (meters)
+    String COLUMN_SOLUNAR_TIMEZONE = "timezone";            // String (timezoneID)
+
     String COLUMN_SOLUNAR_DATE = "date";                        // long (timestamp)
     String COLUMN_SOLUNAR_RATING = "rating";                    // double [0,1] percent
+    String COLUMN_SOLUNAR_MOON_ILLUMINATION = "moonpos_illum";  // double [0,1]
+    String COLUMN_SOLUNAR_MOON_PHASE = "moonphase";             // String (localized display string)
 
     String COLUMN_SOLUNAR_SUNRISE = "sunrise";                  // long (timestamp) sunrise millis
     String COLUMN_SOLUNAR_SUNSET = "sunset";                    // long (timestamp) sunset millis
 
-    String COLUMN_SOLUNAR_MOON_RISE = "moonrise";               // long (timestamp) moonrise millis; minor period start
-    String COLUMN_SOLUNAR_MOON_SET = "moonset";                 // long (timestamp) moonset millis; minor period start
-    String COLUMN_SOLUNAR_MOON_NOON = "moonnoon";               // long (timestamp) lunar noon millis; major period start
-    String COLUMN_SOLUNAR_MOON_NIGHT = "moonnight";             // long (timestamp) lunar midnight millis; major period start
-    String COLUMN_SOLUNAR_MOON_ILLUMINATION = "moonpos_illum";  // double [0,1]
+    String COLUMN_SOLUNAR_PERIOD_MOONRISE = "moonrise";                     // long (timestamp) moonrise millis; minor period start
+    String COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP = "moonrise_overlap";     // int (enum); OVERLAP_NONE(0), OVERLAP_SUNRISE(1), OVERLAP_SUNSET(2)
+
+    String COLUMN_SOLUNAR_PERIOD_MOONSET = "moonset";                       // long (timestamp) moonset millis; minor period start
+    String COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP = "moonset_overlap";       // int (enum); OVERLAP_NONE(0), OVERLAP_SUNRISE(1), OVERLAP_SUNSET(2)
+
+    String COLUMN_SOLUNAR_PERIOD_MOONNOON = "moonnoon";                     // long (timestamp) lunar noon millis; major period start
+    String COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP = "moonnoon_overlap";     // int (enum); OVERLAP_NONE(0), OVERLAP_SUNRISE(1), OVERLAP_SUNSET(2)
+
+    String COLUMN_SOLUNAR_PERIOD_MOONNIGHT = "moonnight";                   // long (timestamp) lunar midnight millis; major period start
+    String COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP = "moonnight_overlap";   // int (enum); OVERLAP_NONE(0), OVERLAP_SUNRISE(1), OVERLAP_SUNSET(2)
+
+    String COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH = "majorlength";     // long (duration) major period millis
+    String COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH = "minorlength";     // long (duration) minor period millis
+
+    int OVERLAP_NONE = 0;
+    int OVERLAP_SUNRISE = 1;
+    int OVERLAP_SUNSET = 2;
 
     String QUERY_SOLUNAR = "solunar";
     String[] QUERY_SOLUNAR_PROJECTION = new String[] {
             COLUMN_SOLUNAR_DATE, COLUMN_SOLUNAR_RATING,
             COLUMN_SOLUNAR_SUNRISE, COLUMN_SOLUNAR_SUNSET,
-            COLUMN_SOLUNAR_MOON_RISE, COLUMN_SOLUNAR_MOON_SET, COLUMN_SOLUNAR_MOON_NOON, COLUMN_SOLUNAR_MOON_NIGHT, COLUMN_SOLUNAR_MOON_ILLUMINATION
+            COLUMN_SOLUNAR_MOON_ILLUMINATION, COLUMN_SOLUNAR_MOON_PHASE,
+            COLUMN_SOLUNAR_PERIOD_MOONRISE, COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP,
+            COLUMN_SOLUNAR_PERIOD_MOONSET, COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP,
+            COLUMN_SOLUNAR_PERIOD_MOONNOON, COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP,
+            COLUMN_SOLUNAR_PERIOD_MOONNIGHT, COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP,
+            COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH, COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH,
+            COLUMN_SOLUNAR_LOCATION, COLUMN_SOLUNAR_LATITUDE, COLUMN_SOLUNAR_LONGITUDE, COLUMN_SOLUNAR_ALTITUDE, COLUMN_SOLUNAR_TIMEZONE
     };
 }
