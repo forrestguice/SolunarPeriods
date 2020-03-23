@@ -62,6 +62,7 @@ import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COL
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_RATING;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_SUNRISE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_SUNSET;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_TIMEZONE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_NONE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNRISE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNSET;
@@ -197,6 +198,10 @@ public class SolunarProvider extends ContentProvider
 
                         case COLUMN_SOLUNAR_ALTITUDE:
                             row[i] = Double.parseDouble(config.location[3]);
+                            break;
+
+                        case COLUMN_SOLUNAR_TIMEZONE:
+                            row[i] = config.timezone;
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH:
