@@ -22,6 +22,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="suntimes.action.ADD_CALENDAR" />
+                <category android:name="suntimes.SUNTIMES_CALENDAR" />
+            </intent-filter>
+            <meta-data android:name="SuntimesCalendarReference"
+                android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.solunar.SolunarCalendar" />
         </activity>
 
         <activity
