@@ -49,6 +49,7 @@ import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COL
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_PROVIDER_VERSION_CODE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_DATE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT;
@@ -265,6 +266,11 @@ public class SolunarProvider extends ContentProvider
                         case COLUMN_SOLUNAR_MOON_ILLUMINATION:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.getMoonIllumination();
+                            break;
+
+                        case COLUMN_SOLUNAR_MOON_PHASE:
+                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
+                            row[i] = data.getMoonPhase();
                             break;
 
                         case COLUMN_SOLUNAR_RATING:
