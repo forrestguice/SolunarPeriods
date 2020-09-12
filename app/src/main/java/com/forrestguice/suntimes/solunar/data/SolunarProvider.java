@@ -465,6 +465,7 @@ public class SolunarProvider extends ContentProvider
         {
             double dayRating = cursor.getDouble(i_dayRating);
             String dayRatingDisplay = formatRating(dayRating);
+            String dayRatingDisplay = DisplayStrings.formatRating(dayRating, ratingBrackets, ratingLabels) + " :: " + dayRating;
 
             String phase = cursor.getString(i_moonPhase);
             String phaseDisplay = moonPhaseDisplay.get(phase);
@@ -485,25 +486,6 @@ public class SolunarProvider extends ContentProvider
         cursor.close();
         return eventValues;
     }
-
-    private String formatRating(double rating)
-    {
-        if (ratingBrackets.length != ratingLabels.length) {
-            throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
-        }
-
-        int last = -1;
-        for (int i=0; i<ratingBrackets.length; i++)
-        {
-            if (rating > (last * 0.01d)
-                    && rating <= (ratingBrackets[i] * 0.01d)) {
-                return ratingLabels[i];
-            }
-            last = ratingBrackets[i];
-        }
-        return "";
-    }
-
 
     /**
      * addPeriods
