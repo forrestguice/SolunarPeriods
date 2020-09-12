@@ -36,6 +36,7 @@ import android.util.Log;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.BuildConfig;
 import com.forrestguice.suntimes.solunar.R;
+import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -206,9 +207,10 @@ public class SolunarProvider extends ContentProvider
 
             SolunarCalculator calculator = new SolunarCalculator();
             do {
+                SolunarData data = new SolunarData(day.getTimeInMillis(), latitude, longitude, altitude, config.timezone);
+                calculator.calculateData(resolver, data);
+
                 SolunarPeriod period;
-                Calendar calendar;
-                SolunarData data = null;
                 Object[] row = new Object[columns.length];
                 for (int i=0; i<columns.length; i++)
                 {
@@ -243,67 +245,54 @@ public class SolunarProvider extends ContentProvider
                             break;
 
                         case COLUMN_SOLUNAR_SUNRISE:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.sunrise;
                             break;
                         case COLUMN_SOLUNAR_SUNSET:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.sunset;
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONRISE:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonrise;
                             break;
                         case COLUMN_SOLUNAR_PERIOD_MOONSET:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonset;
                             break;
                         case COLUMN_SOLUNAR_PERIOD_MOONNOON:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonnoon;
                             break;
                         case COLUMN_SOLUNAR_PERIOD_MOONNIGHT:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.moonnight;
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_MOON_ILLUMINATION:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.getMoonIllumination();
                             break;
 
                         case COLUMN_SOLUNAR_MOON_PHASE:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.getMoonPhase();
                             break;
 
                         case COLUMN_SOLUNAR_RATING:
-                            data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             row[i] = data.getDayRating();
                             break;
 
@@ -364,8 +353,9 @@ public class SolunarProvider extends ContentProvider
     private HashMap<String, String> moonPhaseDisplay = new HashMap<>();
     private String majorTitle;
     private String minorTitle;
+    private String titlePattern;
     private String descPattern;
-    private String[] overlapDisplay;
+    private String[] overlapDisplay, overlapDisplay1;
     private String[] minorTitles;
     private String[] minorDesc;
     private String[] majorTitles;
@@ -391,6 +381,7 @@ public class SolunarProvider extends ContentProvider
         minorTitles = new String[] {minorTitle, minorTitle};
 
         overlapDisplay = context.getResources().getStringArray(R.array.solunarevent_overlap);
+        overlapDisplay1 = context.getResources().getStringArray(R.array.solunarevent_overlap1);
         ratingLabels = context.getResources().getStringArray(R.array.ratings_labels);
         ratingBrackets = context.getResources().getIntArray(R.array.ratings_brackets);
 
@@ -398,6 +389,7 @@ public class SolunarProvider extends ContentProvider
         String lunarSet = context.getString(R.string.label_moonset);
         String lunarNoon = context.getString(R.string.label_moonnoon);
         String lunarNight = context.getString(R.string.label_moonnight);
+        titlePattern = context.getString(R.string.calendar_event_title_pattern0);
         descPattern = context.getString(R.string.calendar_event_desc_pattern1);
         minorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarRise, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarSet, descPattern)};
         majorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarNoon, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarNight, descPattern)};
@@ -458,38 +450,44 @@ public class SolunarProvider extends ContentProvider
         int i_major_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH);
         int i_dayRating = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_RATING);
         int i_moonPhase = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE);
-        //int i_moonIllum = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION);
+
+        long minor_period_length = cursor.getLong(i_minor_length);
+        long major_period_length = cursor.getLong(i_major_length);
 
         ArrayList<ContentValues> eventValues = new ArrayList<>();
         while (!cursor.isAfterLast())
         {
             double dayRating = cursor.getDouble(i_dayRating);
-            String dayRatingDisplay = formatRating(dayRating);
-            String dayRatingDisplay = DisplayStrings.formatRating(dayRating, ratingBrackets, ratingLabels) + " :: " + dayRating;
+            String dayRatingDisplay = DisplayStrings.formatRating(dayRating, ratingBrackets, ratingLabels);
 
             String phase = cursor.getString(i_moonPhase);
             String phaseDisplay = moonPhaseDisplay.get(phase);
-            //double moonIllum = cursor.getDouble(i_moonIllum);
+
+            String[] majorTitles1 = new String[majorTitles.length];
+            String[] majorDisplay = new String[majorDesc.length];
+
+            String[] minorTitles1 = new String[minorTitles.length];
+            String[] minorDisplay = new String[minorDesc.length];
 
             for (int i=0; i<2; i++)
             {
-                String minor_overlap = cursor.getString(i_minor_overlap[i]);
-                String major_overlap = cursor.getString(i_major_overlap[i]);
-                minorDesc[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, minor_overlap + "(" + i_minor_overlap[i] + ") boogers");
-                majorDesc[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, major_overlap + "(" + i_major_overlap[i] + ") boogers");
+                int minor_overlap = cursor.getInt(i_minor_overlap[i]);
+                minorTitles1[i] = String.format(titlePattern, minorTitles[i], overlapDisplay1[minor_overlap]);
+                minorDisplay[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, overlapDisplay[minor_overlap]);
+
+                int major_overlap = cursor.getInt(i_major_overlap[i]);
+                majorTitles1[i] = String.format(titlePattern, majorTitles[i], overlapDisplay1[major_overlap]);
+                majorDisplay[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, overlapDisplay[major_overlap]);
             }
 
-            addPeriods(eventValues, cursor, i_minor, minorTitles, minorDesc, cursor.getLong(i_minor_length));
-            addPeriods(eventValues, cursor, i_major, majorTitles, majorDesc, cursor.getLong(i_major_length));
+            addPeriods(eventValues, cursor, i_minor, minorTitles1, minorDisplay, minor_period_length);
+            addPeriods(eventValues, cursor, i_major, majorTitles1, majorDisplay, major_period_length);
             cursor.moveToNext();
         }
         cursor.close();
         return eventValues;
     }
 
-    /**
-     * addPeriods
-     */
     private void addPeriods(@NonNull ArrayList<ContentValues> eventValues, @NonNull Cursor cursor, int[] index, String[] titles, String[] desc, long periodLength )
     {
         for (int j=0; j<index.length; j++)
@@ -580,18 +578,6 @@ public class SolunarProvider extends ContentProvider
 
         } else Log.d("DEBUG", "context is null!");
         return cursor;
-    }
-
-    /**
-     * initData
-     */
-    private SolunarData initData(long dateMillis, ContentResolver resolver, SolunarCalculator calculator, SolunarData data, double latitude, double longitude, double altitude, String timezone)
-    {
-        if (data == null) {
-            data = new SolunarData(dateMillis, latitude, longitude, altitude, timezone);
-            calculator.calculateData(resolver, data);
-        }
-        return data;
     }
 
     /**
