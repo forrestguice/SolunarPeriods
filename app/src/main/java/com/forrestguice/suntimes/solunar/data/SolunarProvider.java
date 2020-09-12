@@ -28,17 +28,24 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.BuildConfig;
+import com.forrestguice.suntimes.solunar.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.AUTHORITY;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_NAME;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_SUMMARY;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_TITLE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_ALTITUDE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_APP_VERSION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_SOLUNAR_CONFIG_APP_VERSION_CODE;
@@ -67,6 +74,10 @@ import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COL
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_NONE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNRISE;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.OVERLAP_SUNSET;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_CALENDAR_CONTENT;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_CALENDAR_CONTENT_PROJECTION;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_CALENDAR_INFO;
+import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_CALENDAR_INFO_PROJECTION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR_CONFIG;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.QUERY_SOLUNAR_CONFIG_PROJECTION;
@@ -78,6 +89,8 @@ public class SolunarProvider extends ContentProvider
     private static final int URIMATCH_SOLUNAR = 10;
     private static final int URIMATCH_SOLUNAR_FOR_DATE = 20;
     private static final int URIMATCH_SOLUNAR_FOR_RANGE = 30;
+    private static final int URIMATCH_CALENDAR_INFO = 40;
+    private static final int URIMATCH_CALENDAR_CONTENT_FOR_RANGE = 50;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static
@@ -86,7 +99,11 @@ public class SolunarProvider extends ContentProvider
         uriMatcher.addURI(AUTHORITY, QUERY_SOLUNAR, URIMATCH_SOLUNAR);
         uriMatcher.addURI(AUTHORITY, QUERY_SOLUNAR + "/#", URIMATCH_SOLUNAR_FOR_DATE);
         uriMatcher.addURI(AUTHORITY, QUERY_SOLUNAR + "/*", URIMATCH_SOLUNAR_FOR_RANGE);
+        uriMatcher.addURI(AUTHORITY, QUERY_CALENDAR_INFO, URIMATCH_CALENDAR_INFO);
+        uriMatcher.addURI(AUTHORITY, QUERY_CALENDAR_CONTENT + "/*", URIMATCH_CALENDAR_CONTENT_FOR_RANGE);
     }
+
+    public static final String CALENDAR_NAME = "solunarCalendar";
 
     @Override
     public boolean onCreate() {
@@ -119,30 +136,42 @@ public class SolunarProvider extends ContentProvider
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
     {
+        long[] range;
         Cursor cursor = null;
         int uriMatch = uriMatcher.match(uri);
         switch (uriMatch)
         {
+            case URIMATCH_CALENDAR_INFO:
+                Log.i(getClass().getSimpleName(), "URIMATCH_CALENDAR_INFO");
+                cursor = queryCalendarInfo(uri, projection, selection, selectionArgs, sortOrder);
+                break;
+
+            case URIMATCH_CALENDAR_CONTENT_FOR_RANGE:
+                Log.i(getClass().getSimpleName(), "URIMATCH_CALENDAR_CONTENT");
+                range = parseDateRange(uri.getLastPathSegment());
+                cursor = queryCalendarContent(range, uri, projection, selection, selectionArgs, sortOrder);
+                break;
+
             case URIMATCH_CONFIG:
-                Log.e(getClass().getSimpleName(), "URIMATCH_CONFIG");
+                Log.i(getClass().getSimpleName(), "URIMATCH_CONFIG");
                 cursor = querySolunarConfig(uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
             case URIMATCH_SOLUNAR:
-                Log.e(getClass().getSimpleName(), "URIMATCH_SOLUNAR");
+                Log.i(getClass().getSimpleName(), "URIMATCH_SOLUNAR");
                 long now = Calendar.getInstance().getTimeInMillis();
                 cursor = querySolunar(new long[] {now, now}, uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
             case URIMATCH_SOLUNAR_FOR_DATE:
-                Log.e(getClass().getSimpleName(), "URIMATCH_SOLUNAR_FOR_DATE");
+                Log.i(getClass().getSimpleName(), "URIMATCH_SOLUNAR_FOR_DATE");
                 long date = ContentUris.parseId(uri);
                 cursor = querySolunar(new long[] {date, date}, uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
             case URIMATCH_SOLUNAR_FOR_RANGE:
-                Log.e(getClass().getSimpleName(), "URIMATCH_SOLUNAR_FOR_RANGE");
-                long[] range = parseDateRange(uri.getLastPathSegment());
+                Log.i(getClass().getSimpleName(), "URIMATCH_SOLUNAR_FOR_RANGE");
+                range = parseDateRange(uri.getLastPathSegment());
                 cursor = querySolunar(range, uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
@@ -177,12 +206,12 @@ public class SolunarProvider extends ContentProvider
 
             SolunarCalculator calculator = new SolunarCalculator();
             do {
+                SolunarPeriod period;
                 Calendar calendar;
                 SolunarData data = null;
                 Object[] row = new Object[columns.length];
                 for (int i=0; i<columns.length; i++)
                 {
-                    SolunarPeriod period;
                     switch (columns[i])
                     {
                         case COLUMN_SOLUNAR_LOCATION:
@@ -242,25 +271,25 @@ public class SolunarProvider extends ContentProvider
                         case COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
-                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
-                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
-                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP:
                             data = initData(day.getTimeInMillis(), resolver, calculator, data, latitude, longitude, altitude, config.timezone);
                             period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
-                            row[i] = (period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
+                            row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_MOON_ILLUMINATION:
@@ -296,8 +325,239 @@ public class SolunarProvider extends ContentProvider
     }
 
 
+    public Cursor queryCalendarInfo(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
+    {
+        String[] columns = (projection != null ? projection : QUERY_CALENDAR_INFO_PROJECTION);
+        MatrixCursor cursor = new MatrixCursor(columns);
+
+        Context context = getContext();
+        if (context != null)
+        {
+            Object[] row = new Object[columns.length];
+            for (int i=0; i<columns.length; i++)
+            {
+                switch (columns[i])
+                {
+                    case COLUMN_CALENDAR_NAME:
+                        row[i] = CALENDAR_NAME;
+                        break;
+
+                    case COLUMN_CALENDAR_TITLE:
+                        row[i] = context.getString(R.string.calendar_solunar_displayName);
+                        break;
+
+                    case COLUMN_CALENDAR_SUMMARY:
+                        row[i] = context.getString(R.string.calendar_solunar_summary);
+                        break;
+
+                    default:
+                        row[i] = null;
+                        break;
+                }
+            }
+            cursor.addRow(row);
+
+        } else Log.d("DEBUG", "context is null!");
+        return cursor;
+    }
+
+    private HashMap<String, String> moonPhaseDisplay = new HashMap<>();
+    private String majorTitle;
+    private String minorTitle;
+    private String descPattern;
+    private String[] overlapDisplay;
+    private String[] minorTitles;
+    private String[] minorDesc;
+    private String[] majorTitles;
+    private String[] majorDesc;
+    private String[] ratingLabels;
+    private int[] ratingBrackets;
+
+    private void initResources(Context context)
+    {
+        moonPhaseDisplay = new HashMap<>();
+        moonPhaseDisplay.put("NEW", context.getString(R.string.timeMode_moon_new));
+        moonPhaseDisplay.put("WAXING_CRESCENT", context.getString(R.string.timeMode_moon_waxingcrescent));
+        moonPhaseDisplay.put("FIRST_QUARTER", context.getString(R.string.timeMode_moon_firstquarter));
+        moonPhaseDisplay.put("WAXING_GIBBOUS", context.getString(R.string.timeMode_moon_waxinggibbous));
+        moonPhaseDisplay.put("FULL", context.getString(R.string.timeMode_moon_full));
+        moonPhaseDisplay.put("WANING_GIBBOUS", context.getString(R.string.timeMode_moon_waninggibbous));
+        moonPhaseDisplay.put("THIRD_QUARTER", context.getString(R.string.timeMode_moon_thirdquarter));
+        moonPhaseDisplay.put("WANING_CRESCENT", context.getString(R.string.timeMode_moon_waningcrescent));
+
+        majorTitle = context.getString(R.string.calendar_event_title_major);
+        majorTitles = new String[] {majorTitle, majorTitle};
+        minorTitle = context.getString(R.string.calendar_event_title_minor);
+        minorTitles = new String[] {minorTitle, minorTitle};
+
+        overlapDisplay = context.getResources().getStringArray(R.array.solunarevent_overlap);
+        ratingLabels = context.getResources().getStringArray(R.array.ratings_labels);
+        ratingBrackets = context.getResources().getIntArray(R.array.ratings_brackets);
+
+        String lunarRise = context.getString(R.string.label_moonrise);
+        String lunarSet = context.getString(R.string.label_moonset);
+        String lunarNoon = context.getString(R.string.label_moonnoon);
+        String lunarNight = context.getString(R.string.label_moonnight);
+        descPattern = context.getString(R.string.calendar_event_desc_pattern1);
+        minorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarRise, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarSet, descPattern)};
+        majorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarNoon, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarNight, descPattern)};
+    }
+
+    public Cursor queryCalendarContent(long[] range, @NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
+    {
+        String[] columns = (projection != null ? projection : QUERY_CALENDAR_CONTENT_PROJECTION);
+        MatrixCursor cursor = new MatrixCursor(columns);
+
+        Context context = getContext();
+        if (context != null)
+        {
+            initResources(context);
+            ContentResolver resolver = context.getContentResolver();
+            if (resolver != null)
+            {
+                ArrayList<ContentValues> values = readCursor(queryCursor(resolver, new long[] {range[0], range[1]}));
+                for (int j=0; j<values.size(); j++)
+                {
+                    ContentValues v = values.get(j);
+                    cursor.addRow(new Object[] { v.get(CalendarContract.Events.TITLE), v.get(CalendarContract.Events.DESCRIPTION), v.get(CalendarContract.Events.EVENT_TIMEZONE),
+                            v.get(CalendarContract.Events.DTSTART), v.get(CalendarContract.Events.DTEND), v.get(CalendarContract.Events.EVENT_LOCATION),
+                            v.get(CalendarContract.Events.AVAILABILITY), v.get(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS), v.get(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS), v.get(CalendarContract.Events.GUESTS_CAN_MODIFY) });
+                }
+
+            } else {
+                Log.e(getClass().getSimpleName(),"Unable to getContentResolver!");
+            }
+        } else Log.d("DEBUG", "context is null!");
+        return cursor;
+    }
+
+    private Cursor queryCursor(ContentResolver resolver, long[] window)
+    {
+        Uri uri = Uri.parse("content://" + SolunarProviderContract.AUTHORITY + "/" + SolunarProviderContract.QUERY_SOLUNAR + "/" + window[0] + "-" + window[1]);
+        Cursor cursor = resolver.query(uri, SolunarProviderContract.QUERY_SOLUNAR_PROJECTION, null, null, null);
+        if (cursor == null) {
+            Log.e(getClass().getSimpleName(), "Failed to resolve URI! " + uri);
+        }
+        return cursor;
+    }
+
+    private ArrayList<ContentValues> readCursor(Cursor cursor)
+    {
+        if (cursor == null) {
+            return null;
+        }
+        cursor.moveToFirst();
+
+        int[] i_minor = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET) };
+        int[] i_minor_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP) };
+
+        int[] i_major = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT) };
+        int[] i_major_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP) };
+
+        int i_minor_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH);
+        int i_major_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH);
+        int i_dayRating = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_RATING);
+        int i_moonPhase = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE);
+        //int i_moonIllum = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION);
+
+        ArrayList<ContentValues> eventValues = new ArrayList<>();
+        while (!cursor.isAfterLast())
+        {
+            double dayRating = cursor.getDouble(i_dayRating);
+            String dayRatingDisplay = formatRating(dayRating);
+
+            String phase = cursor.getString(i_moonPhase);
+            String phaseDisplay = moonPhaseDisplay.get(phase);
+            //double moonIllum = cursor.getDouble(i_moonIllum);
+
+            for (int i=0; i<2; i++)
+            {
+                String minor_overlap = cursor.getString(i_minor_overlap[i]);
+                String major_overlap = cursor.getString(i_major_overlap[i]);
+                minorDesc[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, minor_overlap + "(" + i_minor_overlap[i] + ") boogers");
+                majorDesc[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, major_overlap + "(" + i_major_overlap[i] + ") boogers");
+            }
+
+            addPeriods(eventValues, cursor, i_minor, minorTitles, minorDesc, cursor.getLong(i_minor_length));
+            addPeriods(eventValues, cursor, i_major, majorTitles, majorDesc, cursor.getLong(i_major_length));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return eventValues;
+    }
+
+    private String formatRating(double rating)
+    {
+        if (ratingBrackets.length != ratingLabels.length) {
+            throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
+        }
+
+        int last = -1;
+        for (int i=0; i<ratingBrackets.length; i++)
+        {
+            if (rating > (last * 0.01d)
+                    && rating <= (ratingBrackets[i] * 0.01d)) {
+                return ratingLabels[i];
+            }
+            last = ratingBrackets[i];
+        }
+        return "";
+    }
+
+
     /**
-     * querySolnarConfig
+     * addPeriods
+     */
+    private void addPeriods(@NonNull ArrayList<ContentValues> eventValues, @NonNull Cursor cursor, int[] index, String[] titles, String[] desc, long periodLength )
+    {
+        for (int j=0; j<index.length; j++)
+        {
+            int i = index[j];
+            if (i != -1 && !cursor.isNull(i))
+            {
+                Calendar eventStart = Calendar.getInstance();
+                Calendar eventEnd = Calendar.getInstance();
+                eventStart.setTimeInMillis(cursor.getLong(i));
+                eventEnd.setTimeInMillis(eventStart.getTimeInMillis() + periodLength);
+                eventValues.add(createEventContentValues(titles[j], desc[j], null, eventStart, eventEnd));
+            }
+        }
+    }
+
+    public ContentValues createEventContentValues(String title, String description, @Nullable String location, Calendar... time)
+    {
+        ContentValues v = new ContentValues();
+        v.put(CalendarContract.Events.TITLE, title);
+        v.put(CalendarContract.Events.DESCRIPTION, description);
+
+        if (time.length > 0)
+        {
+            v.put(CalendarContract.Events.EVENT_TIMEZONE, time[0].getTimeZone().getID());
+            if (time.length >= 2)
+            {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[1].getTimeInMillis());
+            } else {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[0].getTimeInMillis());
+            }
+        } else {
+            Log.w(getClass().getSimpleName(), "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
+        }
+
+        if (location != null) {
+            v.put(CalendarContract.Events.EVENT_LOCATION, location);
+        }
+
+        v.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_FREE);
+        v.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, "0");
+        v.put(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, "0");
+        v.put(CalendarContract.Events.GUESTS_CAN_MODIFY, "0");
+        return v;
+    }
+
+    /**
+     * querySolunarConfig
      */
     public Cursor querySolunarConfig(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
     {

@@ -19,12 +19,33 @@
 
 package com.forrestguice.suntimes.solunar.data;
 
+import android.provider.CalendarContract;
+
 public interface SolunarProviderContract
 {
     String AUTHORITY = "solunarperiods.calculator.provider";
     String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
     String VERSION_NAME = "v0.0.0";
     int VERSION_CODE = 0;
+
+    /**
+     * CALENDAR
+     */
+    String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
+    String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
+    String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
+    String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
+
+    String QUERY_CALENDAR_INFO = "calendarInfo";
+    String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
+            COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
+    };
+
+    String QUERY_CALENDAR_CONTENT = "calendarContent";
+    String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] { CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.EVENT_TIMEZONE,
+        CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.EVENT_LOCATION,
+        CalendarContract.Events.AVAILABILITY, CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, CalendarContract.Events.GUESTS_CAN_MODIFY };
+
 
     /**
      * CONFIG

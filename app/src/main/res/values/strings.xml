@@ -80,6 +80,20 @@
         <item>100</item>
     </integer-array>
 
+    <string name="calendar_solunar_displayName">Solunar Periods</string>
+    <string name="calendar_solunar_summary" />
+    <string name="calendar_event_title_major">Major Period</string>
+    <string name="calendar_event_title_minor">Minor Period</string>
+    <string name="calendar_event_desc_pattern0">%s\n%s</string>
+    <string name="calendar_event_desc_pattern1">%s\n%s\n%s</string>
+
+    <string-array name="solunarevent_overlap">
+        <item>not working</item>
+        <item>+ Sunrise</item>
+        <item>+ Sunset</item>
+    </string-array>
+
+
     <!-- Settings -->
 
     <string name="title_activity_settings">@string/action_settings</string>

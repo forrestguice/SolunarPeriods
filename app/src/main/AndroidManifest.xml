@@ -28,7 +28,8 @@
                 <category android:name="suntimes.SUNTIMES_CALENDAR" />
             </intent-filter>
             <meta-data android:name="SuntimesCalendarReference"
-                android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.solunar.SolunarCalendar" />
+                android:value="content://solunarperiods.calculator.provider" />
+
         </activity>
 
         <activity
