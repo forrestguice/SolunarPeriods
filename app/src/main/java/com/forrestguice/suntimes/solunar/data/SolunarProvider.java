@@ -362,9 +362,15 @@ public class SolunarProvider extends ContentProvider
     private String[] majorDesc;
     private String[] ratingLabels;
     private int[] ratingBrackets;
+    private boolean is24 = false;
+    private String location = "";
 
     private void initResources(Context context)
     {
+        SuntimesInfo config = SuntimesInfo.queryInfo(context);
+        is24 = config.getOptions(context).time_is24;
+        location = config.location[0];
+
         moonPhaseDisplay = new HashMap<>();
         moonPhaseDisplay.put("NEW", context.getString(R.string.timeMode_moon_new));
         moonPhaseDisplay.put("WAXING_CRESCENT", context.getString(R.string.timeMode_moon_waxingcrescent));
@@ -435,11 +441,13 @@ public class SolunarProvider extends ContentProvider
 
     private ArrayList<ContentValues> readCursor(Cursor cursor)
     {
-        if (cursor == null) {
+        Context context = getContext();
+        if (cursor == null || context == null) {
             return null;
         }
         cursor.moveToFirst();
 
+        int[] i_riseset = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_SUNRISE), cursor.getColumnIndex(COLUMN_SOLUNAR_SUNSET) };
         int[] i_minor = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET) };
         int[] i_minor_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP) };
 
@@ -469,15 +477,21 @@ public class SolunarProvider extends ContentProvider
             String[] minorTitles1 = new String[minorTitles.length];
             String[] minorDisplay = new String[minorDesc.length];
 
+
+            CharSequence[] riseset = new CharSequence[] { "",
+                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[0]), TimeZone.getDefault().getID(), is24),
+                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[1]), TimeZone.getDefault().getID(), is24) };
+
             for (int i=0; i<2; i++)
             {
                 int minor_overlap = cursor.getInt(i_minor_overlap[i]);
+
                 minorTitles1[i] = String.format(titlePattern, minorTitles[i], overlapDisplay1[minor_overlap]);
-                minorDisplay[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, overlapDisplay[minor_overlap]);
+                minorDisplay[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, String.format(overlapDisplay[minor_overlap], riseset[minor_overlap]));
 
                 int major_overlap = cursor.getInt(i_major_overlap[i]);
                 majorTitles1[i] = String.format(titlePattern, majorTitles[i], overlapDisplay1[major_overlap]);
-                majorDisplay[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, overlapDisplay[major_overlap]);
+                majorDisplay[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, String.format(overlapDisplay[major_overlap], riseset[major_overlap]));
             }
 
             addPeriods(eventValues, cursor, i_minor, minorTitles1, minorDisplay, minor_period_length);
