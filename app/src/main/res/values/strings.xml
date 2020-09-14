@@ -81,22 +81,22 @@
     </integer-array>
 
     <string name="calendar_solunar_displayName">Solunar Periods</string>
-    <string name="calendar_solunar_summary" />
-    <string name="calendar_event_title_major">Major Period</string>
-    <string name="calendar_event_title_minor">Minor Period</string>
-    <string name="calendar_event_title_pattern0">%s %s</string>
-    <string name="calendar_event_desc_pattern0">%s\n%s</string>
-    <string name="calendar_event_desc_pattern1">%s\n%s\n%s</string>
+    <string name="calendar_solunar_summary">Hunting and fishing</string>
+    <string name="calendar_event_title_major">Major</string>
+    <string name="calendar_event_title_minor">Minor</string>
+    <string name="calendar_event_title_pattern0">%1$s %2$s</string>
+    <string name="calendar_event_desc_pattern0">%1$s %2$s</string>
+    <string name="calendar_event_desc_pattern1">(%1$s)\n%2$s\n%3$s</string>
 
     <string-array name="solunarevent_overlap">
         <item />
-        <item>+ Sunrise</item>
-        <item>+ Sunset</item>
+        <item>&#x2299; sunrise at %s</item>
+        <item>&#x2299; sunset at %s</item>
     </string-array>
     <string-array name="solunarevent_overlap1">
         <item />
-        <item>+</item>
-        <item>+</item>
+        <item>&#x2299;</item>
+        <item>&#x2299;</item>
     </string-array>
 
 
