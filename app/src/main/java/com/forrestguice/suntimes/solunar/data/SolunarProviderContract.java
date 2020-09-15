@@ -19,7 +19,7 @@
 
 package com.forrestguice.suntimes.solunar.data;
 
-import android.provider.CalendarContract;
+import com.forrestguice.suntimes.calendar.CalendarHelper;
 
 public interface SolunarProviderContract
 {
@@ -31,21 +31,16 @@ public interface SolunarProviderContract
     /**
      * CALENDAR
      */
-    String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
-    String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
-    String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
-    String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
+    String COLUMN_CALENDAR_NAME = CalendarHelper.COLUMN_CALENDAR_NAME;             // String (calendar ID)
+    String COLUMN_CALENDAR_TITLE = CalendarHelper.COLUMN_CALENDAR_TITLE;           // String (display string)
+    String COLUMN_CALENDAR_SUMMARY = CalendarHelper.COLUMN_CALENDAR_SUMMARY;       // String (display string)
+    String COLUMN_CALENDAR_COLOR = CalendarHelper.COLUMN_CALENDAR_COLOR;           // int (color)
 
-    String QUERY_CALENDAR_INFO = "calendarInfo";
-    String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
-            COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
-    };
+    String QUERY_CALENDAR_INFO = CalendarHelper.QUERY_CALENDAR_INFO;
+    String[] QUERY_CALENDAR_INFO_PROJECTION = CalendarHelper.QUERY_CALENDAR_INFO_PROJECTION;
 
-    String QUERY_CALENDAR_CONTENT = "calendarContent";
-    String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] { CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.EVENT_TIMEZONE,
-        CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.EVENT_LOCATION,
-        CalendarContract.Events.AVAILABILITY, CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, CalendarContract.Events.GUESTS_CAN_MODIFY };
-
+    String QUERY_CALENDAR_CONTENT = CalendarHelper.QUERY_CALENDAR_CONTENT;
+    String[] QUERY_CALENDAR_CONTENT_PROJECTION = CalendarHelper.QUERY_CALENDAR_CONTENT_PROJECTION;
 
     /**
      * CONFIG

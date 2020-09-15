@@ -28,11 +28,11 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.BuildConfig;
 import com.forrestguice.suntimes.solunar.R;
@@ -313,7 +313,6 @@ public class SolunarProvider extends ContentProvider
         return cursor;
     }
 
-
     public Cursor queryCalendarInfo(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
     {
         String[] columns = (projection != null ? projection : QUERY_CALENDAR_INFO_PROJECTION);
@@ -411,16 +410,8 @@ public class SolunarProvider extends ContentProvider
         {
             initResources(context);
             ContentResolver resolver = context.getContentResolver();
-            if (resolver != null)
-            {
-                ArrayList<ContentValues> values = readCursor(queryCursor(resolver, new long[] {range[0], range[1]}));
-                for (int j=0; j<values.size(); j++)
-                {
-                    ContentValues v = values.get(j);
-                    cursor.addRow(new Object[] { v.get(CalendarContract.Events.TITLE), v.get(CalendarContract.Events.DESCRIPTION), v.get(CalendarContract.Events.EVENT_TIMEZONE),
-                            v.get(CalendarContract.Events.DTSTART), v.get(CalendarContract.Events.DTEND), v.get(CalendarContract.Events.EVENT_LOCATION),
-                            v.get(CalendarContract.Events.AVAILABILITY), v.get(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS), v.get(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS), v.get(CalendarContract.Events.GUESTS_CAN_MODIFY) });
-                }
+            if (resolver != null) {
+                CalendarHelper.addEventValuesToCursor(cursor, readCursor(queryCursor(resolver, new long[] {range[0], range[1]})));
 
             } else {
                 Log.e(getClass().getSimpleName(),"Unable to getContentResolver!");
@@ -513,41 +504,9 @@ public class SolunarProvider extends ContentProvider
                 Calendar eventEnd = Calendar.getInstance();
                 eventStart.setTimeInMillis(cursor.getLong(i));
                 eventEnd.setTimeInMillis(eventStart.getTimeInMillis() + periodLength);
-                eventValues.add(createEventContentValues(titles[j], desc[j], null, eventStart, eventEnd));
+                eventValues.add(CalendarHelper.createEventValues(titles[j], desc[j], null, eventStart, eventEnd));
             }
         }
-    }
-
-    public ContentValues createEventContentValues(String title, String description, @Nullable String location, Calendar... time)
-    {
-        ContentValues v = new ContentValues();
-        v.put(CalendarContract.Events.TITLE, title);
-        v.put(CalendarContract.Events.DESCRIPTION, description);
-
-        if (time.length > 0)
-        {
-            v.put(CalendarContract.Events.EVENT_TIMEZONE, time[0].getTimeZone().getID());
-            if (time.length >= 2)
-            {
-                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
-                v.put(CalendarContract.Events.DTEND, time[1].getTimeInMillis());
-            } else {
-                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
-                v.put(CalendarContract.Events.DTEND, time[0].getTimeInMillis());
-            }
-        } else {
-            Log.w(getClass().getSimpleName(), "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
-        }
-
-        if (location != null) {
-            v.put(CalendarContract.Events.EVENT_LOCATION, location);
-        }
-
-        v.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_FREE);
-        v.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, "0");
-        v.put(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, "0");
-        v.put(CalendarContract.Events.GUESTS_CAN_MODIFY, "0");
-        return v;
     }
 
     /**
