@@ -72,17 +72,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume()
-    {
-        super.onResume();
-
-        String appTheme = SuntimesInfo.queryAppTheme(getContentResolver());
-        if (appTheme != null && !appTheme.equals(suntimesInfo.appTheme)) {
-            recreate();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         if (suntimesInfo.appTheme != null) {    // override the theme
@@ -116,12 +105,25 @@ public class MainActivity extends AppCompatActivity
         cardView.setLayoutManager(cardLayout = new LinearLayoutManager(this));
         cardView.addItemDecoration(cardDecoration);
         //cardView.setOnScrollListener(onCardScrollChanged);
+    }
 
-        if (checkVersion())
-        {
-            initData();
-            updateViews();
-            cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        String currentTheme = suntimesInfo.appTheme;
+        suntimesInfo = SuntimesInfo.queryInfo(MainActivity.this);
+        if (suntimesInfo.appTheme != null && !suntimesInfo.appTheme.equals(currentTheme)) {
+            recreate();
+
+        } else {
+            if (checkVersion())
+            {
+                initData();
+                updateViews();
+                cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+            }
         }
     }
 
