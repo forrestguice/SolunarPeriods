@@ -140,10 +140,11 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
-            text_sunrise.setText(DisplayStrings.formatTime(context, sunrise, timezone, options.suntimes_options.time_is24));
-            text_sunset.setText(DisplayStrings.formatTime(context, sunset, timezone, options.suntimes_options.time_is24));
-            text_moonrise.setText(DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24));
-            text_moonset.setText(DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24));
+            String time_none = context.getString(R.string.time_none);
+            text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, timezone, options.suntimes_options.time_is24) : time_none);
+            text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonset.setText(moonset > 0 ? DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24) : time_none);
 
             text_moonillum.setText( DisplayStrings.formatIllumination(context, data.getMoonIllumination()));
 
