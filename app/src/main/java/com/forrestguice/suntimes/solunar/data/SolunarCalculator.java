@@ -161,8 +161,9 @@ public class SolunarCalculator
                 // illumination
                 long illuminationAt = lunarNoon != null ? lunarNoon.getTimeInMillis()
                                                         : data.moonrise != -1 ? data.moonrise
-                                                                              : data.moonset;
-                queryIlluminationAt(resolver, data, illuminationAt);
+                                                        : data.moonset != -1 ? data.moonset : data.date;
+                double moonillum = queryIlluminationAt(resolver, illuminationAt);
+                data.moonillum = moonillum >= 0 ? moonillum : 0;
 
                 // phase
                 HashMap<MoonPhase, Calendar> phases = new HashMap<>(4);
@@ -305,17 +306,19 @@ public class SolunarCalculator
         }
     }
 
-    protected void queryIlluminationAt(ContentResolver resolver, SolunarData data, long illuminationAt)
+    protected double queryIlluminationAt(ContentResolver resolver, long illuminationAt)
     {
+        double retValue = -1;
         String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOONPOS_ILLUMINATION };
         Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS + "/" + illuminationAt );
         Cursor cursor = resolver.query(uri, projection, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
-            data.moonillum = cursor.getDouble(0);
+            retValue = cursor.isNull(0) ? -1 : cursor.getDouble(0);
             cursor.close();
         }
+        return retValue;
     }
 
     private ArrayList<Calendar> findMidnight( Pair<Calendar,Calendar>[] riseSet )
