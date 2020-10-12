@@ -205,11 +205,11 @@ public class SolunarCalculator
         return true;
     }
 
+    private static final String[] PROJECTION_SUNRISESET = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
     protected void querySunriseSunset(ContentResolver resolver, SolunarData data)
     {
-        String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
         Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + data.getDateMillis() );
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        Cursor cursor = resolver.query(uri, PROJECTION_SUNRISESET, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -220,12 +220,12 @@ public class SolunarCalculator
         }
     }
 
+    private static final String[] PROJECTION_MOONRISESET = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
     protected void queryMoonriseMoonset(ContentResolver resolver, SolunarData data, Pair<Calendar,Calendar>[] riseSet)
     {
-        String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
         Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/"
                 + (data.getDateMillis() - SUN_PERIOD_MILLIS) + "-" + (data.getDateMillis() + SUN_PERIOD_MILLIS) );
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        Cursor cursor = resolver.query(uri, PROJECTION_MOONRISESET, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -277,12 +277,11 @@ public class SolunarCalculator
         return eventMillis;
     }
 
+    private static final String[] PROJECTION_MOONPHASES = new String[] { CalculatorProviderContract.COLUMN_MOON_NEW, CalculatorProviderContract.COLUMN_MOON_FIRST, CalculatorProviderContract.COLUMN_MOON_FULL, CalculatorProviderContract.COLUMN_MOON_THIRD };
     protected void queryMoonPhases(ContentResolver resolver, SolunarData data, Calendar after, HashMap<MoonPhase, Calendar> phases)
     {
-        String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOON_NEW, CalculatorProviderContract.COLUMN_MOON_FIRST,
-                CalculatorProviderContract.COLUMN_MOON_FULL, CalculatorProviderContract.COLUMN_MOON_THIRD };
         Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + after.getTimeInMillis() );
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        Cursor cursor = resolver.query(uri, PROJECTION_MOONPHASES, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -306,12 +305,12 @@ public class SolunarCalculator
         }
     }
 
+    private static final String[] PROJECTION_ILLUMINATION = new String[] { CalculatorProviderContract.COLUMN_MOONPOS_ILLUMINATION };
     protected double queryIlluminationAt(ContentResolver resolver, long illuminationAt)
     {
         double retValue = -1;
-        String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOONPOS_ILLUMINATION };
         Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS + "/" + illuminationAt );
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        Cursor cursor = resolver.query(uri, PROJECTION_ILLUMINATION, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
