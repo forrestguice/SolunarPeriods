@@ -45,7 +45,7 @@ import java.util.TimeZone;
 
 public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 {
-    public static final int MAX_POSITIONS = 2000;
+    public static final int MAX_POSITIONS = 7300;   // +- 10 yrs
     public static final int TODAY_POSITION = (MAX_POSITIONS / 2);
 
     protected WeakReference<Context> contextRef;
