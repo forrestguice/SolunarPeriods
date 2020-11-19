@@ -28,6 +28,7 @@ import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.LocaleHelper;
@@ -46,13 +48,17 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
 import com.forrestguice.suntimes.solunar.ui.AboutDialog;
+import com.forrestguice.suntimes.solunar.ui.DateDialog;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 
 import java.lang.reflect.Method;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity
 {
+    public static final String DIALOG_DATE = "dateDialog";
     public static final String DIALOG_HELP = "helpDialog";
     public static final String DIALOG_ABOUT = "aboutDialog";
 
@@ -169,20 +175,25 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    protected void scrollToPosition(int position)
-    {
-        int current =  cardLayout.findFirstCompletelyVisibleItemPosition();
-        if (Math.abs(SolunarCardAdapter.TODAY_POSITION - current) <= SCROLL_THRESHOLD)
-        {
-            SolunarCardAdapter.CardScroller cardScroller = new SolunarCardAdapter.CardScroller(this);
-            cardScroller.setTargetPosition(position);
-            cardLayout.startSmoothScroll(cardScroller);
-
-        } else {
-            cardLayout.scrollToPositionWithOffset(position, 0);
-        }
+    public static final int SMOOTHSCROLL_ITEMLIMIT = 28;
+    public void scrollToPosition(int position) {
+        scrollToPosition(position, true);
     }
-    private static final int SCROLL_THRESHOLD = 14;  // days
+    public void scrollToPosition(int position, boolean skipAnimation)
+    {
+        int current = cardLayout.findFirstVisibleItemPosition() + ((cardLayout.findLastVisibleItemPosition() - cardLayout.findFirstVisibleItemPosition()) / 2);
+
+        //if (skipAnimation) {
+            cardView.scrollToPosition(position);
+
+        //} else if (Math.abs(position - current) >= SMOOTHSCROLL_ITEMLIMIT) {
+        //    cardView.scrollToPosition(position < current ? position + SMOOTHSCROLL_ITEMLIMIT : position - SMOOTHSCROLL_ITEMLIMIT);
+        //    cardView.smoothScrollToPosition(position);
+
+        //} else {
+        //    cardView.smoothScrollToPosition(position);
+        //}
+    }
 
     /*private RecyclerView.OnScrollListener onCardScrollChanged = new RecyclerView.OnScrollListener() {
         @Override
@@ -282,6 +293,10 @@ public class MainActivity extends AppCompatActivity
                 showToday();
                 return true;
 
+            case R.id.action_date:
+                showDateDialog();
+                return true;
+
             case R.id.action_settings:
                 showSettings();
                 return true;
@@ -308,7 +323,31 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void showToday() {
-        scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+        scrollToPosition(SolunarCardAdapter.TODAY_POSITION, false);
+    }
+
+    protected void showDateDialog()
+    {
+        DateDialog dialog = new DateDialog();
+        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.setFragmentListener(new DateDialog.FragmentListener()
+        {
+            @Override
+            public void onAccepted(int year, int month, int day)
+            {
+                Calendar dateToday = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate();
+                Calendar date = Calendar.getInstance();
+                date.set(year, month, day);
+
+                double offset = Math.ceil(date.getTimeInMillis() - dateToday.getTimeInMillis()) / (24 * 60 * 60 * 1000D);
+                int position = SolunarCardAdapter.TODAY_POSITION + (int)offset + (2 * (int) Math.signum(offset));
+                scrollToPosition(position, false);
+                //Toast.makeText(MainActivity.this, "TODO: " + year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();  // TODO
+            }
+            @Override
+            public void onCanceled() {}
+        });
+        dialog.show(getSupportFragmentManager(), DIALOG_DATE);
     }
 
     protected void showSettings()

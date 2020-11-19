@@ -40,7 +40,7 @@
 
         <LinearLayout android:id="@+id/layout_bottomBar" android:background="?attr/colorPrimary"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:gravity="start" android:elevation="5dp">
+            android:orientation="vertical" android:gravity="end" android:elevation="5dp">
 
             <View android:background="?attr/colorControlHighlight"
                 android:layout_width="match_parent" android:layout_height="1dp" />
@@ -59,7 +59,7 @@
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|end" android:layout_margin="16dp"
         app:backgroundTint="?attr/fab_backgroundColor" app:rippleColor="?attr/fab_rippleColor"
-        android:src="?attr/icToday" android:scaleType="center"
+        android:src="?attr/icToday" android:scaleType="center" android:visibility="gone"
         android:contentDescription="@string/action_today" />
 
 </android.support.design.widget.CoordinatorLayout>
