@@ -43,20 +43,71 @@ import java.util.TimeZone;
 public class DateDialog extends BottomSheetDialogFragment
 {
     public static final String KEY_DIALOGTHEME = "themeResID";
+    protected static final int DEF_DIALOGTHEME = R.style.SolunarAppTheme_Dark;
 
-    private int themeResID = R.style.SolunarAppTheme_Dark;
-    public void setTheme(int themeResID) {
-        this.themeResID = themeResID;
-    }
+    public static final String KEY_DATE = "dateMilis";
+    public static final String KEY_DATE_MIN = "maxDateMillis";
+    public static final String KEY_DATE_MAX = "minDateMillis";
 
     private DatePicker picker;
 
-    public void init(Calendar date)
+    public DateDialog()
     {
+        super();
+
+        Bundle defaultArgs = new Bundle();
+        defaultArgs.putInt(KEY_DIALOGTHEME, DEF_DIALOGTHEME);
+        defaultArgs.putLong(KEY_DATE, Calendar.getInstance().getTimeInMillis());
+        defaultArgs.putLong(KEY_DATE_MAX, -1);
+        defaultArgs.putLong(KEY_DATE_MIN, -1);
+        setArguments(defaultArgs);
+    }
+
+    public void setTheme(int themeResID)
+    {
+        Bundle args = (getArguments() != null) ? getArguments() : new Bundle();
+        args.putInt(KEY_DIALOGTHEME, themeResID);
+        setArguments(args);
+    }
+    public int getThemeResID() {
+        return (getArguments() != null) ? getArguments().getInt(KEY_DIALOGTHEME, DEF_DIALOGTHEME) : DEF_DIALOGTHEME;
+    }
+
+    public void setDateRange(long minDateMillis, long maxDateMillis) {
+        Bundle args = (getArguments() != null) ? getArguments() : new Bundle();
+        args.putLong(KEY_DATE_MIN, minDateMillis);
+        args.putLong(KEY_DATE_MAX, maxDateMillis);
+        setArguments(args);
+    }
+    public void setDate(long dateMillis) {
+        Bundle args = (getArguments() != null) ? getArguments() : new Bundle();
+        args.putLong(KEY_DATE, dateMillis);
+        setArguments(args);
+    }
+
+    protected void init()
+    {
+        Bundle args = getArguments() != null ? getArguments() : new Bundle();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(args.getLong(KEY_DATE, calendar.getTimeInMillis()));
+        init(calendar);
+    }
+    protected void init(Calendar date) {
         init(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
     }
-    public void init(int year, int month, int day)
+    protected void init(int year, int month, int day)
     {
+        Bundle args = getArguments() != null ? getArguments() : new Bundle();
+        long minDate = args.getLong(KEY_DATE_MIN, -1);
+        if (minDate >= 0) {
+            picker.setMinDate(minDate);
+        }
+
+        long maxDate = args.getLong(KEY_DATE_MAX, -1);
+        if (maxDate >= 0) {
+            picker.setMaxDate(maxDate);
+        }
+
         picker.init(year, month, day, null);
     }
 
@@ -81,13 +132,13 @@ public class DateDialog extends BottomSheetDialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
-        themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
-        android.support.v7.view.ContextThemeWrapper contextWrapper = new android.support.v7.view.ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
+        android.support.v7.view.ContextThemeWrapper contextWrapper = new android.support.v7.view.ContextThemeWrapper(getActivity(), getThemeResID());    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.layout_dialog_date1, parent, false);
         initViews(getContext(), dialogContent);
         if (savedState != null) {
             loadSettings(savedState);
         }
+        init();
         return dialogContent;
     }
 
@@ -109,10 +160,8 @@ public class DateDialog extends BottomSheetDialogFragment
     }
 
     protected void loadSettings(Bundle bundle) {
-        themeResID = bundle.getInt(KEY_DIALOGTHEME, themeResID);
     }
     protected void saveSettings(Bundle bundle) {
-        bundle.putInt(KEY_DIALOGTHEME, themeResID);
     }
 
     public boolean isToday()
