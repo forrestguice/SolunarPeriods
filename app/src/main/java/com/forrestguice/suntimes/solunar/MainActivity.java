@@ -29,6 +29,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -85,6 +86,18 @@ public class MainActivity extends AppCompatActivity
         String appTheme = SuntimesInfo.queryAppTheme(getContentResolver());
         if (appTheme != null && !appTheme.equals(suntimesInfo.appTheme)) {
             recreate();
+
+        } else {
+            restoreDialogs();
+        }
+    }
+
+    protected void restoreDialogs()
+    {
+        FragmentManager fragments = getSupportFragmentManager();
+        DateDialog dateDialog = (DateDialog) fragments.findFragmentByTag(DIALOG_DATE);
+        if (dateDialog != null) {
+            dateDialog.setFragmentListener(dateDialogListener);
         }
     }
 
@@ -328,34 +341,37 @@ public class MainActivity extends AppCompatActivity
 
     protected void showDateDialog()
     {
-        Calendar today = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate();
-        final long todayMillis = today.getTimeInMillis();
+        final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate().getTimeInMillis();
         long rangeMillis = (((SolunarCardAdapter.MAX_POSITIONS / 2L) - 2) * (24 * 60 * 60 * 1000L));
 
         DateDialog dialog = new DateDialog();
         dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
         dialog.setDateRange(todayMillis - rangeMillis, todayMillis + rangeMillis);
-        dialog.setFragmentListener(new DateDialog.FragmentListener()
-        {
-            @Override
-            public void onAccepted(int year, int month, int day)
-            {
-                Calendar date = Calendar.getInstance();
-                date.set(year, month, day);
-
-                double offset = Math.ceil(date.getTimeInMillis() - todayMillis) / (24 * 60 * 60 * 1000D);
-                int position = SolunarCardAdapter.TODAY_POSITION + (int)offset + (2 * (int) Math.signum(offset));
-                scrollToPosition(position, false);
-                //Toast.makeText(MainActivity.this, "TODO: " + year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();  // TODO
-            }
-            @Override
-            public void onCanceled() {}
-        });
+        dialog.setFragmentListener(dateDialogListener);
 
         int firstVisiblePosition = cardLayout.findFirstVisibleItemPosition();
         dialog.setDate((firstVisiblePosition >= 0) ? cardAdapter.initData(firstVisiblePosition).getDate().getTimeInMillis() : Calendar.getInstance().getTimeInMillis());
         dialog.show(getSupportFragmentManager(), DIALOG_DATE);
     }
+
+    private DateDialog.FragmentListener dateDialogListener = new DateDialog.FragmentListener()
+    {
+        @Override
+        public void onAccepted(int year, int month, int day)
+        {
+            Calendar today = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate();
+            final long todayMillis = today.getTimeInMillis();
+            Calendar date = Calendar.getInstance();
+            date.set(year, month, day);
+
+            double offset = Math.ceil(date.getTimeInMillis() - todayMillis) / (24 * 60 * 60 * 1000D);
+            int position = SolunarCardAdapter.TODAY_POSITION + (int)offset + (2 * (int) Math.signum(offset));
+            scrollToPosition(position, false);
+            //Toast.makeText(MainActivity.this, "TODO: " + year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();  // TODO
+        }
+        @Override
+        public void onCanceled() {}
+    };
 
     protected void showSettings()
     {
