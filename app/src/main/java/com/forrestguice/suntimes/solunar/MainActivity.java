@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -48,11 +49,13 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 
+import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.ui.AboutDialog;
 import com.forrestguice.suntimes.solunar.ui.DateDialog;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
+import com.forrestguice.suntimes.solunar.ui.SolunarDaySheet;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView cardView;
     private SolunarCardAdapter cardAdapter;
     private LinearLayoutManager cardLayout;
+    private BottomSheetBehavior<View> bottomSheet;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -120,6 +124,12 @@ public class MainActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
         }
+
+        View bottomSheetView = findViewById(R.id.app_bottomsheet);
+        bottomSheet = BottomSheetBehavior.from(bottomSheetView);
+        bottomSheet.setHideable(true);
+        bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheet.setBottomSheetCallback(bottomSheetCallback);
 
         TextView text_timezone = findViewById(R.id.text_timezone);
         if (text_timezone != null) {
@@ -255,8 +265,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onCardClick(int i) {
-            //Snackbar.make(cardView, "card clicked " + i, Snackbar.LENGTH_LONG).setAction("TODO", null).show();
-            // TODO
+            showBottomSheet(cardAdapter.initData(i));
         }
 
         @Override
@@ -337,6 +346,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void showToday() {
         scrollToPosition(SolunarCardAdapter.TODAY_POSITION, false);
+        showBottomSheet(cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
     }
 
     protected void showDateDialog()
@@ -367,10 +377,30 @@ public class MainActivity extends AppCompatActivity
             double offset = Math.ceil(date.getTimeInMillis() - todayMillis) / (24 * 60 * 60 * 1000D);
             int position = SolunarCardAdapter.TODAY_POSITION + (int)offset + (2 * (int) Math.signum(offset));
             scrollToPosition(position, false);
+            //showBottomSheet(cardAdapter.initData(position));
             //Toast.makeText(MainActivity.this, "TODO: " + year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();  // TODO
         }
         @Override
         public void onCanceled() {}
+    };
+
+    protected void showBottomSheet(SolunarData data)
+    {
+        final FragmentManager fragments = getSupportFragmentManager();
+        final SolunarDaySheet sheet = (SolunarDaySheet) fragments.findFragmentById(R.id.bottomSheetFragment);
+        if (sheet != null)
+        {
+            sheet.setData(data);
+            bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
+    protected BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
+    {
+        @Override
+        public void onStateChanged(@NonNull View view, int newState) {}
+        @Override
+        public void onSlide(@NonNull View view, float v) {}
     };
 
     protected void showSettings()
