@@ -349,6 +349,14 @@ public class MainActivity extends AppCompatActivity
         AddonHelper.startSuntimesActivity(this);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        if (isBottomSheetShowing()) {
+            hideBottomSheet();
+        } else super.onBackPressed();
+    }
+
     protected void showToday() {
         scrollToPosition(SolunarCardAdapter.TODAY_POSITION, false);
         showBottomSheet(cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
@@ -400,6 +408,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    protected void hideBottomSheet() {
+        bottomSheet.setHideable(true);
+        bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+
     protected BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
     {
         @Override
@@ -407,6 +420,10 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onSlide(@NonNull View view, float v) {}
     };
+
+    protected boolean isBottomSheetShowing() {
+        return bottomSheet.getState() == BottomSheetBehavior.STATE_EXPANDED || bottomSheet.getState() == BottomSheetBehavior.STATE_COLLAPSED;
+    }
 
     protected void showSettings()
     {
