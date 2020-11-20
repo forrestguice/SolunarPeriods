@@ -117,7 +117,7 @@ public class DateDialog extends BottomSheetDialogFragment
      */
     private void initViews(Context context, View dialogContent)
     {
-        picker = (DatePicker) dialogContent.findViewById(R.id.appwidget_date_custom);
+        picker = (DatePicker) dialogContent.findViewById(R.id.datepicker);
 
         Button btn_cancel = (Button) dialogContent.findViewById(R.id.dialog_button_cancel);
         btn_cancel.setOnClickListener(onDialogCancelClick);
@@ -133,7 +133,7 @@ public class DateDialog extends BottomSheetDialogFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
         android.support.v7.view.ContextThemeWrapper contextWrapper = new android.support.v7.view.ContextThemeWrapper(getActivity(), getThemeResID());    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.layout_dialog_date1, parent, false);
+        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_date, parent, false);
         initViews(getContext(), dialogContent);
         if (savedState != null) {
             loadSettings(savedState);
