@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+    Copyright (C) 2020 Forrest Guice
+    This file is part of SolunarPeriods.
+
+    SolunarPeriods is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SolunarPeriods is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SolunarPeriods.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/dialogBackground"
+    android:orientation="horizontal" android:gravity="center" android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+    <ImageButton android:id="@+id/btn_first"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_first" />
+
+    <ImageButton android:id="@+id/btn_prev"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_prev" />
+
+    <ImageButton android:id="@+id/btn_center"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_today" />
+
+    <ImageButton android:id="@+id/btn_next"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_next" />
+
+    <ImageButton android:id="@+id/btn_last"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_last" />
+
+</LinearLayout>
