@@ -34,6 +34,7 @@ import android.util.Log;
 
 import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.solunar.AppSettings;
 import com.forrestguice.suntimes.solunar.BuildConfig;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
@@ -200,15 +201,16 @@ public class SolunarProvider extends ContentProvider
             double longitude = Double.parseDouble(config.location[2]);
             double altitude = Double.parseDouble(config.location[3]);
 
-            Calendar day = Calendar.getInstance(TimeZone.getTimeZone(config.timezone));
-            Calendar endDay = Calendar.getInstance(TimeZone.getTimeZone(config.timezone));
+            TimeZone timezone = AppSettings.fromTimeZoneMode(context, AppSettings.getTimeZoneMode(context), config);
+            Calendar day = Calendar.getInstance(timezone);
+            Calendar endDay = Calendar.getInstance(timezone);
             day.setTimeInMillis(range[0]);
             endDay.setTimeInMillis(range[1] + 1000);      // +1000ms (make range[1] inclusive)
 
             SolunarCalculator calculator = new SolunarCalculator();
             do {
-                SolunarData data = new SolunarData(day.getTimeInMillis(), latitude, longitude, altitude, config.timezone);
-                calculator.calculateData(resolver, data);
+                SolunarData data = new SolunarData(day.getTimeInMillis(), latitude, longitude, altitude);
+                calculator.calculateData(resolver, data, timezone);
 
                 SolunarPeriod period;
                 Object[] row = new Object[columns.length];
@@ -233,7 +235,7 @@ public class SolunarProvider extends ContentProvider
                             break;
 
                         case COLUMN_SOLUNAR_TIMEZONE:
-                            row[i] = config.timezone;
+                            row[i] = timezone.getID();
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH:
@@ -265,22 +267,22 @@ public class SolunarProvider extends ContentProvider
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
@@ -470,8 +472,8 @@ public class SolunarProvider extends ContentProvider
 
 
             CharSequence[] riseset = new CharSequence[] { "",
-                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[0]), TimeZone.getDefault().getID(), is24),
-                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[1]), TimeZone.getDefault().getID(), is24) };
+                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[0]), TimeZone.getDefault(), is24),
+                    DisplayStrings.formatTime(context, cursor.getLong(i_riseset[1]), TimeZone.getDefault(), is24) };
 
             for (int i=0; i<2; i++)
             {

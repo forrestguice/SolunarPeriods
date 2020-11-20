@@ -38,9 +38,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.TooltipCompat;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,7 @@ import com.forrestguice.suntimes.solunar.ui.SolunarDaySheet;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -174,10 +177,11 @@ public class MainActivity extends AppCompatActivity
 
     protected void initData()
     {
+        TimeZone timezone = AppSettings.fromTimeZoneMode(MainActivity.this, AppSettings.getTimeZoneMode(MainActivity.this), suntimesInfo);
         double latitude = Double.parseDouble(suntimesInfo.location[1]);
         double longitude = Double.parseDouble(suntimesInfo.location[2]);
         double altitude = Double.parseDouble(suntimesInfo.location[3]);
-        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, suntimesInfo.timezone, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this)));
+        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this), timezone));
         cardAdapter.setCardAdapterListener(cardListener);
 
         cardAdapter.initData();
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity
 
         TextView text_timezone = findViewById(R.id.text_timezone);
         if (text_timezone != null) {
-            text_timezone.setText(suntimesInfo.timezone);
+            text_timezone.setText(cardAdapter.getTimeZone().getID());
         }
     }
 
@@ -243,7 +247,8 @@ public class MainActivity extends AppCompatActivity
     private View.OnClickListener onTimeZoneClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Snackbar.make(cardView, DisplayStrings.fromHtml(getString(R.string.snack_timezone, suntimesInfo.timezone)), Snackbar.LENGTH_LONG).show();
+            showTimeZonePopup(v);
+            //Snackbar.make(cardView, DisplayStrings.fromHtml(getString(R.string.snack_timezone, suntimesInfo.timezone)), Snackbar.LENGTH_LONG).show();
         }
     };
 
@@ -351,7 +356,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void showDateDialog()
     {
-        final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate().getTimeInMillis();
+        final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDateMillis();
         long rangeMillis = (((SolunarCardAdapter.MAX_POSITIONS / 2L) - 2) * (24 * 60 * 60 * 1000L));
 
         DateDialog dialog = new DateDialog();
@@ -360,7 +365,7 @@ public class MainActivity extends AppCompatActivity
         dialog.setFragmentListener(dateDialogListener);
 
         int firstVisiblePosition = cardLayout.findFirstVisibleItemPosition();
-        dialog.setDate((firstVisiblePosition >= 0) ? cardAdapter.initData(firstVisiblePosition).getDate().getTimeInMillis() : Calendar.getInstance().getTimeInMillis());
+        dialog.setDate((firstVisiblePosition >= 0) ? cardAdapter.initData(firstVisiblePosition).getDateMillis() : Calendar.getInstance().getTimeInMillis());
         dialog.show(getSupportFragmentManager(), DIALOG_DATE);
     }
 
@@ -369,9 +374,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onAccepted(int year, int month, int day)
         {
-            Calendar today = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDate();
-            final long todayMillis = today.getTimeInMillis();
-            Calendar date = Calendar.getInstance();
+            final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDateMillis();
+            Calendar date = Calendar.getInstance(cardAdapter.getTimeZone());
             date.set(year, month, day);
 
             double offset = Math.ceil(date.getTimeInMillis() - todayMillis) / (24 * 60 * 60 * 1000D);
@@ -390,6 +394,7 @@ public class MainActivity extends AppCompatActivity
         final SolunarDaySheet sheet = (SolunarDaySheet) fragments.findFragmentById(R.id.bottomSheetFragment);
         if (sheet != null)
         {
+            sheet.setCardOptions(cardAdapter.getOptions());
             sheet.setData(data);
             bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
@@ -452,6 +457,73 @@ public class MainActivity extends AppCompatActivity
                     Log.e(MainActivity.class.getSimpleName(), "failed to set show overflow icons", e);
                 }
             }
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void showTimeZonePopup(View v)
+    {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_timezone, popup.getMenu());
+        updateTimeZonePopupMenu(popup.getMenu());
+        popup.setOnMenuItemClickListener(onTimeZonePopupMenuItemSelected);
+        popup.show();
+    }
+    private void updateTimeZonePopupMenu(Menu menu)
+    {
+        MenuItem itemSystem = menu.findItem(R.id.action_timezone_system);
+        MenuItem itemSuntimes = menu.findItem(R.id.action_timezone_suntimes);
+        MenuItem[] items = new MenuItem[] {itemSystem, itemSuntimes, menu.findItem(R.id.action_timezone_localmean), menu.findItem(R.id.action_timezone_apparentsolar)};
+
+        if (itemSystem != null) {
+            String tzID = getString(R.string.action_timezone_system_format, TimeZone.getDefault().getID());
+            String tzString = getString(R.string.action_timezone_system, tzID);
+            itemSystem.setTitle(DisplayStrings.createRelativeSpan(null, tzString, tzID, 0.65f));
+        }
+
+        if (itemSuntimes != null) {
+            String tzID = getString(R.string.action_timezone_system_format, AppSettings.getTimeZone(MainActivity.this, suntimesInfo).getID());
+            String tzString = getString(R.string.action_timezone_suntimes, tzID);
+            itemSuntimes.setTitle(DisplayStrings.createRelativeSpan(null, tzString, tzID, 0.65f));
+        }
+
+        items[AppSettings.getTimeZoneMode(MainActivity.this)].setChecked(true);
+    }
+    private PopupMenu.OnMenuItemClickListener onTimeZonePopupMenuItemSelected = new PopupMenu.OnMenuItemClickListener()
+    {
+        @Override
+        public boolean onMenuItemClick(MenuItem item)
+        {
+
+            switch (item.getItemId())
+            {
+                case R.id.action_timezone_system:
+                case R.id.action_timezone_suntimes:
+                case R.id.action_timezone_localmean:
+                case R.id.action_timezone_apparentsolar:
+                    item.setChecked(true);
+                    AppSettings.setTimeZoneMode(MainActivity.this, menuItemToTimeZoneMode(item));
+                    cardAdapter.invalidateData();
+                    cardAdapter.getOptions().timezone = AppSettings.fromTimeZoneMode(MainActivity.this, AppSettings.getTimeZoneMode(MainActivity.this), suntimesInfo);
+                    cardAdapter.initData();
+                    updateViews();
+                    return true;
+            }
+            return false;
+        }
+    };
+    public static int menuItemToTimeZoneMode(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_timezone_suntimes: return AppSettings.TZMODE_SUNTIMES;
+            case R.id.action_timezone_localmean: return AppSettings.TZMODE_LOCALMEAN;
+            case R.id.action_timezone_system: return AppSettings.TZMODE_SYSTEM;
+            case R.id.action_timezone_apparentsolar: default: return AppSettings.TZMODE_APPARENTSOLAR;
         }
     }
 

@@ -51,19 +51,19 @@ public class SolunarCalculator
     /**
      * calculateData
      */
-    public boolean calculateData(ContentResolver resolver, @NonNull SolunarData data)
+    public boolean calculateData(ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
-        if (queryData(resolver, data))
+        if (queryData(resolver, data, timezone))
         {
-            calculateRating(data);
+            calculateRating(data, timezone);
             data.calculated = true;
         }
         return data.calculated;
     }
 
-    public void calculateRating(@NonNull SolunarData data)
+    public void calculateRating(@NonNull SolunarData data, @NonNull TimeZone timezone)
     {
-        long noonMillis = noon(data.getDate()).getTimeInMillis();
+        long noonMillis = noon(data.getDate(timezone)).getTimeInMillis();
         double monthDays = data.getMoonPeriod() / 1000d / 60d / 60d / 24d;
 
         long newMoonMillis = data.getDateMillis(SolunarData.KEY_MOONNEW);
@@ -120,7 +120,7 @@ public class SolunarCalculator
     /**
      * queryData
      */
-    public boolean queryData(ContentResolver resolver, @NonNull SolunarData data)
+    public boolean queryData(ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
         if (resolver != null)
         {
@@ -136,7 +136,7 @@ public class SolunarCalculator
                 if (noons.size() >= 1) {
                     lunarNoon = noons.get(noons.size() - 1);
                     for (Calendar noon : noons) {
-                        if (noon.get(Calendar.DAY_OF_YEAR) == data.getDate().get(Calendar.DAY_OF_YEAR)) {
+                        if (noon.get(Calendar.DAY_OF_YEAR) == data.getDate(timezone).get(Calendar.DAY_OF_YEAR)) {
                             lunarNoon = noon;
                             break;
                         }
@@ -150,7 +150,7 @@ public class SolunarCalculator
                 if (midnights.size() >= 1) {
                     lunarMidnight = midnights.get(midnights.size() - 1);
                     for (Calendar event : midnights) {
-                        if (event.get(Calendar.DAY_OF_YEAR) == data.getDate().get(Calendar.DAY_OF_YEAR)) {
+                        if (event.get(Calendar.DAY_OF_YEAR) == data.getDate(timezone).get(Calendar.DAY_OF_YEAR)) {
                             lunarMidnight = event;
                             break;
                         }
@@ -167,7 +167,7 @@ public class SolunarCalculator
 
                 // phase
                 HashMap<MoonPhase, Calendar> phases = new HashMap<>(4);
-                Calendar midnightBefore = midnight(data.getDate());
+                Calendar midnightBefore = midnight(data.getDate(timezone));
                 queryMoonPhases(resolver, data, midnightBefore, phases);
                 data.moonnew = phases.get(MoonPhase.NEW).getTimeInMillis();
                 data.moonfull = phases.get(MoonPhase.FULL).getTimeInMillis();
@@ -179,19 +179,19 @@ public class SolunarCalculator
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {
-                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
                 if (data.moonset != -1) {
-                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS,  data.sunrise, data.sunset);
                 }
 
                 // major periods at lunar noon and lunar midnight
-                int today = data.getDate(null).get(Calendar.DAY_OF_YEAR);
+                int today = data.getDate(timezone).get(Calendar.DAY_OF_YEAR);
                 if (lunarNoon != null && lunarNoon.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
                 if (lunarMidnight != null && lunarMidnight.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.getTimezone(), data.sunrise, data.sunset);
+                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
 
             } catch (SecurityException e) {
@@ -291,7 +291,6 @@ public class SolunarCalculator
                 if (!cursor.isNull(i))
                 {
                     Calendar event = Calendar.getInstance();
-                    event.setTimeZone(TimeZone.getTimeZone(data.timezone));
                     event.setTimeInMillis(cursor.getLong(i));
                     phases.put(allPhases[i], event);
                 } else {

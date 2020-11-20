@@ -64,8 +64,15 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         return (getArguments() != null) ? ((SolunarData) getArguments().getParcelable(KEY_DATA)) : null;
     }
 
+    private SolunarCardAdapter.SolunarCardOptions options;
     protected SolunarCardAdapter.SolunarCardOptions getCardOptions(Context context) {
-        return new SolunarCardAdapter.SolunarCardOptions(context);
+        if (options == null) {
+            options = new SolunarCardAdapter.SolunarCardOptions(context);
+        }
+        return options;
+    }
+    public void setCardOptions(SolunarCardAdapter.SolunarCardOptions options) {
+        this.options = options;
     }
 
     public void setTheme(int themeResID)

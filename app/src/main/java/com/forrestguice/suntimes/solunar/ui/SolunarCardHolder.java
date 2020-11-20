@@ -32,7 +32,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
+import com.forrestguice.suntimes.solunar.AppSettings;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
@@ -41,6 +43,7 @@ import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 public class SolunarCardHolder extends RecyclerView.ViewHolder
 {
@@ -112,12 +115,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         }
     }
 
-    public void onBindViewHolder(@NonNull Context context, int position, SolunarData data, SolunarCardAdapter.SolunarCardOptions options)
+    public void onBindViewHolder(@NonNull Context context, int position, @NonNull SolunarData data, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
-        String timezone = data.getTimezone();
-
         this.position = position;
-        text_date.setText(DisplayStrings.formatDate(context, data.getDate()));
+        text_date.setText(DisplayStrings.formatDate(context, data.getDate(options.timezone)));
         if (position == SolunarCardAdapter.TODAY_POSITION)
         {
             if (layout_card != null) {
@@ -145,20 +146,20 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
             String time_none = context.getString(R.string.time_none);
-            text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, timezone, options.suntimes_options.time_is24) : time_none);
-            text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, timezone, options.suntimes_options.time_is24) : time_none);
-            text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24) : time_none);
-            text_moonset.setText(moonset > 0 ? DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24) : time_none);
+            text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonset.setText(moonset > 0 ? DisplayStrings.formatTime(context, moonset, options.timezone, options.suntimes_options.time_is24) : time_none);
 
             text_moonillum.setText( DisplayStrings.formatIllumination(context, data.getMoonIllumination()));
 
             MoonPhaseDisplay phase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
-            boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));
-            boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONFULL));
+            boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(options.timezone), data.getDate(SolunarData.KEY_MOONNEW, options.timezone));
+            boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(options.timezone), data.getDate(SolunarData.KEY_MOONFULL, options.timezone));
 
             if (isNewMoon || isFullMoon) {
                 long event = (isNewMoon ? data.getDateMillis(SolunarData.KEY_MOONNEW) : data.getDateMillis(SolunarData.KEY_MOONFULL));
-                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), DisplayStrings.formatTime(context, event, timezone, options.suntimes_options.time_is24)));
+                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), DisplayStrings.formatTime(context, event, options.timezone, options.suntimes_options.time_is24)));
             } else {
                 text_moonphase.setText(phase.getDisplayString());
             }
@@ -184,10 +185,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
-            row_moonrise.setPeriod(context, minorPeriods[0]);    // moonrise
-            row_moonset.setPeriod(context, minorPeriods[1]);     // moonset
-            row_moonnoon.setPeriod(context, majorPeriods[0]);    // lunar noon
-            row_moonnight.setPeriod(context, majorPeriods[1]);   // lunar midnight
+            row_moonrise.setPeriod(context, minorPeriods[0], options.timezone);    // moonrise
+            row_moonset.setPeriod(context, minorPeriods[1], options.timezone);     // moonset
+            row_moonnoon.setPeriod(context, majorPeriods[0], options.timezone);    // lunar noon
+            row_moonnight.setPeriod(context, majorPeriods[1], options.timezone);   // lunar midnight
             SolunarPeriodRow.reorderLayout(layout_rows, rows);
 
             double dayRating = data.getDayRating();
@@ -239,7 +240,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         }
 
         public SolunarPeriod period = null;
-        public void setPeriod(Context context, SolunarPeriod period)
+        public void setPeriod(Context context, SolunarPeriod period, @NonNull TimeZone timezone)
         {
             this.period = period;
             if (period != null)
@@ -256,9 +257,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     plus.setVisibility(View.INVISIBLE);
                     plus.setTextColor(Color.TRANSPARENT);
                 }
+
                 label.setText(DisplayStrings.formatType(context, period.getType()));
-                start.setText(DisplayStrings.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24));
-                end.setText(DisplayStrings.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24));
+                start.setText(DisplayStrings.formatTime(context, period.getStartMillis(), timezone, options.suntimes_options.time_is24));
+                end.setText(DisplayStrings.formatTime(context, period.getEndMillis(), timezone, options.suntimes_options.time_is24));
                 layout.setVisibility(View.VISIBLE);
 
             } else {

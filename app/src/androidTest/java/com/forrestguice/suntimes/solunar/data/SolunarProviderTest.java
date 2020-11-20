@@ -186,7 +186,7 @@ public class SolunarProviderTest
         calculator.calculateData(resolver, oracle);
         test_solunar_data(oracle, date.getTimeInMillis(), latitude, longitude, altitude, timezone);
 
-        SolunarPeriod period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, oracle.moonnoon, oracle.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, oracle.getTimezone(), oracle.sunrise, oracle.sunset);
+        SolunarPeriod period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, oracle.moonnoon, oracle.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, oracle.sunrise, oracle.sunset);
         assertTrue("moonnoon_overlap expected at sunrise!", period.occursAtSunrise());
 
         Uri uri1 = Uri.parse("content://" + AUTHORITY + "/" + QUERY_SOLUNAR + "/" + date.getTimeInMillis());
@@ -283,7 +283,7 @@ public class SolunarProviderTest
         assertEquals("latitude should match", data.getLatitude(), latitude, 0.0);
         assertEquals("longitude should match", data.getLongitude(), longitude, 0.0);
         assertEquals("altitude should match", data.getAltitude(), altitude, 0.0);
-        assertEquals("timezone should match", data.getTimezone(), timezone);
+        //assertEquals("timezone should match", data.getTimezone(), timezone);
     }
 
     private static void test_solunar(Cursor cursor, ContentResolver resolver, SolunarData oracle, long date, double latitude, double longitude, double altitude, String timezone)

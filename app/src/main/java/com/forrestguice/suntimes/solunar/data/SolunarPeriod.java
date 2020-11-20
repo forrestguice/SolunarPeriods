@@ -38,15 +38,13 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
 
     protected int type;
     protected long start, end;
-    protected String timezone;
     protected long toSunrise, toSunset;
 
-    public SolunarPeriod(int type, long start, long end, @NonNull String timezone, long sunrise, long sunset)
+    public SolunarPeriod(int type, long start, long end, long sunrise, long sunset)
     {
         this.type = type;
         this.start = start;
         this.end = end;
-        this.timezone = timezone;
         this.toSunrise = sunrise - start;
         this.toSunset = sunset - start;
     }
@@ -56,7 +54,6 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         this.type = in.readInt();
         this.start = in.readLong();
         this.end = in.readLong();
-        this.timezone = in.readString();
         this.toSunrise = in.readLong();
         this.toSunset = in.readLong();
     }
@@ -67,7 +64,6 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         out.writeInt(type);
         out.writeLong(start);
         out.writeLong(end);
-        out.writeString(timezone);
         out.writeLong(toSunrise);
         out.writeLong(toSunset);
     }
@@ -114,10 +110,6 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         return toSunset >= (-1 * SOLUNAR_CONCURRENCE_MILLIS) && (toSunset <= getLength() + SOLUNAR_CONCURRENCE_MILLIS);
     }
 
-    public String getTimezone() {
-        return timezone;
-    }
-
     public Calendar[] getCalendar()
     {
         Calendar[] calendar = new Calendar[] { Calendar.getInstance(), Calendar.getInstance() };
@@ -145,14 +137,14 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
         }
     };
 
-    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd, String timezone, String keySunrise, String keySunset)
+    public static SolunarPeriod createPeriod(int type, ContentValues values, String keyStart, String keyEnd, String keySunrise, String keySunset)
     {
         Long start = values.getAsLong(keyStart);
         Long end = values.getAsLong(keyEnd);
         Long sunrise = values.getAsLong(keySunrise);
-        Long sunset = values.getAsLong(keySunrise);
-        if (start != null && end != null && timezone != null) {
-            return new SolunarPeriod(type, start, end, timezone, sunrise, sunset);
+        Long sunset = values.getAsLong(keySunset);
+        if (start != null && end != null) {
+            return new SolunarPeriod(type, start, end, sunrise, sunset);
         } else return null;
     }
 

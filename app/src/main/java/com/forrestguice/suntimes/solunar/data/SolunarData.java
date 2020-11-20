@@ -22,6 +22,7 @@ package com.forrestguice.suntimes.solunar.data;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.Calendar;
@@ -33,7 +34,6 @@ public class SolunarData implements Parcelable
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_ALTITUDE = "altitude";
-    public static final String KEY_TIMEZONE = "timezone";
 
     public static final String KEY_SUNRISE = "sunrise";
     public static final String KEY_SUNSET = "sunset";
@@ -65,7 +65,6 @@ public class SolunarData implements Parcelable
 
     protected long date;
     protected double latitude, longitude, altitude;
-    protected String timezone;
 
     protected long sunrise = -1, sunset = -1, noon = -1;
     protected long moonrise = -1, moonset = -1;
@@ -80,14 +79,13 @@ public class SolunarData implements Parcelable
 
     protected boolean calculated = false;
 
-    public SolunarData(long date, double latitude, double longitude, double altitude, String timezone)
+    public SolunarData(long date, double latitude, double longitude, double altitude)
     {
         this.calculated = false;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
-        this.timezone = timezone;
     }
 
     public SolunarData(ContentValues values) {
@@ -105,7 +103,6 @@ public class SolunarData implements Parcelable
         this.latitude = values.getAsDouble(KEY_LATITUDE);
         this.longitude = values.getAsDouble(KEY_LONGITUDE);
         this.altitude = values.getAsDouble(KEY_ALTITUDE);
-        this.timezone = values.getAsString(KEY_TIMEZONE);
 
         this.sunrise = values.getAsLong(KEY_SUNRISE);
         this.sunset = values.getAsLong(KEY_SUNSET);
@@ -124,12 +121,12 @@ public class SolunarData implements Parcelable
 
         this.dayRating = values.getAsDouble(KEY_DAY_RATING);
         this.major_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, timezone, KEY_SUNRISE, KEY_SUNSET),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, timezone, KEY_SUNRISE, KEY_SUNSET)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, KEY_SUNRISE, KEY_SUNSET),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, KEY_SUNRISE, KEY_SUNSET)
         };
         this.minor_periods = new SolunarPeriod[] {
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END, timezone, KEY_SUNRISE, KEY_SUNSET),
-                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END, timezone, KEY_SUNRISE, KEY_SUNSET)
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR0_START, KEY_MINOR0_END, KEY_SUNRISE, KEY_SUNSET),
+                SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MINOR, values, KEY_MINOR1_START, KEY_MINOR1_END, KEY_SUNRISE, KEY_SUNSET)
         };
     }
 
@@ -141,7 +138,6 @@ public class SolunarData implements Parcelable
         values.put(KEY_LATITUDE, latitude);
         values.put(KEY_LONGITUDE, longitude);
         values.put(KEY_ALTITUDE, altitude);
-        values.put(KEY_TIMEZONE, timezone);
 
         values.put(KEY_SUNRISE, sunrise);
         values.put(KEY_SUNSET, sunset);
@@ -186,7 +182,6 @@ public class SolunarData implements Parcelable
         latitude = in.readDouble();
         longitude = in.readDouble();
         altitude = in.readDouble();
-        timezone = in.readString();
 
         sunrise = in.readLong();
         sunset = in.readLong();
@@ -216,7 +211,6 @@ public class SolunarData implements Parcelable
         out.writeDouble(latitude);
         out.writeDouble(longitude);
         out.writeDouble(altitude);
-        out.writeString(timezone);
 
         out.writeLong(sunrise);
         out.writeLong(sunset);
@@ -277,21 +271,13 @@ public class SolunarData implements Parcelable
     /**
      * @return Calendar obj
      */
-    public Calendar getDate() {
-        return getDate(null);
+    public Calendar getDate(@NonNull TimeZone timezone) {
+        return getDate(null, timezone);
     }
-    public Calendar getDate(String key) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone(timezone));
+    public Calendar getDate(String key, @NonNull TimeZone timezone) {
+        Calendar calendar = Calendar.getInstance(timezone);
         calendar.setTimeInMillis(getDateMillis(key));
         return calendar;
-    }
-
-    /**
-     * @return tzID
-     */
-    public String getTimezone() {
-        return timezone;
     }
 
     /**

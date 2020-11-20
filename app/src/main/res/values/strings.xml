@@ -100,6 +100,13 @@
         <item>&#x2299;</item>
     </string-array>
 
+    <string name="action_timezone_system_format">(%s)</string>
+    <string name="action_timezone_system">System %s</string>
+    <string name="action_timezone_suntimes">Suntimes %s</string>
+    <string name="action_timezone_localmean">@string/solartime_localmean</string>
+    <string name="action_timezone_apparentsolar">@string/solartime_apparent</string>
+    <string name="solartime_localmean">Local Mean Time</string>
+    <string name="solartime_apparent">Apparent Solar Time</string>
 
     <!-- Settings -->
 

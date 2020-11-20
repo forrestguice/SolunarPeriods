@@ -53,15 +53,13 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     private double latitude;
     private double longitude;
     private double altitude;
-    private String timezone;
 
-    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, String timezone, SolunarCardOptions options)
+    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, SolunarCardOptions options)
     {
         contextRef = new WeakReference<>(context);
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
-        this.timezone = timezone;
         this.options = options;
     }
 
@@ -137,12 +135,12 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 
     protected SolunarData createData(int position)
     {
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone(timezone));
+        Calendar date = Calendar.getInstance(options.timezone);
         date.add(Calendar.DATE, position - TODAY_POSITION);
         date.set(Calendar.HOUR_OF_DAY, 12);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
-        return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude, timezone));
+        return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude));
     }
 
     private SolunarData calculateData(SolunarData solunarData)
@@ -153,7 +151,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
             ContentResolver resolver = context.getContentResolver();
             if (resolver != null) {
                 SolunarCalculator calculator = new SolunarCalculator();
-                calculator.calculateData(resolver, solunarData);
+                calculator.calculateData(resolver, solunarData, options.timezone);
             } else {
                 Log.e(getClass().getSimpleName(), "createData: null contentResolver!");
             }
@@ -169,6 +167,10 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         invalidated = true;
         data.clear();
         notifyDataSetChanged();
+    }
+
+    public TimeZone getTimeZone() {
+        return options.timezone;
     }
 
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
@@ -247,11 +249,16 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static class SolunarCardOptions
     {
         public SuntimesInfo.SuntimesOptions suntimes_options;
+        public TimeZone timezone;
+
         public SolunarCardOptions(@NonNull Context context) {
-            suntimes_options = new SuntimesInfo.SuntimesOptions(context);
+            this.suntimes_options = new SuntimesInfo.SuntimesOptions(context);
+            this.timezone = TimeZone.getDefault();
         }
-        public SolunarCardOptions(SuntimesInfo.SuntimesOptions options) {
-            suntimes_options = options;
+
+        public SolunarCardOptions(SuntimesInfo.SuntimesOptions options, TimeZone timezone) {
+            this.suntimes_options = options;
+            this.timezone = timezone;
         }
     }
 
