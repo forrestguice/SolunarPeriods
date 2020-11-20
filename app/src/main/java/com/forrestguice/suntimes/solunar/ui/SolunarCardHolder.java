@@ -120,11 +120,15 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         text_date.setText(DisplayStrings.formatDate(context, data.getDate()));
         if (position == SolunarCardAdapter.TODAY_POSITION)
         {
-            layout_card.setSelected(true);
+            if (layout_card != null) {
+                layout_card.setSelected(true);
+            }
             text_date.setTypeface(text_date.getTypeface(), Typeface.BOLD);
 
         } else {
-            layout_card.setSelected(false);
+            if (layout_card != null) {
+                layout_card.setSelected(false);
+            }
             text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
             /*if (position < SolunarCardAdapter.TODAY_POSITION) {
                 // TODO: "past" appearance
