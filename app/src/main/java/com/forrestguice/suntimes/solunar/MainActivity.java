@@ -87,6 +87,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onSaveInstanceState( Bundle outState )
+    {
+        super.onSaveInstanceState(outState);
+        //outState.putInt("bottomSheet", bottomSheet.getState());
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle savedState)
+    {
+        super.onRestoreInstanceState(savedState);
+        //int sheetState = savedState.getInt("bottomSheet", BottomSheetBehavior.STATE_HIDDEN);
+        //bottomSheet.setState(sheetState);
+    }
+
+    @Override
     protected void onResume()
     {
         super.onResume();
