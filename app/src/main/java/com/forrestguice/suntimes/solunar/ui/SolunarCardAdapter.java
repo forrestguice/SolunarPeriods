@@ -69,7 +69,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     {
         LayoutInflater layout = LayoutInflater.from(viewGroup.getContext());
         View view = layout.inflate(R.layout.card_solunarday, viewGroup, false);
-        return new SolunarCardHolder(view, options);
+        return new SolunarCardHolder(view.getContext(), view, options);
     }
 
     @Override

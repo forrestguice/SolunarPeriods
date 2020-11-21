@@ -96,7 +96,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     {
         android.support.v7.view.ContextThemeWrapper contextWrapper = new android.support.v7.view.ContextThemeWrapper(getActivity(), getThemeResID());    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_solunarday, parent, false);
-        initViews(getContext(), dialogContent);
+        initViews(contextWrapper, dialogContent);
         if (savedState != null) {
             loadSettings(savedState);
         }
@@ -104,7 +104,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     }
     private void initViews(Context context, View dialogContent)
     {
-        card = new SolunarCardHolder(dialogContent, getCardOptions(context));
+        card = new SolunarCardHolder(context, dialogContent, getCardOptions(context));
     }
     public void updateViews(Context context) {
         if (card != null) {

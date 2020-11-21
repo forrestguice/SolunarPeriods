@@ -72,11 +72,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
     protected static int color_sunrise, color_sunset;
 
-    public SolunarCardHolder(@NonNull View itemView, @NonNull SolunarCardAdapter.SolunarCardOptions options)
+    public SolunarCardHolder(@NonNull Context context, @NonNull View itemView, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         super(itemView);
 
-        Context context = itemView.getContext();
         int[] attrs = new int[] {
                 R.attr.sunriseColor,
                 R.attr.sunsetColor,
@@ -118,7 +117,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull Context context, int position, @NonNull SolunarData data, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         this.position = position;
-        
+
         CharSequence dateDisplay = DisplayStrings.formatDate(context, data.getDate(options.timezone));
         CharSequence cardTitle, dateDisplay1;
         if (position == SolunarCardAdapter.TODAY_POSITION)

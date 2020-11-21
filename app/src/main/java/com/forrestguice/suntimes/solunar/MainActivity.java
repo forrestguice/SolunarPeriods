@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity
     private SolunarCardAdapter cardAdapter;
     private LinearLayoutManager cardLayout;
     private BottomSheetBehavior<View> bottomSheet;
+    private SolunarDaySheet daySheet;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -133,6 +134,11 @@ public class MainActivity extends AppCompatActivity
         bottomSheet.setHideable(true);
         bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheet.setBottomSheetCallback(bottomSheetCallback);
+        daySheet = new SolunarDaySheet();
+        if (suntimesInfo.appTheme != null) {    // override the theme
+            daySheet.setTheme(getThemeResID(suntimesInfo.appTheme));
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.app_bottomsheet, daySheet).commit();
 
         TextView text_timezone = findViewById(R.id.text_timezone);
         if (text_timezone != null) {
@@ -399,13 +405,12 @@ public class MainActivity extends AppCompatActivity
     protected void showBottomSheet(int position, SolunarData data)
     {
         final FragmentManager fragments = getSupportFragmentManager();
-        final SolunarDaySheet sheet = (SolunarDaySheet) fragments.findFragmentById(R.id.bottomSheetFragment);
-        if (sheet != null)
+        if (daySheet != null)
         {
             SolunarCardAdapter.SolunarCardOptions options = new SolunarCardAdapter.SolunarCardOptions(cardAdapter.getOptions());
             options.show_dayDiff = true;
-            sheet.setCardOptions(options);
-            sheet.setData(position, data);
+            daySheet.setCardOptions(options);
+            daySheet.setData(position, data);
             bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }

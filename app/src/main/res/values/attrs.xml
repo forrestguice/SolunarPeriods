@@ -14,6 +14,6 @@
     <attr name="colorTime" format="reference" />
     <attr name="colorValue" format="reference" />
 
-    <attr name="colorBottomToolbar" format="reference" />
+    <attr name="colorBottomSheet" format="reference" />
 
 </resources>

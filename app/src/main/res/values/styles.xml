@@ -26,6 +26,7 @@
         <item name="colorLabel">@color/colorLabel_light</item>
         <item name="colorTime">@color/colorTime_light</item>
         <item name="colorValue">@color/colorValue_light</item>
+        <item name="colorBottomSheet">@android:color/white</item>
     </style>
 
     <!-- Dark theme -->
@@ -52,6 +53,7 @@
         <item name="colorLabel">@color/colorLabel_dark</item>
         <item name="colorTime">@color/colorTime_dark</item>
         <item name="colorValue">@color/colorValue_dark</item>
+        <item name="colorBottomSheet">@android:color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
