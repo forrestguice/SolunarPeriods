@@ -39,6 +39,7 @@ import com.forrestguice.suntimes.solunar.data.SolunarData;
 @SuppressWarnings("Convert2Diamond")
 public class SolunarDaySheet extends BottomSheetDialogFragment
 {
+    public static final String KEY_POSITION = "position";
     public static final String KEY_DATA = "data";
     public static final String KEY_DIALOGTHEME = "themeResID";
     protected static final int DEF_DIALOGTHEME = R.style.SolunarAppTheme_Dark;
@@ -50,18 +51,23 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         super();
         Bundle defaultArgs = new Bundle();
         defaultArgs.putInt(KEY_DIALOGTHEME, DEF_DIALOGTHEME);
+        defaultArgs.putInt(KEY_POSITION, 0);
         setArguments(defaultArgs);
     }
 
-    public void setData(SolunarData data)
+    public void setData(int position, SolunarData data)
     {
         Bundle args = (getArguments() != null) ? getArguments() : new Bundle();
+        args.putInt(KEY_POSITION, position);
         args.putParcelable(KEY_DATA, data);
         setArguments(args);
         updateViews(getContext());
     }
     public SolunarData getData() {
         return (getArguments() != null) ? ((SolunarData) getArguments().getParcelable(KEY_DATA)) : null;
+    }
+    public int getPosition(){
+        return (getArguments() != null) ? getArguments().getInt(KEY_POSITION) : 0;
     }
 
     private SolunarCardAdapter.SolunarCardOptions options;
@@ -102,7 +108,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     }
     public void updateViews(Context context) {
         if (card != null) {
-            card.onBindViewHolder(context, 0, getData(), getCardOptions(context));
+            card.onBindViewHolder(context, getPosition(), getData(), getCardOptions(context));
         }
     }
 

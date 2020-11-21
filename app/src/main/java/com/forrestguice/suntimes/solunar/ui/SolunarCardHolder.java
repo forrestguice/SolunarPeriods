@@ -118,24 +118,34 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull Context context, int position, @NonNull SolunarData data, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         this.position = position;
-        text_date.setText(DisplayStrings.formatDate(context, data.getDate(options.timezone)));
+
+        // TODO
+        CharSequence dateDisplay = DisplayStrings.formatDate(context, data.getDate(options.timezone));
+        CharSequence cardTitle, dateDisplay1;
         if (position == SolunarCardAdapter.TODAY_POSITION)
         {
             if (layout_card != null) {
                 layout_card.setSelected(true);
             }
+            dateDisplay1 = context.getString(R.string.today);
+            cardTitle = context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay);
             text_date.setTypeface(text_date.getTypeface(), Typeface.BOLD);
+            text_date.setText(DisplayStrings.createRelativeSpan(null, cardTitle.toString(), dateDisplay1.toString(), 2f));
 
         } else {
             if (layout_card != null) {
                 layout_card.setSelected(false);
             }
-            text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
-            /*if (position < SolunarCardAdapter.TODAY_POSITION) {
-                // TODO: "past" appearance
+
+            if (position < SolunarCardAdapter.TODAY_POSITION) {
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION - 1) ? context.getString(R.string.yesterday) : context.getString(R.string.past_n, "-" + (SolunarCardAdapter.TODAY_POSITION - position));
             } else {
-                // TODO: "future" appearance
-            }*/
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION + 1) ? context.getString(R.string.tomorrow) : context.getString(R.string.future_n, "+" + (position - SolunarCardAdapter.TODAY_POSITION));
+            }
+            cardTitle = context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay);
+            text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
+            //text_date.setText(DisplayStrings.createRelativeSpan(null, cardTitle.toString(), dateDisplay1.toString(), 1.25f));
+            text_date.setText(cardTitle);
         }
 
         if (data.isCalculated())

@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onCardClick(int i) {
-            showBottomSheet(cardAdapter.initData(i));
+            showBottomSheet(i, cardAdapter.initData(i));
         }
 
         @Override
@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void showToday() {
         scrollToPosition(SolunarCardAdapter.TODAY_POSITION, false);
-        showBottomSheet(cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
+        showBottomSheet(SolunarCardAdapter.TODAY_POSITION, cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
     }
 
     protected void showDateDialog()
@@ -396,14 +396,14 @@ public class MainActivity extends AppCompatActivity
         public void onCanceled() {}
     };
 
-    protected void showBottomSheet(SolunarData data)
+    protected void showBottomSheet(int position, SolunarData data)
     {
         final FragmentManager fragments = getSupportFragmentManager();
         final SolunarDaySheet sheet = (SolunarDaySheet) fragments.findFragmentById(R.id.bottomSheetFragment);
         if (sheet != null)
         {
             sheet.setCardOptions(cardAdapter.getOptions());
-            sheet.setData(data);
+            sheet.setData(position, data);
             bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
