@@ -22,19 +22,38 @@
 
     <LinearLayout
         android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:background="?attr/colorBottomSheet">
+        android:orientation="vertical" android:background="?attr/colorBottomSheet" android:elevation="5dp">
 
         <View android:background="?attr/dialogBackground"
-            android:layout_width="match_parent" android:layout_height="6dp" />
+            android:layout_width="match_parent" android:layout_height="@dimen/sheet_margin_top" />
 
-        <View android:background="?attr/colorAccent"
-            android:layout_width="match_parent" android:layout_height="1.5dp" />
+        <!--<View android:background="?attr/colorAccent"
+            android:layout_width="match_parent" android:layout_height="1.5dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
             <include layout="@layout/card_solunarday_content" />
+
+        </LinearLayout>
+
+        <View android:background="?attr/dialogBackground"
+            android:layout_width="match_parent" android:layout_height="1.5dp" />
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content"  android:gravity="end">
+
+            <TextView android:id="@+id/text_title"
+                android:layout_width="0dp" android:layout_weight="1" android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp" android:layout_marginRight="0dp"
+                android:layout_marginStart="8dp" android:layout_marginEnd="0dp" />
+
+            <ImageButton android:id="@+id/overflow"
+                style="@style/Widget.AppCompat.ActionButton.Overflow"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:contentDescription="@string/action_overflow" />
 
         </LinearLayout>
 
