@@ -250,6 +250,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     {
         public SuntimesInfo.SuntimesOptions suntimes_options;
         public TimeZone timezone;
+        public boolean show_dayDiff = false;
 
         public SolunarCardOptions(@NonNull Context context) {
             this.suntimes_options = new SuntimesInfo.SuntimesOptions(context);
@@ -259,6 +260,12 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         public SolunarCardOptions(SuntimesInfo.SuntimesOptions options, TimeZone timezone) {
             this.suntimes_options = options;
             this.timezone = timezone;
+        }
+        public SolunarCardOptions(SolunarCardOptions other)
+        {
+            this.suntimes_options = other.suntimes_options;
+            this.timezone = other.timezone;
+            this.show_dayDiff = other.show_dayDiff;
         }
     }
 

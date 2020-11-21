@@ -118,8 +118,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull Context context, int position, @NonNull SolunarData data, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         this.position = position;
-
-        // TODO
+        
         CharSequence dateDisplay = DisplayStrings.formatDate(context, data.getDate(options.timezone));
         CharSequence cardTitle, dateDisplay1;
         if (position == SolunarCardAdapter.TODAY_POSITION)
@@ -138,13 +137,14 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             }
 
             if (position < SolunarCardAdapter.TODAY_POSITION) {
-                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION - 1) ? context.getString(R.string.yesterday) : context.getString(R.string.past_n, "-" + (SolunarCardAdapter.TODAY_POSITION - position));
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION - 1) ? context.getString(R.string.yesterday)
+                        : options.show_dayDiff ? context.getString(R.string.past_n, "-" + (SolunarCardAdapter.TODAY_POSITION - position)) : null;
             } else {
-                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION + 1) ? context.getString(R.string.tomorrow) : context.getString(R.string.future_n, "+" + (position - SolunarCardAdapter.TODAY_POSITION));
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION + 1) ? context.getString(R.string.tomorrow)
+                        : options.show_dayDiff ? context.getString(R.string.future_n, "+" + (position - SolunarCardAdapter.TODAY_POSITION)) : null;
             }
-            cardTitle = context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay);
+            cardTitle = (dateDisplay1 != null) ? context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay) : context.getString(R.string.format_card_title1, dateDisplay);
             text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
-            //text_date.setText(DisplayStrings.createRelativeSpan(null, cardTitle.toString(), dateDisplay1.toString(), 1.25f));
             text_date.setText(cardTitle);
         }
 

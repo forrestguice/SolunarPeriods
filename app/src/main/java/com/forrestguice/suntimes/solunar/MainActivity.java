@@ -402,7 +402,9 @@ public class MainActivity extends AppCompatActivity
         final SolunarDaySheet sheet = (SolunarDaySheet) fragments.findFragmentById(R.id.bottomSheetFragment);
         if (sheet != null)
         {
-            sheet.setCardOptions(cardAdapter.getOptions());
+            SolunarCardAdapter.SolunarCardOptions options = new SolunarCardAdapter.SolunarCardOptions(cardAdapter.getOptions());
+            options.show_dayDiff = true;
+            sheet.setCardOptions(options);
             sheet.setData(position, data);
             bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
