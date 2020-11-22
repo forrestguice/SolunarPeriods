@@ -29,11 +29,14 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.Menu;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 
+import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -173,6 +176,27 @@ public class DisplayStrings
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
         else return Html.fromHtml(htmlString);
+    }
+
+    /**
+     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
+     */
+    public static void forceActionBarIcons(Menu menu)
+    {
+        if (menu != null)
+        {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+
+                } catch (Exception e) {
+                    Log.e(MainActivity.class.getSimpleName(), "failed to set show overflow icons", e);
+                }
+            }
+        }
     }
 
 }

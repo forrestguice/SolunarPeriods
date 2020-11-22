@@ -27,12 +27,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 
@@ -105,6 +111,11 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     private void initViews(Context context, View dialogContent)
     {
         card = new SolunarCardHolder(context, dialogContent, getCardOptions(context));
+
+        ImageButton overflowButton = (ImageButton) dialogContent.findViewById(R.id.overflow);
+        if (overflowButton != null){
+            overflowButton.setOnClickListener(onOverflowButtonClicked);
+        }
     }
     public void updateViews(Context context) {
         if (card != null) {
@@ -169,6 +180,51 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
+
+    public void shareCard() {
+        Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void showOverflowMenu(View v)
+    {
+        Context context = getContext();
+        if (context != null)
+        {
+            PopupMenu popup = new PopupMenu(getContext(), v);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_daysheet, popup.getMenu());
+            DisplayStrings.forceActionBarIcons(popup.getMenu());
+            updateOverflowMenu(popup.getMenu());
+            popup.setOnMenuItemClickListener(onOverflowMenuItemSelected);
+            popup.show();
+        }
+    }
+    private void updateOverflowMenu(Menu menu) {
+    }
+    private PopupMenu.OnMenuItemClickListener onOverflowMenuItemSelected = new PopupMenu.OnMenuItemClickListener()
+    {
+        @Override
+        public boolean onMenuItemClick(MenuItem item)
+        {
+            switch (item.getItemId())
+            {
+                case R.id.action_share:
+                    shareCard();
+                    return true;
+            }
+            return false;
+        }
+    };
+    private View.OnClickListener onOverflowButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showOverflowMenu(v);
+        }
+    };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected FragmentListener listener = null;
     public void setFragmentListener(FragmentListener l) {

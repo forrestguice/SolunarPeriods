@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu)
     {
-        forceActionBarIcons(menu);
+        DisplayStrings.forceActionBarIcons(menu);
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -477,28 +477,6 @@ public class MainActivity extends AppCompatActivity
         dialog.setVersion(suntimesInfo);
         dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
     }
-
-    /**
-     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
-     */
-    public static void forceActionBarIcons(Menu menu)
-    {
-        if (menu != null)
-        {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-            {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
-
-                } catch (Exception e) {
-                    Log.e(MainActivity.class.getSimpleName(), "failed to set show overflow icons", e);
-                }
-            }
-        }
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
