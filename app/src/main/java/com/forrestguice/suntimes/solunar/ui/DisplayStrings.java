@@ -35,6 +35,7 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
+import com.forrestguice.suntimes.solunar.data.SolunarRating;
 
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
@@ -50,6 +51,52 @@ public class DisplayStrings
         String[] labels = context.getResources().getStringArray(R.array.ratings_labels);
         int[] brackets = context.getResources().getIntArray(R.array.ratings_brackets);
         return formatRating(rating, brackets, labels);
+    }
+
+    public static String formatRatingExplanation(@NonNull Context context, SolunarRating rating)
+    {
+        StringBuilder retValue = new StringBuilder();
+        String[] reasons = rating.getReasons();
+        for (int i=0; i<reasons.length; i++) {
+            retValue.append(reasons[i]);
+            retValue.append(" ");
+        }
+        return retValue.toString();
+    }
+
+    public static String formatHeightenedPeriodNote(@NonNull Context context, @NonNull SolunarPeriod period)
+    {
+        if (period.occursAtSunrise()) {
+            return (period.getType() == SolunarPeriod.TYPE_MAJOR)
+                    ? context.getString(R.string.note_major_period_at_sunrise)
+                    : context.getString(R.string.note_minor_period_at_sunrise);
+
+        } else if (period.occursAtSunset()) {
+            return (period.getType() == SolunarPeriod.TYPE_MAJOR)
+                    ? context.getString(R.string.note_major_period_at_sunset)
+                    : context.getString(R.string.note_minor_period_at_sunset);
+        } else {
+            return "";
+        }
+    }
+
+    public static String formatHeightenedMoonNote(@NonNull Context context, double monthDays, double daysToNew, double daysToFull)
+    {
+        if (daysToNew <= 0.5d || daysToNew >= (monthDays - 0.5d)) {
+            return context.getString(R.string.note_new_moon_today);
+        } else if (daysToNew <= 3.5d) {
+            return context.getString(R.string.note_new_moon_soon);
+        } else if (daysToNew >= (monthDays - 3.5d)) {
+            return context.getString(R.string.note_new_moon_recent);
+        } else if (daysToFull <= 0.5d || daysToFull >= (monthDays - 0.5d)) {
+            return context.getString(R.string.note_full_moon_today);
+        } else if (daysToFull <= 3.5d) {
+            return context.getString(R.string.note_full_moon_soon);
+        } else if (daysToFull >= (monthDays - 3.5d)) {
+            return context.getString(R.string.note_full_moon_recent);
+        } else {
+            return "";
+        }
     }
 
     public static String formatRating(double rating, int[] brackets, String[] labels)

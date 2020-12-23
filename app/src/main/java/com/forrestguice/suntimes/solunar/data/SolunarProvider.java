@@ -195,7 +195,6 @@ public class SolunarProvider extends ContentProvider
         Context context = getContext();
         if (context != null)
         {
-            ContentResolver resolver = context.getContentResolver();
             SuntimesInfo config = SuntimesInfo.queryInfo(context);
             double latitude = Double.parseDouble(config.location[1]);
             double longitude = Double.parseDouble(config.location[2]);
@@ -210,7 +209,7 @@ public class SolunarProvider extends ContentProvider
             SolunarCalculator calculator = new SolunarCalculator();
             do {
                 SolunarData data = new SolunarData(day.getTimeInMillis(), latitude, longitude, altitude);
-                calculator.calculateData(resolver, data, timezone);
+                calculator.calculateData(context, context.getContentResolver(), data, timezone);
 
                 SolunarPeriod period;
                 Object[] row = new Object[columns.length];
@@ -295,7 +294,7 @@ public class SolunarProvider extends ContentProvider
                             break;
 
                         case COLUMN_SOLUNAR_RATING:
-                            row[i] = data.getDayRating();
+                            row[i] = data.getRating().getDayRating();
                             break;
 
                         case COLUMN_SOLUNAR_DATE:

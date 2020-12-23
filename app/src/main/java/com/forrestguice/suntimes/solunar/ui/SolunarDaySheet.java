@@ -38,7 +38,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 

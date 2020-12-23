@@ -62,6 +62,17 @@
     <string name="help_major_periods"><![CDATA[<b>Major</b> periods occur at <em>lunar noon</em> and <em>lunar midnight</em> and generally last for 2 hours.]]></string>
     <string name="help_rating_period"><![CDATA[<b>&#x2299;</b> A period is heightened when it occurs within 30 minutes of <em>sunrise</em> or <em>sunset</em>.]]></string>
 
+    <string name="note_full_moon_today">A full moon occurs today.</string>
+    <string name="note_full_moon_soon">A full moon occurs soon.</string>
+    <string name="note_full_moon_recent">A full moon occurred recently.</string>
+    <string name="note_new_moon_today">A new moon occurs today.</string>
+    <string name="note_new_moon_soon">A new moon occurs soon.</string>
+    <string name="note_new_moon_recent">A new moon occurred recently.</string>
+    <string name="note_major_period_at_sunrise">A major period is heightened (sunrise).</string>
+    <string name="note_major_period_at_sunset">A major period is heightened (sunset).</string>
+    <string name="note_minor_period_at_sunrise">A minor period is heightened (sunrise).</string>
+    <string name="note_minor_period_at_sunset">A minor period is heightened (sunset).</string>
+
     <string-array name="help_topics">      <!-- in order of appearance -->
         <item>@string/help_configuration</item>
         <item>@string/help_rating_day</item>

@@ -151,7 +151,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
             ContentResolver resolver = context.getContentResolver();
             if (resolver != null) {
                 SolunarCalculator calculator = new SolunarCalculator();
-                calculator.calculateData(resolver, solunarData, options.timezone);
+                calculator.calculateData(context, resolver, solunarData, options.timezone);
             } else {
                 Log.e(getClass().getSimpleName(), "createData: null contentResolver!");
             }

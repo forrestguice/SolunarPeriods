@@ -55,6 +55,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public TextView text_debug;
     public RatingBar rating;
     public TextView text_rating;
+    public TextView text_rating1;    // optional; may be null
 
     public LinearLayout layout_rows;
     public ArrayList<SolunarPeriodRow> rows;
@@ -91,6 +92,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         text_debug = itemView.findViewById(R.id.text_debug);
         rating = itemView.findViewById(R.id.rating);
         text_rating = itemView.findViewById(R.id.text_rating);
+        text_rating1 = itemView.findViewById(R.id.text_rating1);
 
         text_sunrise = itemView.findViewById(R.id.text_sunrise);
         text_sunset = itemView.findViewById(R.id.text_sunset);
@@ -188,7 +190,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     //"moonrise: " + SolunarCardHolder.formatTime(context, moonrise, data.getTimezone(), false) + "\n" +
                     //"moonset: " + SolunarCardHolder.formatTime(context, moonset, data.getTimezone(), false) + "\n" +
                     //"moonillum: " + data.getMoonIllumination() + "\n\n" +
-                    "rating: " + data.getDayRating();
+                    "rating: " + data.getRating().getDayRating();
                             //;
             text_debug.setText(debug);  // TODO
 
@@ -200,10 +202,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             row_moonnight.setPeriod(context, majorPeriods[1], options.timezone);   // lunar midnight
             SolunarPeriodRow.reorderLayout(layout_rows, rows);
 
-            double dayRating = data.getDayRating();
+            double dayRating = data.getRating().getDayRating();
             if (dayRating > 0)
             {
-                float numStars = (float)(data.getDayRating() * 4);
+                float numStars = (float)(data.getRating().getDayRating() * 4);
                 rating.setNumStars((int)Math.ceil(numStars));
                 rating.setRating(numStars);
 
@@ -211,11 +213,20 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 rating.setNumStars(1);
                 rating.setRating(0.25f);
             }
+
             text_rating.setText(DisplayStrings.formatRating(context, dayRating));
+            if (text_rating1 != null) {
+                text_rating1.setText(DisplayStrings.formatRatingExplanation(context, data.getRating()));
+            }
 
         } else {
             text_debug.setText(context.getString(R.string.time_none));
             rating.setNumStars(0);
+
+            text_rating.setText("");
+            if (text_rating1 != null) {
+                text_rating1.setText("");
+            }
         }
     }
 

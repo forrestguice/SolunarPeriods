@@ -19,7 +19,6 @@
 
 package com.forrestguice.suntimes.solunar.data;
 
-import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -60,6 +59,7 @@ public class SolunarData implements Parcelable
     public static final String KEY_MINOR1_END = "minor1_end";
 
     public static final String KEY_DAY_RATING = "dayrating";
+    public static final String KEY_DAY_RATING_REASONS = "dayrating_reasons";
 
     public static final String KEY_CALCULATED = "iscalculated";
 
@@ -73,7 +73,7 @@ public class SolunarData implements Parcelable
     protected double moonillum = -1;  // [0,1]
     protected String moonphase;       // display string
 
-    protected double dayRating;  // [0,1]
+    protected SolunarRating dayRating = new SolunarRating();  // [0,1]
     protected SolunarPeriod[] major_periods = new SolunarPeriod[] { null, null };
     protected SolunarPeriod[] minor_periods = new SolunarPeriod[] { null, null };
 
@@ -88,15 +88,15 @@ public class SolunarData implements Parcelable
         this.altitude = altitude;
     }
 
-    public SolunarData(ContentValues values) {
+    /*public SolunarData(ContentValues values) {
         initFromContentValues(values);
-    }
+    }*/
 
     private SolunarData(Parcel in) {
         initFromParcel(in);
     }
 
-    public void initFromContentValues(ContentValues values)
+    /*public void initFromContentValues(ContentValues values)
     {
         this.calculated = values.getAsBoolean(KEY_CALCULATED);
         this.date = values.getAsLong(KEY_DATE);
@@ -119,7 +119,7 @@ public class SolunarData implements Parcelable
         this.moonphase = values.getAsString(KEY_MOONPHASE);
         this.moonperiod = values.getAsLong(KEY_MOONPERIOD);
 
-        this.dayRating = values.getAsDouble(KEY_DAY_RATING);
+        this.dayRating = new SolunarRating(values.getAsDouble(KEY_DAY_RATING));
         this.major_periods = new SolunarPeriod[] {
                 SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR0_START, KEY_MAJOR0_END, KEY_SUNRISE, KEY_SUNSET),
                 SolunarPeriod.createPeriod(SolunarPeriod.TYPE_MAJOR, values, KEY_MAJOR1_START, KEY_MAJOR1_END, KEY_SUNRISE, KEY_SUNSET)
@@ -154,7 +154,8 @@ public class SolunarData implements Parcelable
         values.put(KEY_MOONPHASE, moonphase);
         values.put(KEY_MOONPERIOD, moonperiod);
 
-        values.put(KEY_DAY_RATING, dayRating);
+        values.put(KEY_DAY_RATING, dayRating.getDayRating());
+
         if (major_periods[0] != null) {
             values.put(KEY_MAJOR0_START, major_periods[0].getStartMillis());
             values.put(KEY_MAJOR0_END, major_periods[0].getEndMillis());
@@ -173,7 +174,7 @@ public class SolunarData implements Parcelable
         }
 
         return values;
-    }
+    }*/
 
     public void initFromParcel(Parcel in)
     {
@@ -198,7 +199,7 @@ public class SolunarData implements Parcelable
         moonphase = in.readString();
         moonperiod = in.readLong();
 
-        dayRating = in.readDouble();
+        dayRating = in.readParcelable(ClassLoader.getSystemClassLoader());
         major_periods = (SolunarPeriod[])in.readParcelableArray(ClassLoader.getSystemClassLoader());
         minor_periods = (SolunarPeriod[])in.readParcelableArray(ClassLoader.getSystemClassLoader());
     }
@@ -227,7 +228,7 @@ public class SolunarData implements Parcelable
         out.writeString(moonphase);
         out.writeLong(moonperiod);
 
-        out.writeDouble(dayRating);
+        out.writeParcelable(dayRating, 0);
         out.writeParcelableArray(major_periods, 0);
         out.writeParcelableArray(minor_periods, 0);
     }
@@ -320,9 +321,9 @@ public class SolunarData implements Parcelable
     }
 
     /**
-     * @return percentage [0, 1]
+     * @return SolunarRating
      */
-    public double getDayRating() {
+    public SolunarRating getRating() {
         return dayRating;
     }
 

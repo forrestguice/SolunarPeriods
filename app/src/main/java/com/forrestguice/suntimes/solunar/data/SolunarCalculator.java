@@ -20,14 +20,17 @@
 package com.forrestguice.suntimes.solunar.data;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Pair;
+import android.view.Display;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,17 +54,17 @@ public class SolunarCalculator
     /**
      * calculateData
      */
-    public boolean calculateData(ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
+    public boolean calculateData(Context context, ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
         if (queryData(resolver, data, timezone))
         {
-            calculateRating(data, timezone);
+            calculateRating(context, data, timezone);
             data.calculated = true;
         }
         return data.calculated;
     }
 
-    public void calculateRating(@NonNull SolunarData data, @NonNull TimeZone timezone)
+    public void calculateRating(@NonNull Context context, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
         long noonMillis = noon(data.getDate(timezone)).getTimeInMillis();
         double monthDays = data.getMoonPeriod() / 1000d / 60d / 60d / 24d;
@@ -91,13 +94,20 @@ public class SolunarCalculator
         }
         c0 /= 4;
 
-        double c1 = (tallyPeriods(data.getMajorPeriods()) / 2d) * 0.1;
-        double c2 = (tallyPeriods(data.getMinorPeriods()) / 2d) * 0.1;
+        String reason0 = DisplayStrings.formatHeightenedMoonNote(context, monthDays, daysToNew, daysToFull);
+        ArrayList<String> reasons = new ArrayList<>();
+        if (!reason0.isEmpty()) {
+            reasons.add(reason0);
+        }
 
-        data.dayRating = c0;
+        double c1 = (tallyPeriods(context, data.getMajorPeriods(), reasons) / 2d) * 0.1;
+        double c2 = (tallyPeriods(context, data.getMinorPeriods(), reasons) / 2d) * 0.1;
+
+        data.dayRating = new SolunarRating(c0 + c1 + c2, reasons);
     }
 
-    protected int tallyPeriods( SolunarPeriod[] periods)
+
+    protected int tallyPeriods(Context context, SolunarPeriod[] periods, ArrayList<String> reasons)
     {
         int c = 0;
         for (SolunarPeriod period : periods)
@@ -106,11 +116,11 @@ public class SolunarCalculator
                 continue;
             }
             if (period.occursAtSunrise()) {
-                // TODO: note
+                reasons.add(DisplayStrings.formatHeightenedPeriodNote(context, period));
                 c++;
             }
             if (period.occursAtSunset()) {
-                // TODO: note
+                reasons.add(DisplayStrings.formatHeightenedPeriodNote(context, period));
                 c++;
             }
         }
