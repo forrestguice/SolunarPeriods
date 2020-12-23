@@ -181,7 +181,13 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         }
     }
 
+    public void openCalendar() {
+        // TODO
+        Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
+    }
+
     public void shareCard() {
+        // TODO
         Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
     }
 
@@ -210,6 +216,10 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         {
             switch (item.getItemId())
             {
+                case R.id.action_calendar:
+                    openCalendar();
+                    return true;
+
                 case R.id.action_share:
                     shareCard();
                     return true;

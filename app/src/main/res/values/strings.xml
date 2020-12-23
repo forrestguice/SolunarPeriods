@@ -19,6 +19,7 @@
         Source code available under GPLv3.
     ]]></string>
 
+    <string name="action_calendar">Open Calendar</string>
     <string name="action_share">Share</string>
     <string name="action_today">Today</string>
     <string name="action_date">Go to…</string>
