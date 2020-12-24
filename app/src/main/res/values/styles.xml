@@ -28,7 +28,8 @@
         <item name="colorLabel">@color/colorLabel_light</item>
         <item name="colorTime">@color/colorTime_light</item>
         <item name="colorValue">@color/colorValue_light</item>
-        <item name="colorBottomSheet">@android:color/white</item>
+        <item name="colorBottomSheet">@color/colorSheet_light</item>
+        <item name="roundedTextBox">@drawable/rounded_box_light</item>
     </style>
 
     <!-- Dark theme -->
@@ -57,7 +58,8 @@
         <item name="colorLabel">@color/colorLabel_dark</item>
         <item name="colorTime">@color/colorTime_dark</item>
         <item name="colorValue">@color/colorValue_dark</item>
-        <item name="colorBottomSheet">@android:color/black</item>
+        <item name="colorBottomSheet">@color/colorSheet_dark</item>
+        <item name="roundedTextBox">@drawable/rounded_box_dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

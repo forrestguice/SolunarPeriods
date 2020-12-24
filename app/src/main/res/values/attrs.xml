@@ -17,5 +17,6 @@
     <attr name="colorValue" format="reference" />
 
     <attr name="colorBottomSheet" format="reference" />
+    <attr name="roundedTextBox" format="reference" />
 
 </resources>
