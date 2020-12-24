@@ -8,15 +8,22 @@
         android:orderInCategory="100"
         android:title="@string/action_calendar"
         android:icon="?attr/icToday"
-        android:visible="true"
+        android:visible="false"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_share"
-        android:orderInCategory="200"
+        android:orderInCategory="50"
         android:title="@string/action_share"
         android:icon="?attr/icShare"
-        android:visible="true"
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_date_suntimes"
+        android:orderInCategory="300"
+        android:title="@string/action_date_suntimes"
+        android:icon="@drawable/ic_action_suntimes"
         app:showAsAction="never" />
 
 </menu>
