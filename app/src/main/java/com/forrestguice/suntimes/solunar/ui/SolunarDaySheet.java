@@ -21,12 +21,15 @@ package com.forrestguice.suntimes.solunar.ui;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +41,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
@@ -191,6 +195,15 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
     }
 
+    public void showDateSuntimes()
+    {
+        Intent intent = AddonHelper.intentForMainActivity();
+        intent.putExtra("dateMillis", getData().getDateMillis());
+        intent.setAction("com.forrestguice.suntimeswidget.SHOW_CARD");
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);    // needed to trigger onNewIntent on already running activity
+        AddonHelper.startActivity(getActivity(), intent);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void showOverflowMenu(View v)
@@ -216,6 +229,10 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         {
             switch (item.getItemId())
             {
+                case R.id.action_date_suntimes:
+                    showDateSuntimes();
+                    return true;
+
                 case R.id.action_calendar:
                     openCalendar();
                     return true;

@@ -23,6 +23,7 @@
     <string name="action_share">Share</string>
     <string name="action_today">Today</string>
     <string name="action_date">Go to…</string>
+    <string name="action_date_suntimes">View date</string>
     <string name="action_overflow">More</string>
     <string name="action_calendars">Calendar Integration</string>
     <string name="action_settings">Settings</string>
