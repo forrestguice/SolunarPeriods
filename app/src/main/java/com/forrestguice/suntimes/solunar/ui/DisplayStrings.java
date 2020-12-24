@@ -46,6 +46,11 @@ public class DisplayStrings
     {
         String[] labels = context.getResources().getStringArray(R.array.ratings_labels);
         int[] brackets = context.getResources().getIntArray(R.array.ratings_brackets);
+        return formatRating(rating, brackets, labels);
+    }
+
+    public static String formatRating(double rating, int[] brackets, String[] labels)
+    {
         if (brackets.length != labels.length) {
             throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
         }
