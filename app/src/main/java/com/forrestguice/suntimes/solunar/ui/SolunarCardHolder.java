@@ -218,7 +218,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             if (text_rating1 != null) {
                 String explanation = DisplayStrings.formatRatingExplanation(context, data.getRating());
                 text_rating1.setText(explanation);
-                text_rating1.setVisibility(explanation.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+                text_rating1.setVisibility(explanation.isEmpty() ? View.GONE : View.VISIBLE);
             }
 
         } else {
@@ -228,7 +228,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             text_rating.setText("");
             if (text_rating1 != null) {
                 text_rating1.setText("");
-                text_rating1.setVisibility(View.INVISIBLE);
+                text_rating1.setVisibility(View.GONE);
             }
         }
     }

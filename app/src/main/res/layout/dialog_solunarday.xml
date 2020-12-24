@@ -138,7 +138,7 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/text_rating1"
                     app:layout_constraintStart_toEndOf="@+id/layout_sun" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                    android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp" android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp" android:layout_marginLeft="8dp">
 
                     <LinearLayout  android:id="@+id/layout_moonset_period" style="@style/periodText.Layout">
@@ -218,7 +218,7 @@
 
         </LinearLayout>
 
-        <View android:background="?attr/dialogBackground"
+        <View android:background="?attr/dialogBackgroundAlt"
             android:layout_width="match_parent" android:layout_height="1.5dp" />
 
         <LinearLayout android:orientation="horizontal"
