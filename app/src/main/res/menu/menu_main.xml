@@ -20,6 +20,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_calendars"
+        android:orderInCategory="175"
+        android:title="@string/action_calendars"
+        android:icon="?attr/icSettings"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"
         android:title="@string/action_settings"
