@@ -414,15 +414,14 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onAccepted(int year, int month, int day)
         {
-            final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDateMillis();
             Calendar date = Calendar.getInstance(cardAdapter.getTimeZone());
             date.set(year, month, day);
-
-            double offset = Math.ceil(date.getTimeInMillis() - todayMillis) / (24 * 60 * 60 * 1000D);
-            int position = SolunarCardAdapter.TODAY_POSITION + (int)offset + (2 * (int) Math.signum(offset));
+            int position = cardAdapter.findPositionForDate(date);
             scrollToPosition(position, false);
-            //showBottomSheet(cardAdapter.initData(position));
-            //Toast.makeText(MainActivity.this, "TODO: " + year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();  // TODO
+
+            if (!isBottomSheetShowing()) {
+                showBottomSheet(position, cardAdapter.initData(position));
+            }
         }
         @Override
         public void onCanceled() {}
