@@ -137,6 +137,12 @@ public class MainActivity extends AppCompatActivity
         bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheet.setBottomSheetCallback(bottomSheetCallback);
         daySheet = new SolunarDaySheet();
+        daySheet.setFragmentListener(new SolunarDaySheet.FragmentListener() {
+            @Override
+            public void onBackClicked() {
+                hideBottomSheet();
+            }
+        });
         if (suntimesInfo.appTheme != null) {    // override the theme
             daySheet.setTheme(getThemeResID(suntimesInfo.appTheme));
         }

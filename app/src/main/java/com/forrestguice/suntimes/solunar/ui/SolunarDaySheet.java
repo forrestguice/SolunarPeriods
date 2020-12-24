@@ -120,6 +120,16 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         if (overflowButton != null){
             overflowButton.setOnClickListener(onOverflowButtonClicked);
         }
+
+        ImageButton backButton = (ImageButton) dialogContent.findViewById(R.id.back_button);
+        if (backButton != null){
+            backButton.setOnClickListener(onBackButtonClicked);
+        }
+
+        ImageButton shareButton = (ImageButton) dialogContent.findViewById(R.id.share_button);
+        if (shareButton != null){
+            shareButton.setOnClickListener(onShareButtonClicked);
+        }
     }
     public void updateViews(Context context) {
         if (card != null) {
@@ -167,6 +177,14 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     @Override
     public void onCancel(DialogInterface dialog) {
     }
+    private View.OnClickListener onBackButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (listener != null) {
+                listener.onBackClicked();
+            }
+        }
+    };
 
     private void expandSheet(DialogInterface dialog)
     {
@@ -194,6 +212,12 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         // TODO
         Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
     }
+    private View.OnClickListener onShareButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            shareCard();
+        }
+    };
 
     public void showDateSuntimes()
     {
@@ -245,11 +269,11 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         }
     };
     private View.OnClickListener onOverflowButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showOverflowMenu(v);
-        }
-    };
+    @Override
+    public void onClick(View v) {
+        showOverflowMenu(v);
+    }
+};
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -259,5 +283,6 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     }
 
     public interface FragmentListener {
+        void onBackClicked();
     }
 }

@@ -44,11 +44,21 @@
         <LinearLayout android:orientation="horizontal"
             android:layout_width="match_parent" android:layout_height="wrap_content"  android:gravity="end">
 
+            <ImageButton android:id="@+id/back_button"
+                style="@style/Widget.AppCompat.ActionButton" android:src="?attr/icBack"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:contentDescription="@string/action_back" />
+
             <TextView android:id="@+id/text_title"
                 android:layout_width="0dp" android:layout_weight="1" android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp" android:layout_marginRight="0dp"
                 android:layout_marginStart="8dp" android:layout_marginEnd="0dp" />
+
+            <ImageButton android:id="@+id/share_button"
+                style="@style/Widget.AppCompat.ActionButton" android:src="?attr/icShare"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:contentDescription="@string/action_share" />
 
             <ImageButton android:id="@+id/overflow"
                 style="@style/Widget.AppCompat.ActionButton.Overflow"
