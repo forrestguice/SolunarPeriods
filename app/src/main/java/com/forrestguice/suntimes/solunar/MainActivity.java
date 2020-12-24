@@ -19,13 +19,16 @@
 
 package com.forrestguice.suntimes.solunar;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -86,7 +89,6 @@ public class MainActivity extends AppCompatActivity
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
     }
 
-    @Override
     public void onSaveInstanceState( Bundle outState )
     {
         super.onSaveInstanceState(outState);
@@ -101,20 +103,6 @@ public class MainActivity extends AppCompatActivity
         //bottomSheet.setState(sheetState);
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-
-        String appTheme = SuntimesInfo.queryAppTheme(getContentResolver());
-        if (appTheme != null && !appTheme.equals(suntimesInfo.appTheme)) {
-            recreate();
-
-        } else {
-            restoreDialogs();
-        }
-    }
-
     protected void restoreDialogs()
     {
         FragmentManager fragments = getSupportFragmentManager();
@@ -124,7 +112,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         if (suntimesInfo.appTheme != null) {    // override the theme
@@ -169,12 +156,26 @@ public class MainActivity extends AppCompatActivity
         cardView.setLayoutManager(cardLayout = new LinearLayoutManager(this));
         cardView.addItemDecoration(cardDecoration);
         //cardView.setOnScrollListener(onCardScrollChanged);
+    }
 
-        if (checkVersion())
-        {
-            initData();
-            updateViews();
-            cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        String currentTheme = suntimesInfo.appTheme;
+        suntimesInfo = SuntimesInfo.queryInfo(MainActivity.this);
+        if (suntimesInfo.appTheme != null && !suntimesInfo.appTheme.equals(currentTheme)) {
+            recreate();
+
+        } else {
+            if (checkVersion())
+            {
+                initData();
+                updateViews();
+                cardView.scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+            }
+            restoreDialogs();
         }
     }
 
@@ -345,6 +346,10 @@ public class MainActivity extends AppCompatActivity
                 showDateDialog();
                 return true;
 
+            case R.id.action_calendars:
+                showCalendarIntegration();
+                return true;
+
             case R.id.action_settings:
                 showSettings();
                 return true;
@@ -445,6 +450,10 @@ public class MainActivity extends AppCompatActivity
 
     protected boolean isBottomSheetShowing() {
         return bottomSheet.getState() == BottomSheetBehavior.STATE_EXPANDED || bottomSheet.getState() == BottomSheetBehavior.STATE_COLLAPSED;
+    }
+
+    protected void showCalendarIntegration() {
+        AddonHelper.startSuntimesSettingsActivity(MainActivity.this, AddonHelper.FRAGMENT_SETTINGS_CALENDARS);
     }
 
     protected void showSettings()
