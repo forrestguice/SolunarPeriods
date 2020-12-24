@@ -19,13 +19,17 @@
 
 package com.forrestguice.suntimes.solunar;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -282,6 +286,10 @@ public class MainActivity extends AppCompatActivity
                 showToday();
                 return true;
 
+            case R.id.action_calendars:
+                showCalendarIntegration();
+                return true;
+
             case R.id.action_settings:
                 showSettings();
                 return true;
@@ -309,6 +317,10 @@ public class MainActivity extends AppCompatActivity
 
     protected void showToday() {
         scrollToPosition(SolunarCardAdapter.TODAY_POSITION);
+    }
+
+    protected void showCalendarIntegration() {
+        AddonHelper.startSuntimesSettingsActivity(MainActivity.this, AddonHelper.FRAGMENT_SETTINGS_CALENDARS);
     }
 
     protected void showSettings()
