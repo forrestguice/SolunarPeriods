@@ -208,7 +208,7 @@ public class SolunarProvider extends ContentProvider
 
             SolunarCalculator calculator = new SolunarCalculator();
             do {
-                SolunarData data = new SolunarData(day.getTimeInMillis(), latitude, longitude, altitude);
+                SolunarData data = new SolunarData(day.getTimeInMillis(), config.location[0], latitude, longitude, altitude);
                 calculator.calculateData(context, context.getContentResolver(), data, timezone);
 
                 SolunarPeriod period;

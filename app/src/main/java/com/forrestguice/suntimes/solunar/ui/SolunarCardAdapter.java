@@ -50,13 +50,15 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 
     protected WeakReference<Context> contextRef;
 
+    private String location;
     private double latitude;
     private double longitude;
     private double altitude;
 
-    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, SolunarCardOptions options)
+    public SolunarCardAdapter(Context context, String location, double latitude, double longitude, double altitude, SolunarCardOptions options)
     {
         contextRef = new WeakReference<>(context);
+        this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
@@ -140,7 +142,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         date.set(Calendar.HOUR_OF_DAY, 12);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
-        return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude));
+        return calculateData(new SolunarData(date.getTimeInMillis(), location, latitude, longitude, altitude));
     }
 
     private SolunarData calculateData(SolunarData solunarData)

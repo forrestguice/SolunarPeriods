@@ -30,6 +30,7 @@ import java.util.TimeZone;
 public class SolunarData implements Parcelable
 {
     public static final String KEY_DATE = "date";
+    public static final String KEY_LOCATION = "location";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_ALTITUDE = "altitude";
@@ -64,7 +65,9 @@ public class SolunarData implements Parcelable
     public static final String KEY_CALCULATED = "iscalculated";
 
     protected long date;
-    protected double latitude, longitude, altitude;
+    protected double latitude, longitude;    // dd (decimal degrees)
+    protected double altitude;               // meters
+    protected String location;               // place label
 
     protected long sunrise = -1, sunset = -1, noon = -1;
     protected long moonrise = -1, moonset = -1;
@@ -79,10 +82,11 @@ public class SolunarData implements Parcelable
 
     protected boolean calculated = false;
 
-    public SolunarData(long date, double latitude, double longitude, double altitude)
+    public SolunarData(long date, String placeName, double latitude, double longitude, double altitude)
     {
         this.calculated = false;
         this.date = date;
+        this.location = placeName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
@@ -100,6 +104,7 @@ public class SolunarData implements Parcelable
     {
         this.calculated = values.getAsBoolean(KEY_CALCULATED);
         this.date = values.getAsLong(KEY_DATE);
+        this.location = values.getAsString(KEY_LOCATION);
         this.latitude = values.getAsDouble(KEY_LATITUDE);
         this.longitude = values.getAsDouble(KEY_LONGITUDE);
         this.altitude = values.getAsDouble(KEY_ALTITUDE);
@@ -135,6 +140,7 @@ public class SolunarData implements Parcelable
         ContentValues values = new ContentValues();
         values.put(KEY_CALCULATED, calculated);
         values.put(KEY_DATE, date);
+        values.put(KEY_LOCATION, location);
         values.put(KEY_LATITUDE, latitude);
         values.put(KEY_LONGITUDE, longitude);
         values.put(KEY_ALTITUDE, altitude);
@@ -180,6 +186,7 @@ public class SolunarData implements Parcelable
     {
         calculated = (in.readByte() != 0);
         date = in.readLong();
+        location = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
         altitude = in.readDouble();
@@ -209,6 +216,7 @@ public class SolunarData implements Parcelable
     {
         out.writeByte((byte)(calculated ? 1 : 0));
         out.writeLong(date);
+        out.writeString(location);
         out.writeDouble(latitude);
         out.writeDouble(longitude);
         out.writeDouble(altitude);
@@ -279,6 +287,13 @@ public class SolunarData implements Parcelable
         Calendar calendar = Calendar.getInstance(timezone);
         calendar.setTimeInMillis(getDateMillis(key));
         return calendar;
+    }
+
+    /**
+     * @return location name
+     */
+    public String getLocation() {
+        return location;
     }
 
     /**

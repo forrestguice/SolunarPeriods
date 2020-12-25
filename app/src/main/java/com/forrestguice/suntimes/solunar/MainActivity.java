@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         double latitude = Double.parseDouble(suntimesInfo.location[1]);
         double longitude = Double.parseDouble(suntimesInfo.location[2]);
         double altitude = Double.parseDouble(suntimesInfo.location[3]);
-        cardAdapter = new SolunarCardAdapter(this, latitude, longitude, altitude, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this), timezone));
+        cardAdapter = new SolunarCardAdapter(this, suntimesInfo.location[0], latitude, longitude, altitude, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this), timezone));
         cardAdapter.setCardAdapterListener(cardListener);
 
         cardAdapter.initData();
