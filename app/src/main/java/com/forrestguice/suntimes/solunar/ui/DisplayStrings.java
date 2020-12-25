@@ -117,6 +117,16 @@ public class DisplayStrings
         return "";
     }
 
+    public static double[] formatRatingStars(double dayRating)
+    {
+        if (dayRating > 0)
+        {
+            float numStars = (float)(dayRating * 4);
+            return new double[] { (int)Math.ceil(numStars), 4d };
+
+        } else return new double[] { 0.25d, 4 };
+    }
+
     public static String formatType(Context context, int periodType) {
         if (periodType == SolunarPeriod.TYPE_MAJOR) {
             return context.getString(R.string.label_major_period);

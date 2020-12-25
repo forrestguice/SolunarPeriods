@@ -203,16 +203,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             SolunarPeriodRow.reorderLayout(layout_rows, rows);
 
             double dayRating = data.getRating().getDayRating();
-            if (dayRating > 0)
-            {
-                float numStars = (float)(data.getRating().getDayRating() * 4);
-                rating.setNumStars((int)Math.ceil(numStars));
-                rating.setRating(numStars);
-
-            } else {
-                rating.setNumStars(1);
-                rating.setRating(0.25f);
-            }
+            double[] ratingStars = DisplayStrings.formatRatingStars(dayRating);
+            rating.setNumStars((int)ratingStars[1]);
+            rating.setRating((int)ratingStars[0]);
 
             text_rating.setText(DisplayStrings.formatRating(context, dayRating));
             if (text_rating1 != null) {
