@@ -109,16 +109,26 @@ public class DisplayStrings
     {
         if (daysToNew <= 0.5d || daysToNew >= (monthDays - 0.5d)) {
             return context.getString(R.string.note_new_moon_today);
+        } else if (daysToNew <= 2.5d) {
+            return context.getString(R.string.note_new_moon_verysoon);
         } else if (daysToNew <= 3.5d) {
             return context.getString(R.string.note_new_moon_soon);
+        } else if (daysToNew >= (monthDays - 2.5d)) {
+            return context.getString(R.string.note_new_moon_veryrecent);
         } else if (daysToNew >= (monthDays - 3.5d)) {
             return context.getString(R.string.note_new_moon_recent);
+
         } else if (daysToFull <= 0.5d || daysToFull >= (monthDays - 0.5d)) {
             return context.getString(R.string.note_full_moon_today);
+        } else if (daysToFull <= 2.5d) {
+            return context.getString(R.string.note_full_moon_verysoon);
         } else if (daysToFull <= 3.5d) {
             return context.getString(R.string.note_full_moon_soon);
+        } else if (daysToFull >= (monthDays - 2.5d)) {
+            return context.getString(R.string.note_full_moon_veryrecent);
         } else if (daysToFull >= (monthDays - 3.5d)) {
             return context.getString(R.string.note_full_moon_recent);
+
         } else {
             return "";
         }
