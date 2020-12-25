@@ -41,6 +41,7 @@
     <string name="future_today">Future</string>
     <string name="future_n">Future (%1$s)</string>
 
+    <string name="format_card_summary">%1$s \n%2$s  \n%3$s (%4$s) \n%5$s (%6$s) \nSunrise: %7$s, Sunset: %8$s</string>    <!-- (1)location, (2)date, (3)ratingString, (4)ratingStars, (5)moonPhase, (6)moonIllum, (7)sunrise, (8)sunset -->
     <string name="format_card_title0">%1$s\n%2$s</string>         <!-- Yesterday|Today|Tomorrow \n Thursday, February 27 -->
     <string name="format_card_title1">%1$s</string>               <!-- Thursday, February 27 -->
     <string name="format_date">EEEE\nMMMM d</string>              <!-- Thursday, February 27 -->

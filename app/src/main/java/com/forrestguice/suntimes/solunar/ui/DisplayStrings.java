@@ -32,8 +32,10 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
+import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 import com.forrestguice.suntimes.solunar.data.SolunarRating;
 
@@ -62,6 +64,29 @@ public class DisplayStrings
             retValue.append(" ");
         }
         return retValue.toString();
+    }
+
+    public static CharSequence formatCardSummary(@NonNull Context context, @Nullable SolunarData data, @NonNull TimeZone timezone, boolean is24Hour)
+    {
+        if (data != null)
+        {
+            CharSequence dateDisplay = formatDate(context, data.getDateMillis());
+            double dayRating = data.getRating().getDayRating();
+            String ratingLabel = formatRating(context, dayRating);
+            double[] ratingStars = formatRatingStars(dayRating);
+
+            MoonPhaseDisplay moonphase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
+            CharSequence moonillum = formatIllumination(context, data.getMoonIllumination());
+            CharSequence sunrise = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNRISE), timezone, is24Hour);
+            CharSequence sunset = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNSET), timezone, is24Hour);
+
+            // TODO: major/minor periods
+
+            return context.getString(R.string.format_card_summary, data.getLocation(), dateDisplay, ratingLabel, ((int)ratingStars[0] + ""), moonphase, moonillum, sunrise, sunset);
+
+        } else {
+            return "";
+        }
     }
 
     public static String formatHeightenedPeriodNote(@NonNull Context context, @NonNull SolunarPeriod period)

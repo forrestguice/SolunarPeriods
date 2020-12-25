@@ -208,9 +208,16 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
     }
 
-    public void shareCard() {
-        // TODO
-        Toast.makeText(getContext(), "TODO", Toast.LENGTH_LONG).show();
+    public void shareCard()
+    {
+        Context context = getActivity();
+        if (context != null)
+        {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, DisplayStrings.formatCardSummary(context, getData(), options.timezone, options.suntimes_options.time_is24));
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, null));
+        }
     }
     private View.OnClickListener onShareButtonClicked = new View.OnClickListener() {
         @Override
