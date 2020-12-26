@@ -96,16 +96,15 @@ public class DisplayStrings
         if (data != null)
         {
             String periodDisplay = "";
-            ArrayList<SolunarPeriod> periods = new ArrayList<>(Arrays.asList(data.getMinorPeriods()));
-            periods.addAll(Arrays.asList(data.getMajorPeriods()));
-            Collections.sort(periods);
+            ArrayList<SolunarPeriod> periods = data.getPeriods();
             for (int i=0; i<periods.size(); i++)
             {
                 SolunarPeriod period = periods.get(i);
                 CharSequence startTime = formatTime(context, period.getStartMillis(), timezone, is24Hour);
                 CharSequence endTime = formatTime(context, period.getEndMillis(), timezone, is24Hour);
                 CharSequence timeRange = context.getString(R.string.format_card_period_timerange, startTime, endTime);
-                String display = context.getString(R.string.format_card_period_summary, period.getLabel(), timeRange);
+                boolean isHeightened = (period.occursAtSunrise() || period.occursAtSunset());
+                String display = context.getString((isHeightened ? R.string.format_card_period_summary1 :  R.string.format_card_period_summary0), period.getLabel(), timeRange);
                 periodDisplay = (i == 0) ? display : context.getString(R.string.format_card_period_list, periodDisplay, display);
             }
             return periodDisplay;

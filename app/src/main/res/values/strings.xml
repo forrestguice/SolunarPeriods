@@ -43,7 +43,8 @@
 
     <string name="format_card_summary">%1$s \n%2$s \nHunting &amp; Fishing: %3$s \n---\n%4$s (%5$s) \nSunrise: %6$s, Sunset: %7$s \n%8$s \n[%9$s]</string>    <!-- (1)location, (2)date, (3)ratingString, (4)moonPhase, (5)moonIllum, (6)sunrise, (7)sunset, (8)periodSummary, (9)timezone -->
     <string name="format_card_period_timerange">%1$s - %2$s</string>   <!-- (1)start time, (2)end-time -->
-    <string name="format_card_period_summary">%2$s (%1$s)</string>      <!-- (1)label, (2)time-range -->
+    <string name="format_card_period_summary0">%2$s (%1$s)</string>      <!-- normal: (1)label, (2)time-range -->
+    <string name="format_card_period_summary1">%2$s (%1$s) &#x2299;</string>      <!-- heightened: (1)label, (2)time-range -->
     <string name="format_card_period_list">%1$s\n%2$s</string>         <!-- (1)period-1, (2)period-2, ... -->
 
     <string name="format_card_title0">%1$s\n%2$s</string>         <!-- Yesterday|Today|Tomorrow \n Thursday, February 27 -->
