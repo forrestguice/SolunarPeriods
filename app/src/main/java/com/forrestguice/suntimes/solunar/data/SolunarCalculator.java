@@ -104,7 +104,8 @@ public class SolunarCalculator
         double c1 = (tallyPeriods(context, data.getMajorPeriods(), reasons) / 2d) * 0.1;
         double c2 = (tallyPeriods(context, data.getMinorPeriods(), reasons) / 2d) * 0.1;
 
-        data.dayRating = new SolunarRating(c0 + c1 + c2, reasons);
+        //data.dayRating = new SolunarRating(c0 + c1 + c2, reasons);
+        data.dayRating = new SolunarRating(c0, reasons);
     }
 
 
