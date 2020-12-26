@@ -91,10 +91,10 @@
 
     <string name="label_sunrise">Sunrise</string>
     <string name="label_sunset">Sunset</string>
-    <string name="label_moonrise">Moonrise</string>
-    <string name="label_moonnoon">Lunar Noon</string>
-    <string name="label_moonset">Moonset</string>
-    <string name="label_moonnight">Lunar Midnight</string>
+    <string name="label_moonrise">moonrise</string>
+    <string name="label_moonnoon">lunar noon</string>
+    <string name="label_moonset">moonset</string>
+    <string name="label_moonnight">lunar midnight</string>
     <string name="label_major_period">Major</string>
     <string name="label_minor_period">Minor</string>
     <string name="label_enhanced_period">&#x2299;</string>

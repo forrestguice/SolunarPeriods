@@ -30,6 +30,7 @@ import android.view.Display;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class SolunarCalculator
      */
     public boolean calculateData(Context context, ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
-        if (queryData(resolver, data, timezone))
+        if (queryData(context, resolver, data, timezone))
         {
             calculateRating(context, data, timezone);
             data.calculated = true;
@@ -130,9 +131,9 @@ public class SolunarCalculator
     /**
      * queryData
      */
-    public boolean queryData(ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
+    public boolean queryData(Context context, ContentResolver resolver, @NonNull SolunarData data, @NonNull TimeZone timezone)
     {
-        if (resolver != null)
+        if (context != null && resolver != null)
         {
             Pair<Calendar,Calendar>[] riseSet = new Pair[3];  // [0] yesterday, [1] today, and [2] tomorrow
             try
@@ -189,19 +190,19 @@ public class SolunarCalculator
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {
-                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                    data.minor_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, context.getString(R.string.label_moonrise), data.moonrise, data.moonrise + MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
                 if (data.moonset != -1) {
-                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + MINOR_PERIOD_MILLIS,  data.sunrise, data.sunset);
+                    data.minor_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, context.getString(R.string.label_moonset), data.moonset, data.moonset + MINOR_PERIOD_MILLIS,  data.sunrise, data.sunset);
                 }
 
                 // major periods at lunar noon and lunar midnight
                 int today = data.getDate(timezone).get(Calendar.DAY_OF_YEAR);
                 if (lunarNoon != null && lunarNoon.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                    data.major_periods[0] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, context.getString(R.string.label_moonnoon), lunarNoon.getTimeInMillis(), lunarNoon.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
                 if (lunarMidnight != null && lunarMidnight.get(Calendar.DAY_OF_YEAR) == today) {
-                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                    data.major_periods[1] = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, context.getString(R.string.label_moonnight), lunarMidnight.getTimeInMillis(), lunarMidnight.getTimeInMillis() + MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                 }
 
             } catch (SecurityException e) {

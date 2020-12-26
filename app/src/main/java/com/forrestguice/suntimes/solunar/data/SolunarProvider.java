@@ -266,22 +266,22 @@ public class SolunarProvider extends ContentProvider
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, context.getString(R.string.label_moonrise), data.moonrise, data.moonrise + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, context.getString(R.string.label_moonset), data.moonset, data.moonset + SolunarCalculator.MINOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, context.getString(R.string.label_moonnoon), data.moonnoon, data.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
                         case COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP:
-                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
+                            period = new SolunarPeriod(SolunarPeriod.TYPE_MAJOR, context.getString(R.string.label_moonnight), data.moonnight, data.moonnight + SolunarCalculator.MAJOR_PERIOD_MILLIS, data.sunrise, data.sunset);
                             row[i] = (Integer)(period.occursAtSunrise() ? OVERLAP_SUNRISE : (period.occursAtSunset() ? OVERLAP_SUNSET : OVERLAP_NONE));
                             break;
 
