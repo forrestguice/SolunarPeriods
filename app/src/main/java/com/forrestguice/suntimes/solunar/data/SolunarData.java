@@ -24,7 +24,10 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.TimeZone;
 
 public class SolunarData implements Parcelable
@@ -354,6 +357,23 @@ public class SolunarData implements Parcelable
      */
     public SolunarPeriod[] getMinorPeriods() {
         return minor_periods;
+    }
+
+    public ArrayList<SolunarPeriod> getPeriods()
+    {
+        ArrayList<SolunarPeriod> periods = new ArrayList<>();
+        for (SolunarPeriod period : major_periods) {
+            if (period != null) {
+                periods.add(period);
+            }
+        }
+        for (SolunarPeriod period : minor_periods) {
+            if (period != null) {
+                periods.add(period);
+            }
+        }
+        Collections.sort(periods);
+        return periods;
     }
 
     @Override
