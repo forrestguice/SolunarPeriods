@@ -42,7 +42,10 @@ import com.forrestguice.suntimes.solunar.data.SolunarRating;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -70,7 +73,7 @@ public class DisplayStrings
     {
         if (data != null)
         {
-            CharSequence dateDisplay = formatDate(context, data.getDateMillis());
+            CharSequence dateDisplay = formatDateShort(context, data.getDate(timezone));
             double dayRating = data.getRating().getDayRating();
             String ratingLabel = formatRating(context, dayRating);
             double[] ratingStars = formatRatingStars(dayRating);
@@ -79,10 +82,33 @@ public class DisplayStrings
             CharSequence moonillum = formatIllumination(context, data.getMoonIllumination());
             CharSequence sunrise = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNRISE), timezone, is24Hour);
             CharSequence sunset = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNSET), timezone, is24Hour);
+            CharSequence periods = formatPeriodSummary(context, data, timezone, is24Hour);
 
-            // TODO: major/minor periods
+            return context.getString(R.string.format_card_summary, data.getLocation(), dateDisplay, ratingLabel, moonphase, moonillum, sunrise, sunset, periods, timezone.getID());
 
-            return context.getString(R.string.format_card_summary, data.getLocation(), dateDisplay, ratingLabel, ((int)ratingStars[0] + ""), moonphase, moonillum, sunrise, sunset);
+        } else {
+            return "";
+        }
+    }
+
+    public static CharSequence formatPeriodSummary(@NonNull Context context, @Nullable SolunarData data, @NonNull TimeZone timezone, boolean is24Hour)
+    {
+        if (data != null)
+        {
+            String periodDisplay = "";
+            ArrayList<SolunarPeriod> periods = new ArrayList<>(Arrays.asList(data.getMinorPeriods()));
+            periods.addAll(Arrays.asList(data.getMajorPeriods()));
+            Collections.sort(periods);
+            for (int i=0; i<periods.size(); i++)
+            {
+                SolunarPeriod period = periods.get(i);
+                CharSequence startTime = formatTime(context, period.getStartMillis(), timezone, is24Hour);
+                CharSequence endTime = formatTime(context, period.getEndMillis(), timezone, is24Hour);
+                CharSequence timeRange = context.getString(R.string.format_card_period_timerange, startTime, endTime);
+                String display = context.getString(R.string.format_card_period_summary, period.getLabel(), timeRange);
+                periodDisplay = (i == 0) ? display : context.getString(R.string.format_card_period_list, periodDisplay, display);
+            }
+            return periodDisplay;
 
         } else {
             return "";
@@ -184,6 +210,14 @@ public class DisplayStrings
 
         Locale locale = Locale.getDefault();
         SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString( isThisYear ? R.string.format_date : R.string.format_date_long), locale);
+        dateFormat.setTimeZone(date.getTimeZone());
+        return dateFormat.format(date.getTime());
+    }
+
+    public static CharSequence formatDateShort(@NonNull Context context, Calendar date)
+    {
+        Locale locale = Locale.getDefault();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString( R.string.format_date_long_alt), locale);
         dateFormat.setTimeZone(date.getTimeZone());
         return dateFormat.format(date.getTime());
     }
