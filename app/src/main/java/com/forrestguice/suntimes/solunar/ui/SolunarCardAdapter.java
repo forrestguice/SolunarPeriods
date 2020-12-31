@@ -171,6 +171,22 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         notifyDataSetChanged();
     }
 
+    public int findPositionForDate(Calendar date)
+    {
+        Calendar today = initData(SolunarCardAdapter.TODAY_POSITION).getDate(date.getTimeZone());
+        today.set(Calendar.HOUR_OF_DAY, 12);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+
+        date.set(Calendar.HOUR_OF_DAY, 12);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+
+        long delta = date.getTimeInMillis() - today.getTimeInMillis();
+        double offset = delta / (24 * 60 * 60 * 1000D);
+        return SolunarCardAdapter.TODAY_POSITION + (int) Math.round(offset);
+    }
+
     public TimeZone getTimeZone() {
         return options.timezone;
     }
