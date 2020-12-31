@@ -1,6 +1,15 @@
 ~
 
-v0.1.0 (2020-03-16) [First Release]
+### v0.2.0 (2020-12-31)
+* adds "Calendar Integration" (#1). This feature requires "Suntimes Calendars" v0.5.0.
+* adds bottom sheet; shows an expanded view with note explaining the reasons for a daily rating.
+* adds "Share" menu item; shares a daily rating as text.
+* adds "Go to..." menu item; scrolls to a given date.
+* adds "View Date" menu item; opens Suntimes to a given date.
+* adds Time Zone selector; "System", "Suntimes", "Apparent Solar", and "Local Mean".
+* modifies the range of cards to +-10 years.
+
+### v0.1.0 (2020-03-16) [First Release]
 * an add-on app that uses the current Suntimes configuration (location, timezone, theme, locale, and UI options). The minimum Suntimes version is `v0.10.3` (but without access to UI options); the recommended version is `v0.12.6`.
 * UI provides an ActionBar that displays configured Location (lat, lon, alt), Suntimes icon (opens Suntimes activity), and overflow menu (Help, and About).
 * UI provides a BottomBar that displays the configured timezone. 
