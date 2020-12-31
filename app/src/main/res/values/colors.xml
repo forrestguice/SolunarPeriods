@@ -8,7 +8,7 @@
     <color name="colorAccent_light">@color/deep_teal_500</color>
     <color name="colorAction_light">@color/sun_setting_light</color>
     <color name="colorDisabled_light">#aaaaaa</color>
-    <color name="colorSheet_light">#f4faf0</color>  <!-- pampas: #f5f6f0, black-white: #fffffa, twilight-blue: #faffff, ceramico: #fafff0 -->
+    <color name="colorSheet_light">#faffff</color>  <!-- pampas: #f5f6f0, black-white: #fffffa, twilight-blue: #faffff, ceramico: #fafff0, spring green: #f4faf0 -->
     <color name="colorRoundedBox_fill_light">#19000000</color>
     <color name="colorRoundedBox_stroke_light">#36000000</color>
 
