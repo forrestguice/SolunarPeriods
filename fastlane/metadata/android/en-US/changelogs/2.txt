@@ -1,0 +1,4 @@
+- adds "Calendar Integration". This feature requires "Suntimes Calendars" v0.5.0.
+- adds a bottom sheet that explains the reasons for a daily rating.
+- adds menu items to "Share" (as text), "Go to..." (scroll), and "View Date" (open in Suntimes).
+- adds a time zone selector; "System", "Suntimes", "Apparent Solar", or "Local Mean".
