@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Pair;
-import android.view.Display;
 
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
