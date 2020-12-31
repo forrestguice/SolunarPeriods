@@ -34,9 +34,10 @@
     <android.support.v7.widget.AppCompatRatingBar
         android:id="@+id/rating" style="@style/Widget.AppCompat.RatingBar.Small" theme="@style/SolunarRatingBar"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:numStars="5" android:rating="4.75" android:stepSize="0.5" android:isIndicator="true"
+        android:numStars="5" android:rating="4.75" android:stepSize="0.25" android:isIndicator="true"
         app:layout_constraintTop_toBottomOf="@+id/text_date" app:layout_constraintStart_toStartOf="parent"
         />
+
     <TextView android:id="@+id/text_rating"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginStart="4dp" android:layout_marginEnd="4dp"
