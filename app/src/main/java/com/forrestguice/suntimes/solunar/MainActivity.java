@@ -185,8 +185,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int getThemeResID(@NonNull String themeName) {
-        return themeName.equals(SuntimesInfo.THEME_LIGHT) ? R.style.SolunarAppTheme_Light : R.style.SolunarAppTheme_Dark;
+    private int getThemeResID(@Nullable String themeName) {
+        return (themeName == null || themeName.equals(SuntimesInfo.THEME_DARK)) ? R.style.SolunarAppTheme_Dark : R.style.SolunarAppTheme_Light;
     }
 
     private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
@@ -389,14 +389,17 @@ public class MainActivity extends AppCompatActivity
         } else super.onBackPressed();
     }
 
-    protected void showToday() {
+    protected void showToday()
+    {
         scrollToPosition(SolunarCardAdapter.TODAY_POSITION, false);
-        showBottomSheet(SolunarCardAdapter.TODAY_POSITION, cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
+        if (cardAdapter != null) {
+            showBottomSheet(SolunarCardAdapter.TODAY_POSITION, cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION));
+        }
     }
 
     protected void showDateDialog()
     {
-        final long todayMillis = cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDateMillis();
+        final long todayMillis = cardAdapter != null ? cardAdapter.initData(SolunarCardAdapter.TODAY_POSITION).getDateMillis() : Calendar.getInstance().getTimeInMillis();
         long rangeMillis = (((SolunarCardAdapter.MAX_POSITIONS / 2L) - 2) * (24 * 60 * 60 * 1000L));
 
         DateDialog dialog = new DateDialog();
@@ -405,7 +408,7 @@ public class MainActivity extends AppCompatActivity
         dialog.setFragmentListener(dateDialogListener);
 
         int firstVisiblePosition = cardLayout.findFirstVisibleItemPosition();
-        dialog.setDate((firstVisiblePosition >= 0) ? cardAdapter.initData(firstVisiblePosition).getDateMillis() : Calendar.getInstance().getTimeInMillis());
+        dialog.setDate((firstVisiblePosition >= 0 && cardAdapter != null) ? cardAdapter.initData(firstVisiblePosition).getDateMillis() : todayMillis);
         dialog.show(getSupportFragmentManager(), DIALOG_DATE);
     }
 
@@ -414,13 +417,16 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onAccepted(int year, int month, int day)
         {
-            Calendar date = Calendar.getInstance(cardAdapter.getTimeZone());
-            date.set(year, month, day);
-            int position = cardAdapter.findPositionForDate(date);
-            scrollToPosition(position, false);
+            if (cardAdapter != null)
+            {
+                Calendar date = Calendar.getInstance(cardAdapter.getTimeZone());
+                date.set(year, month, day);
+                int position = cardAdapter.findPositionForDate(date);
+                scrollToPosition(position, false);
 
-            if (!isBottomSheetShowing()) {
-                showBottomSheet(position, cardAdapter.initData(position));
+                if (!isBottomSheetShowing()) {
+                    showBottomSheet(position, cardAdapter.initData(position));
+                }
             }
         }
         @Override
