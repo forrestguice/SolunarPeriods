@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity
         boolean checkVersion = SuntimesInfo.checkVersion(this, suntimesInfo);
         if (!checkVersion) {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
-            if (!suntimesInfo.hasPermission && suntimesInfo.isInstalled) {
+            if (!suntimesInfo.hasPermission) {
                 Messages.showPermissionDeniedMessage(this, view);
             } else {
                 Messages.showMissingDependencyMessage(this, view);
