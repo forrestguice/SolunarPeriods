@@ -45,23 +45,23 @@ import java.util.TimeZone;
 
 public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 {
-    public static final int MAX_POSITIONS = 2000;
+    public static final int MAX_POSITIONS = 7300;   // +- 10 yrs
     public static final int TODAY_POSITION = (MAX_POSITIONS / 2);
 
     protected WeakReference<Context> contextRef;
 
+    private String location;
     private double latitude;
     private double longitude;
     private double altitude;
-    private String timezone;
 
-    public SolunarCardAdapter(Context context, double latitude, double longitude, double altitude, String timezone, SolunarCardOptions options)
+    public SolunarCardAdapter(Context context, String location, double latitude, double longitude, double altitude, SolunarCardOptions options)
     {
         contextRef = new WeakReference<>(context);
+        this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
-        this.timezone = timezone;
         this.options = options;
     }
 
@@ -71,7 +71,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     {
         LayoutInflater layout = LayoutInflater.from(viewGroup.getContext());
         View view = layout.inflate(R.layout.card_solunarday, viewGroup, false);
-        return new SolunarCardHolder(view, options);
+        return new SolunarCardHolder(view.getContext(), view, options);
     }
 
     @Override
@@ -137,12 +137,12 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 
     protected SolunarData createData(int position)
     {
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone(timezone));
+        Calendar date = Calendar.getInstance(options.timezone);
         date.add(Calendar.DATE, position - TODAY_POSITION);
         date.set(Calendar.HOUR_OF_DAY, 12);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
-        return calculateData(new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude, timezone));
+        return calculateData(new SolunarData(date.getTimeInMillis(), location, latitude, longitude, altitude));
     }
 
     private SolunarData calculateData(SolunarData solunarData)
@@ -153,7 +153,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
             ContentResolver resolver = context.getContentResolver();
             if (resolver != null) {
                 SolunarCalculator calculator = new SolunarCalculator();
-                calculator.calculateData(resolver, solunarData);
+                calculator.calculateData(context, resolver, solunarData, options.timezone);
             } else {
                 Log.e(getClass().getSimpleName(), "createData: null contentResolver!");
             }
@@ -169,6 +169,26 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
         invalidated = true;
         data.clear();
         notifyDataSetChanged();
+    }
+
+    public int findPositionForDate(Calendar date)
+    {
+        Calendar today = initData(SolunarCardAdapter.TODAY_POSITION).getDate(date.getTimeZone());
+        today.set(Calendar.HOUR_OF_DAY, 12);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+
+        date.set(Calendar.HOUR_OF_DAY, 12);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+
+        long delta = date.getTimeInMillis() - today.getTimeInMillis();
+        double offset = delta / (24 * 60 * 60 * 1000D);
+        return SolunarCardAdapter.TODAY_POSITION + (int) Math.round(offset);
+    }
+
+    public TimeZone getTimeZone() {
+        return options.timezone;
     }
 
     private void attachClickListeners(@NonNull final SolunarCardHolder holder, int position)
@@ -247,11 +267,23 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static class SolunarCardOptions
     {
         public SuntimesInfo.SuntimesOptions suntimes_options;
+        public TimeZone timezone;
+        public boolean show_dayDiff = false;
+
         public SolunarCardOptions(@NonNull Context context) {
-            suntimes_options = new SuntimesInfo.SuntimesOptions(context);
+            this.suntimes_options = new SuntimesInfo.SuntimesOptions(context);
+            this.timezone = TimeZone.getDefault();
         }
-        public SolunarCardOptions(SuntimesInfo.SuntimesOptions options) {
-            suntimes_options = options;
+
+        public SolunarCardOptions(SuntimesInfo.SuntimesOptions options, TimeZone timezone) {
+            this.suntimes_options = options;
+            this.timezone = timezone;
+        }
+        public SolunarCardOptions(SolunarCardOptions other)
+        {
+            this.suntimes_options = other.suntimes_options;
+            this.timezone = other.timezone;
+            this.show_dayDiff = other.show_dayDiff;
         }
     }
 

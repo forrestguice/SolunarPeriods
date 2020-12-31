@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="icBack" format="reference" />
+    <attr name="icShare" format="reference" />
     <attr name="icToday" format="reference" />
     <attr name="icSettings" format="reference" />
     <attr name="icHelp" format="reference" />
@@ -14,6 +16,7 @@
     <attr name="colorTime" format="reference" />
     <attr name="colorValue" format="reference" />
 
-    <attr name="colorBottomToolbar" format="reference" />
+    <attr name="colorBottomSheet" format="reference" />
+    <attr name="roundedTextBox" format="reference" />
 
 </resources>

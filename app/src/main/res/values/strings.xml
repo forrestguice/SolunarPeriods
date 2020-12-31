@@ -19,7 +19,13 @@
         Source code available under GPLv3.
     ]]></string>
 
+    <string name="action_back">Back</string>
+    <string name="action_calendar">Open Calendar</string>
+    <string name="action_share">Share</string>
     <string name="action_today">Today</string>
+    <string name="action_date">Go to…</string>
+    <string name="action_date_suntimes">View date</string>
+    <string name="action_overflow">More</string>
     <string name="action_calendars">Calendar Integration</string>
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
@@ -27,16 +33,33 @@
 
     <string name="snack_timezone"><![CDATA[The time zone is set to <b>%s</b>.]]></string>
 
+    <string name="past_today">Past</string>
+    <string name="past_n">Past (%1$s)</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="future_today">Future</string>
+    <string name="future_n">Future (%1$s)</string>
+
+    <string name="format_card_summary">%1$s \n%2$s \nHunting &amp; Fishing: %3$s \n---\n%4$s (%5$s) \nSunrise: %6$s, Sunset: %7$s \n%8$s \n[%9$s]</string>    <!-- (1)location, (2)date, (3)ratingString, (4)moonPhase, (5)moonIllum, (6)sunrise, (7)sunset, (8)periodSummary, (9)timezone -->
+    <string name="format_card_period_timerange">%1$s - %2$s</string>   <!-- (1)start time, (2)end-time -->
+    <string name="format_card_period_summary0">%2$s (%1$s)</string>      <!-- normal: (1)label, (2)time-range -->
+    <string name="format_card_period_summary1">%2$s (%1$s) &#x2299;</string>      <!-- heightened: (1)label, (2)time-range -->
+    <string name="format_card_period_list">%1$s\n%2$s</string>         <!-- (1)period-1, (2)period-2, ... -->
+
+    <string name="format_card_title0">%1$s\n%2$s</string>         <!-- Yesterday|Today|Tomorrow \n Thursday, February 27 -->
+    <string name="format_card_title1">%1$s</string>               <!-- Thursday, February 27 -->
     <string name="format_date">EEEE\nMMMM d</string>              <!-- Thursday, February 27 -->
     <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
-    <string name="format_location">%s, %s</string>                <!-- lat, lon -->
-    <string name="format_location_long">%s, %s %s</string>      <!-- lat, lon [alt] -->
+    <string name="format_date_long_alt">EEEE, MMMM d</string>        <!-- February 27, 2020 -->
+    <string name="format_location">%1$s, %2$s</string>                <!-- lat, lon -->
+    <string name="format_location_long">%1$s, %2$s %3$s</string>      <!-- lat, lon [alt] -->
     <string name="format_location_altitude">%1$s%2$s</string>     <!-- altitude, e.g. 1600m -->
     <string name="format_tag">[%1$s]</string>                     <!-- [tag] -->
-    <string name="format_moonphase_long">%s\n@ %s</string>        <!-- "Full Moon @ 8:45 PM" -->
+    <string name="format_moonphase_long">%1$s\n@ %2$s</string>        <!-- "Full Moon @ 8:45 PM" -->
     <string name="format_illumination">%s</string>              <!-- 75 % -->
     <string name="format_summary_minutes">%s minutes</string>
-    <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
+    <string name="format_help"><![CDATA[%1$s<br/><br/>%2$s]]></string>
 
     <string name="units_feet">feet</string>
     <string name="units_feet_short">ft</string>
@@ -49,6 +72,21 @@
     <string name="help_major_periods"><![CDATA[<b>Major</b> periods occur at <em>lunar noon</em> and <em>lunar midnight</em> and generally last for 2 hours.]]></string>
     <string name="help_rating_period"><![CDATA[<b>&#x2299;</b> A period is heightened when it occurs within 30 minutes of <em>sunrise</em> or <em>sunset</em>.]]></string>
 
+    <string name="note_full_moon_today">A full moon occurs today.</string>
+    <string name="note_full_moon_soon">A full moon will occur in the next few days.</string>
+    <string name="note_full_moon_recent">A full moon occurred in the last few days.</string>
+    <string name="note_full_moon_verysoon">A full moon will occur soon.</string>
+    <string name="note_full_moon_veryrecent">A full moon occurred recently.</string>
+    <string name="note_new_moon_today">A new moon occurs today.</string>
+    <string name="note_new_moon_soon">A new moon will occur in the next few days.</string>
+    <string name="note_new_moon_recent">A new moon occurred in the last few days.</string>
+    <string name="note_new_moon_verysoon">A new moon will occur soon.</string>
+    <string name="note_new_moon_veryrecent">A new moon occurred recently.</string>
+    <string name="note_major_period_at_sunrise">A major period is heightened at sunrise.</string>
+    <string name="note_major_period_at_sunset">A major period is heightened at sunset.</string>
+    <string name="note_minor_period_at_sunrise">A minor period is heightened at sunrise.</string>
+    <string name="note_minor_period_at_sunset">A minor period is heightened at sunset.</string>
+
     <string-array name="help_topics">      <!-- in order of appearance -->
         <item>@string/help_configuration</item>
         <item>@string/help_rating_day</item>
@@ -59,10 +97,10 @@
 
     <string name="label_sunrise">Sunrise</string>
     <string name="label_sunset">Sunset</string>
-    <string name="label_moonrise">Moonrise</string>
-    <string name="label_moonnoon">Lunar Noon</string>
-    <string name="label_moonset">Moonset</string>
-    <string name="label_moonnight">Lunar Midnight</string>
+    <string name="label_moonrise">moonrise</string>
+    <string name="label_moonnoon">lunar noon</string>
+    <string name="label_moonset">moonset</string>
+    <string name="label_moonnight">lunar midnight</string>
     <string name="label_major_period">Major</string>
     <string name="label_minor_period">Minor</string>
     <string name="label_enhanced_period">&#x2299;</string>
@@ -100,6 +138,13 @@
         <item>&#x2299;</item>
     </string-array>
 
+    <string name="action_timezone_system_format">(%s)</string>
+    <string name="action_timezone_system">System %s</string>
+    <string name="action_timezone_suntimes">Suntimes %s</string>
+    <string name="action_timezone_localmean">@string/solartime_localmean</string>
+    <string name="action_timezone_apparentsolar">@string/solartime_apparent</string>
+    <string name="solartime_localmean">Local Mean Time</string>
+    <string name="solartime_apparent">Apparent Solar Time</string>
 
     <!-- Settings -->
 

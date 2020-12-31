@@ -29,14 +29,23 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.Menu;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
+import com.forrestguice.suntimes.solunar.MainActivity;
 import com.forrestguice.suntimes.solunar.R;
+import com.forrestguice.suntimes.solunar.data.SolunarData;
 import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
+import com.forrestguice.suntimes.solunar.data.SolunarRating;
 
+import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -47,6 +56,107 @@ public class DisplayStrings
         String[] labels = context.getResources().getStringArray(R.array.ratings_labels);
         int[] brackets = context.getResources().getIntArray(R.array.ratings_brackets);
         return formatRating(rating, brackets, labels);
+    }
+
+    public static String formatRatingExplanation(@NonNull Context context, SolunarRating rating)
+    {
+        StringBuilder retValue = new StringBuilder();
+        String[] reasons = rating.getReasons();
+        for (int i=0; i<reasons.length; i++) {
+            retValue.append(reasons[i]);
+            retValue.append(" ");
+        }
+        return retValue.toString();
+    }
+
+    public static CharSequence formatCardSummary(@NonNull Context context, @Nullable SolunarData data, @NonNull TimeZone timezone, boolean is24Hour)
+    {
+        if (data != null)
+        {
+            CharSequence dateDisplay = formatDateShort(context, data.getDate(timezone));
+            double dayRating = data.getRating().getDayRating();
+            String ratingLabel = formatRating(context, dayRating);
+            double[] ratingStars = formatRatingStars(dayRating);
+
+            MoonPhaseDisplay moonphase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
+            CharSequence moonillum = formatIllumination(context, data.getMoonIllumination());
+            CharSequence sunrise = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNRISE), timezone, is24Hour);
+            CharSequence sunset = formatTime(context, data.getDateMillis(SolunarData.KEY_SUNSET), timezone, is24Hour);
+            CharSequence periods = formatPeriodSummary(context, data, timezone, is24Hour);
+
+            return context.getString(R.string.format_card_summary, data.getLocation(), dateDisplay, ratingLabel, moonphase, moonillum, sunrise, sunset, periods, timezone.getID());
+
+        } else {
+            return "";
+        }
+    }
+
+    public static CharSequence formatPeriodSummary(@NonNull Context context, @Nullable SolunarData data, @NonNull TimeZone timezone, boolean is24Hour)
+    {
+        if (data != null)
+        {
+            String periodDisplay = "";
+            ArrayList<SolunarPeriod> periods = data.getPeriods();
+            for (int i=0; i<periods.size(); i++)
+            {
+                SolunarPeriod period = periods.get(i);
+                CharSequence startTime = formatTime(context, period.getStartMillis(), timezone, is24Hour);
+                CharSequence endTime = formatTime(context, period.getEndMillis(), timezone, is24Hour);
+                CharSequence timeRange = context.getString(R.string.format_card_period_timerange, startTime, endTime);
+                boolean isHeightened = (period.occursAtSunrise() || period.occursAtSunset());
+                String display = context.getString((isHeightened ? R.string.format_card_period_summary1 :  R.string.format_card_period_summary0), period.getLabel(), timeRange);
+                periodDisplay = (i == 0) ? display : context.getString(R.string.format_card_period_list, periodDisplay, display);
+            }
+            return periodDisplay;
+
+        } else {
+            return "";
+        }
+    }
+
+    public static String formatHeightenedPeriodNote(@NonNull Context context, @NonNull SolunarPeriod period)
+    {
+        if (period.occursAtSunrise()) {
+            return (period.getType() == SolunarPeriod.TYPE_MAJOR)
+                    ? context.getString(R.string.note_major_period_at_sunrise)
+                    : context.getString(R.string.note_minor_period_at_sunrise);
+
+        } else if (period.occursAtSunset()) {
+            return (period.getType() == SolunarPeriod.TYPE_MAJOR)
+                    ? context.getString(R.string.note_major_period_at_sunset)
+                    : context.getString(R.string.note_minor_period_at_sunset);
+        } else {
+            return "";
+        }
+    }
+
+    public static String formatHeightenedMoonNote(@NonNull Context context, double monthDays, double daysToNew, double daysToFull)
+    {
+        if (daysToNew <= 0.5d || daysToNew >= (monthDays - 0.5d)) {
+            return context.getString(R.string.note_new_moon_today);
+        } else if (daysToNew <= 2.5d) {
+            return context.getString(R.string.note_new_moon_verysoon);
+        } else if (daysToNew <= 3.5d) {
+            return context.getString(R.string.note_new_moon_soon);
+        } else if (daysToNew >= (monthDays - 2.5d)) {
+            return context.getString(R.string.note_new_moon_veryrecent);
+        } else if (daysToNew >= (monthDays - 3.5d)) {
+            return context.getString(R.string.note_new_moon_recent);
+
+        } else if (daysToFull <= 0.5d || daysToFull >= (monthDays - 0.5d)) {
+            return context.getString(R.string.note_full_moon_today);
+        } else if (daysToFull <= 2.5d) {
+            return context.getString(R.string.note_full_moon_verysoon);
+        } else if (daysToFull <= 3.5d) {
+            return context.getString(R.string.note_full_moon_soon);
+        } else if (daysToFull >= (monthDays - 2.5d)) {
+            return context.getString(R.string.note_full_moon_veryrecent);
+        } else if (daysToFull >= (monthDays - 3.5d)) {
+            return context.getString(R.string.note_full_moon_recent);
+
+        } else {
+            return "";
+        }
     }
 
     public static String formatRating(double rating, int[] brackets, String[] labels)
@@ -65,6 +175,16 @@ public class DisplayStrings
             last = brackets[i];
         }
         return "";
+    }
+
+    public static double[] formatRatingStars(double dayRating)
+    {
+        if (dayRating > 0)
+        {
+            float numStars = (float)(dayRating * 4);
+            return new double[] { (int)Math.ceil(numStars), 4d };
+
+        } else return new double[] { 0.25d, 4 };
     }
 
     public static String formatType(Context context, int periodType) {
@@ -93,13 +213,24 @@ public class DisplayStrings
         return dateFormat.format(date.getTime());
     }
 
-    public static CharSequence formatTime(@NonNull Context context, long dateTime, String timezone, boolean is24Hr)
+    public static CharSequence formatDateShort(@NonNull Context context, Calendar date)
+    {
+        Locale locale = Locale.getDefault();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString( R.string.format_date_long_alt), locale);
+        dateFormat.setTimeZone(date.getTimeZone());
+        return dateFormat.format(date.getTime());
+    }
+
+    public static CharSequence formatTime(@NonNull Context context, long dateTime, String timezone, boolean is24Hr) {
+        return formatTime(context, dateTime, TimeZone.getTimeZone(timezone), is24Hr);
+    }
+    public static CharSequence formatTime(@NonNull Context context, long dateTime, TimeZone timezone, boolean is24Hr)
     {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dateTime);
         String format = (is24Hr ? context.getString(R.string.format_time24) : context.getString(R.string.format_time12));
         SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
-        timeFormat.setTimeZone(TimeZone.getTimeZone(timezone));
+        timeFormat.setTimeZone(timezone);
         return timeFormat.format(calendar.getTime());
     }
 
@@ -170,6 +301,27 @@ public class DisplayStrings
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
         else return Html.fromHtml(htmlString);
+    }
+
+    /**
+     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
+     */
+    public static void forceActionBarIcons(Menu menu)
+    {
+        if (menu != null)
+        {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+
+                } catch (Exception e) {
+                    Log.e(MainActivity.class.getSimpleName(), "failed to set show overflow icons", e);
+                }
+            }
+        }
     }
 
 }

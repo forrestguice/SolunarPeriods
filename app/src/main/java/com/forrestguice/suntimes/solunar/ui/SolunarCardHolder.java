@@ -32,7 +32,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
+import com.forrestguice.suntimes.solunar.AppSettings;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
@@ -41,6 +43,7 @@ import com.forrestguice.suntimes.solunar.data.SolunarPeriod;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 public class SolunarCardHolder extends RecyclerView.ViewHolder
 {
@@ -52,6 +55,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
     public TextView text_debug;
     public RatingBar rating;
     public TextView text_rating;
+    public TextView text_rating1;    // optional; may be null
 
     public LinearLayout layout_rows;
     public ArrayList<SolunarPeriodRow> rows;
@@ -69,11 +73,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
     protected static int color_sunrise, color_sunset;
 
-    public SolunarCardHolder(@NonNull View itemView, @NonNull SolunarCardAdapter.SolunarCardOptions options)
+    public SolunarCardHolder(@NonNull Context context, @NonNull View itemView, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
         super(itemView);
 
-        Context context = itemView.getContext();
         int[] attrs = new int[] {
                 R.attr.sunriseColor,
                 R.attr.sunsetColor,
@@ -89,6 +92,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         text_debug = itemView.findViewById(R.id.text_debug);
         rating = itemView.findViewById(R.id.rating);
         text_rating = itemView.findViewById(R.id.text_rating);
+        text_rating1 = itemView.findViewById(R.id.text_rating1);
 
         text_sunrise = itemView.findViewById(R.id.text_sunrise);
         text_sunset = itemView.findViewById(R.id.text_sunset);
@@ -112,25 +116,37 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         }
     }
 
-    public void onBindViewHolder(@NonNull Context context, int position, SolunarData data, SolunarCardAdapter.SolunarCardOptions options)
+    public void onBindViewHolder(@NonNull Context context, int position, @NonNull SolunarData data, @NonNull SolunarCardAdapter.SolunarCardOptions options)
     {
-        String timezone = data.getTimezone();
-
         this.position = position;
-        text_date.setText(DisplayStrings.formatDate(context, data.getDate()));
+
+        CharSequence dateDisplay = DisplayStrings.formatDate(context, data.getDate(options.timezone));
+        CharSequence cardTitle, dateDisplay1;
         if (position == SolunarCardAdapter.TODAY_POSITION)
         {
-            layout_card.setSelected(true);
+            if (layout_card != null) {
+                layout_card.setSelected(true);
+            }
+            dateDisplay1 = context.getString(R.string.today);
+            cardTitle = context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay);
             text_date.setTypeface(text_date.getTypeface(), Typeface.BOLD);
+            text_date.setText(DisplayStrings.createRelativeSpan(null, cardTitle.toString(), dateDisplay1.toString(), 2f));
 
         } else {
-            layout_card.setSelected(false);
-            text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
-            /*if (position < SolunarCardAdapter.TODAY_POSITION) {
-                // TODO: "past" appearance
+            if (layout_card != null) {
+                layout_card.setSelected(false);
+            }
+
+            if (position < SolunarCardAdapter.TODAY_POSITION) {
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION - 1) ? context.getString(R.string.yesterday)
+                        : options.show_dayDiff ? context.getString(R.string.past_n, "-" + (SolunarCardAdapter.TODAY_POSITION - position)) : null;
             } else {
-                // TODO: "future" appearance
-            }*/
+                dateDisplay1 = (position == SolunarCardAdapter.TODAY_POSITION + 1) ? context.getString(R.string.tomorrow)
+                        : options.show_dayDiff ? context.getString(R.string.future_n, "+" + (position - SolunarCardAdapter.TODAY_POSITION)) : null;
+            }
+            cardTitle = (dateDisplay1 != null) ? context.getString(R.string.format_card_title0, dateDisplay1, dateDisplay) : context.getString(R.string.format_card_title1, dateDisplay);
+            text_date.setTypeface(Typeface.create(text_date.getTypeface(), Typeface.NORMAL));
+            text_date.setText(cardTitle);
         }
 
         if (data.isCalculated())
@@ -141,20 +157,20 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
             String time_none = context.getString(R.string.time_none);
-            text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, timezone, options.suntimes_options.time_is24) : time_none);
-            text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, timezone, options.suntimes_options.time_is24) : time_none);
-            text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, timezone, options.suntimes_options.time_is24) : time_none);
-            text_moonset.setText(moonset > 0 ? DisplayStrings.formatTime(context, moonset, timezone, options.suntimes_options.time_is24) : time_none);
+            text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, options.timezone, options.suntimes_options.time_is24) : time_none);
+            text_moonset.setText(moonset > 0 ? DisplayStrings.formatTime(context, moonset, options.timezone, options.suntimes_options.time_is24) : time_none);
 
             text_moonillum.setText( DisplayStrings.formatIllumination(context, data.getMoonIllumination()));
 
             MoonPhaseDisplay phase = MoonPhaseDisplay.valueOf(data.getMoonPhase());
-            boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONNEW));
-            boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(), data.getDate(SolunarData.KEY_MOONFULL));
+            boolean isNewMoon = SolunarCalculator.isSameDay(data.getDate(options.timezone), data.getDate(SolunarData.KEY_MOONNEW, options.timezone));
+            boolean isFullMoon = SolunarCalculator.isSameDay(data.getDate(options.timezone), data.getDate(SolunarData.KEY_MOONFULL, options.timezone));
 
             if (isNewMoon || isFullMoon) {
                 long event = (isNewMoon ? data.getDateMillis(SolunarData.KEY_MOONNEW) : data.getDateMillis(SolunarData.KEY_MOONFULL));
-                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), DisplayStrings.formatTime(context, event, timezone, options.suntimes_options.time_is24)));
+                text_moonphase.setText(context.getString(R.string.format_moonphase_long,phase.getDisplayString(), DisplayStrings.formatTime(context, event, options.timezone, options.suntimes_options.time_is24)));
             } else {
                 text_moonphase.setText(phase.getDisplayString());
             }
@@ -174,34 +190,39 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     //"moonrise: " + SolunarCardHolder.formatTime(context, moonrise, data.getTimezone(), false) + "\n" +
                     //"moonset: " + SolunarCardHolder.formatTime(context, moonset, data.getTimezone(), false) + "\n" +
                     //"moonillum: " + data.getMoonIllumination() + "\n\n" +
-                    "rating: " + data.getDayRating();
+                    "rating: " + data.getRating().getDayRating();
                             //;
             text_debug.setText(debug);  // TODO
 
             SolunarPeriod[] majorPeriods = data.getMajorPeriods();
             SolunarPeriod[] minorPeriods = data.getMinorPeriods();
-            row_moonrise.setPeriod(context, minorPeriods[0]);    // moonrise
-            row_moonset.setPeriod(context, minorPeriods[1]);     // moonset
-            row_moonnoon.setPeriod(context, majorPeriods[0]);    // lunar noon
-            row_moonnight.setPeriod(context, majorPeriods[1]);   // lunar midnight
+            row_moonrise.setPeriod(context, minorPeriods[0], options.timezone);    // moonrise
+            row_moonset.setPeriod(context, minorPeriods[1], options.timezone);     // moonset
+            row_moonnoon.setPeriod(context, majorPeriods[0], options.timezone);    // lunar noon
+            row_moonnight.setPeriod(context, majorPeriods[1], options.timezone);   // lunar midnight
             SolunarPeriodRow.reorderLayout(layout_rows, rows);
 
-            double dayRating = data.getDayRating();
-            if (dayRating > 0)
-            {
-                float numStars = (float)(data.getDayRating() * 4);
-                rating.setNumStars((int)Math.ceil(numStars));
-                rating.setRating(numStars);
+            double dayRating = data.getRating().getDayRating();
+            double[] ratingStars = DisplayStrings.formatRatingStars(dayRating);
+            rating.setNumStars((int)ratingStars[1]);
+            rating.setRating((int)ratingStars[0]);
 
-            } else {
-                rating.setNumStars(1);
-                rating.setRating(0.25f);
-            }
             text_rating.setText(DisplayStrings.formatRating(context, dayRating));
+            if (text_rating1 != null) {
+                String explanation = DisplayStrings.formatRatingExplanation(context, data.getRating());
+                text_rating1.setText(explanation);
+                text_rating1.setVisibility(explanation.isEmpty() ? View.GONE : View.VISIBLE);
+            }
 
         } else {
             text_debug.setText(context.getString(R.string.time_none));
             rating.setNumStars(0);
+
+            text_rating.setText("");
+            if (text_rating1 != null) {
+                text_rating1.setText("");
+                text_rating1.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -235,7 +256,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         }
 
         public SolunarPeriod period = null;
-        public void setPeriod(Context context, SolunarPeriod period)
+        public void setPeriod(Context context, SolunarPeriod period, @NonNull TimeZone timezone)
         {
             this.period = period;
             if (period != null)
@@ -252,9 +273,10 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                     plus.setVisibility(View.INVISIBLE);
                     plus.setTextColor(Color.TRANSPARENT);
                 }
+
                 label.setText(DisplayStrings.formatType(context, period.getType()));
-                start.setText(DisplayStrings.formatTime(context, period.getStartMillis(), period.getTimezone(), options.suntimes_options.time_is24));
-                end.setText(DisplayStrings.formatTime(context, period.getEndMillis(), period.getTimezone(), options.suntimes_options.time_is24));
+                start.setText(DisplayStrings.formatTime(context, period.getStartMillis(), timezone, options.suntimes_options.time_is24));
+                end.setText(DisplayStrings.formatTime(context, period.getEndMillis(), timezone, options.suntimes_options.time_is24));
                 layout.setVisibility(View.VISIBLE);
 
             } else {
