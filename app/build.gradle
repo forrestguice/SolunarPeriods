@@ -6,8 +6,8 @@ android {
         applicationId "com.forrestguice.suntimes.solunar"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
@@ -26,7 +26,7 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'
-    implementation 'com.github.forrestguice:SuntimesAddon:c34710a550'
+    implementation 'com.github.forrestguice:SuntimesAddon:v0.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
