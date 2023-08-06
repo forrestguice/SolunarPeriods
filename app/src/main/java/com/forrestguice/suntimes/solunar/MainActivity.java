@@ -455,7 +455,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void showCalendarIntegration() {
-        AddonHelper.startSuntimesSettingsActivity_calendarIntegration(MainActivity.this, suntimesInfo.appCode);
+        AddonHelper.startSuntimesSettingsActivity_calendarIntegration(MainActivity.this, ((suntimesInfo != null && suntimesInfo.appCode != null) ? suntimesInfo.appCode : -1));
     }
 
     protected void showSettings()
