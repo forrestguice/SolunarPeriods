@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SolunarPeriods.
 
     SolunarPeriods is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimes.calendar.CalendarEventTemplateContract;
 import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.AppSettings;
@@ -44,6 +45,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
+import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION;
+import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION;
+import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_STRINGS;
+import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE;
+import static com.forrestguice.suntimes.calendar.CalendarHelper.QUERY_CALENDAR_TEMPLATE_STRINGS;
+import static com.forrestguice.suntimes.calendar.CalendarHelper.QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.AUTHORITY;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_NAME;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_SUMMARY;
@@ -93,6 +100,7 @@ public class SolunarProvider extends ContentProvider
     private static final int URIMATCH_SOLUNAR_FOR_RANGE = 30;
     private static final int URIMATCH_CALENDAR_INFO = 40;
     private static final int URIMATCH_CALENDAR_CONTENT_FOR_RANGE = 50;
+    private static final int URIMATCH_CALENDAR_TEMPLATE_STRINGS = 60;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static
@@ -102,6 +110,7 @@ public class SolunarProvider extends ContentProvider
         uriMatcher.addURI(AUTHORITY, QUERY_SOLUNAR + "/#", URIMATCH_SOLUNAR_FOR_DATE);
         uriMatcher.addURI(AUTHORITY, QUERY_SOLUNAR + "/*", URIMATCH_SOLUNAR_FOR_RANGE);
         uriMatcher.addURI(AUTHORITY, QUERY_CALENDAR_INFO, URIMATCH_CALENDAR_INFO);
+        uriMatcher.addURI(AUTHORITY, QUERY_CALENDAR_TEMPLATE_STRINGS, URIMATCH_CALENDAR_TEMPLATE_STRINGS);
         uriMatcher.addURI(AUTHORITY, QUERY_CALENDAR_CONTENT + "/*", URIMATCH_CALENDAR_CONTENT_FOR_RANGE);
     }
 
@@ -146,6 +155,11 @@ public class SolunarProvider extends ContentProvider
             case URIMATCH_CALENDAR_INFO:
                 Log.i(getClass().getSimpleName(), "URIMATCH_CALENDAR_INFO");
                 cursor = queryCalendarInfo(uri, projection, selection, selectionArgs, sortOrder);
+                break;
+
+            case URIMATCH_CALENDAR_TEMPLATE_STRINGS:
+                Log.i(getClass().getSimpleName(), "URIMATCH_CALENDAR_TEMPLATE_STRINGS");
+                cursor = queryCalendarTemplateStrings(uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
             case URIMATCH_CALENDAR_CONTENT_FOR_RANGE:
@@ -339,6 +353,18 @@ public class SolunarProvider extends ContentProvider
                         row[i] = context.getString(R.string.calendar_solunar_summary);
                         break;
 
+                    case COLUMN_TEMPLATE_TITLE:
+                        row[i] = DEF_TEMPLATE_TITLE;
+                        break;
+
+                    case COLUMN_TEMPLATE_DESCRIPTION:
+                        row[i] = DEF_TEMPLATE_DESCRIPTION;
+                        break;
+
+                    case COLUMN_TEMPLATE_LOCATION:
+                        row[i] = DEF_TEMPLATE_LOCATION;
+                        break;
+
                     default:
                         row[i] = null;
                         break;
@@ -346,8 +372,12 @@ public class SolunarProvider extends ContentProvider
             }
             cursor.addRow(row);
 
-        } else Log.d("DEBUG", "context is null!");
+        } else Log.w(getClass().getSimpleName(), "context is null!");
         return cursor;
+    }
+
+    public Cursor queryCalendarTemplateStrings(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+        return CalendarHelper.createTemplateStringsCursor(templateStrings, projection);
     }
 
     private HashMap<String, String> moonPhaseDisplay = new HashMap<>();
@@ -355,6 +385,7 @@ public class SolunarProvider extends ContentProvider
     private String minorTitle;
     private String titlePattern;
     private String descPattern;
+    private String[] templateStrings = new String[] {majorTitle, minorTitle};  // TODO
     private String[] overlapDisplay, overlapDisplay1;
     private String[] minorTitles;
     private String[] minorDesc;
@@ -364,6 +395,11 @@ public class SolunarProvider extends ContentProvider
     private int[] ratingBrackets;
     private boolean is24 = false;
     private String location = "";
+
+    private String template_title = null, template_desc = null, template_location = null;
+    public static final String DEF_TEMPLATE_TITLE = "%M";
+    public static final String DEF_TEMPLATE_DESCRIPTION = "%M";    // TODO
+    public static final String DEF_TEMPLATE_LOCATION = "%loc";
 
     private void initResources(Context context)
     {
@@ -399,6 +435,11 @@ public class SolunarProvider extends ContentProvider
         descPattern = context.getString(R.string.calendar_event_desc_pattern1);
         minorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarRise, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarSet, descPattern)};
         majorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarNoon, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarNight, descPattern)};
+
+        String[] template_values = CalendarHelper.queryCalendarTemplate(context, CALENDAR_NAME);
+        template_title = ((template_values[0] != null) ? template_values[0] : DEF_TEMPLATE_TITLE);
+        template_desc = ((template_values[1] != null) ? template_values[1] : DEF_TEMPLATE_DESCRIPTION);
+        template_location = ((template_values[2] != null) ? template_values[2] : DEF_TEMPLATE_LOCATION);
     }
 
     public Cursor queryCalendarContent(long[] range, @NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
