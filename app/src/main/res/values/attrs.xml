@@ -19,4 +19,6 @@
     <attr name="colorBottomSheet" format="reference" />
     <attr name="roundedTextBox" format="reference" />
 
+    <attr name="bottomBarSize" format="reference" />   <!-- TODO: move to SuntimesAddon -->
+
 </resources>

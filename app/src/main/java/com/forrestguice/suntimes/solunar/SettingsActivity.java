@@ -31,6 +31,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import com.forrestguice.suntimes.addon.AppThemeInfo;
+
 import java.util.List;
 
 /**
@@ -38,14 +40,26 @@ import java.util.List;
  */
 public class SettingsActivity extends PreferenceActivity
 {
-    public static final String EXTRA_THEMERESID = "themeresid";
+    public static final String EXTRA_THEME_RESID = "themeresid";
+    public static final String EXTRA_THEME_NIGHTMODE = "themenightmode";
+
+    private static AppThemes themes;
+
+    @Override
+    protected void attachBaseContext(Context context)
+    {
+        AppThemeInfo.setFactory(themes = new AppThemes());
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        int themeResID = getIntent().getIntExtra(EXTRA_THEMERESID, -1);
-        if (themeResID != -1) {
+        int themeResID = getIntent().getIntExtra(EXTRA_THEME_RESID, -1);
+        if (themeResID != -1)
+        {
             setTheme(themeResID);
+            themes.setDefaultNightMode(getIntent().getIntExtra(EXTRA_THEME_NIGHTMODE, AppThemeInfo.MODE_NIGHT_NO));
         }
         super.onCreate(savedInstanceState);
 

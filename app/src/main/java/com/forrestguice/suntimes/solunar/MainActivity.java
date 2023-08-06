@@ -19,20 +19,15 @@
 
 package com.forrestguice.suntimes.solunar;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,16 +35,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.TooltipCompat;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.forrestguice.suntimes.addon.AddonHelper;
+import com.forrestguice.suntimes.addon.AppThemeInfo;
 import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
@@ -62,7 +56,6 @@ import com.forrestguice.suntimes.solunar.ui.HelpDialog;
 import com.forrestguice.suntimes.solunar.ui.SolunarCardAdapter;
 import com.forrestguice.suntimes.solunar.ui.SolunarDaySheet;
 
-import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -73,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     public static final String DIALOG_ABOUT = "aboutDialog";
 
     private SuntimesInfo suntimesInfo = null;
+    private AppThemes themes;
 
     private FloatingActionButton fab;
     private RecyclerView cardView;
@@ -84,6 +78,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void attachBaseContext(Context context)
     {
+        AppThemeInfo.setFactory(themes = new AppThemes());
         suntimesInfo = SuntimesInfo.queryInfo(context);    // obtain Suntimes version info
         super.attachBaseContext( (suntimesInfo != null && suntimesInfo.appLocale != null) ?    // override the locale
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
@@ -115,7 +110,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         if (suntimesInfo.appTheme != null) {    // override the theme
-            setTheme(getThemeResID(suntimesInfo.appTheme));
+            AppThemeInfo.setTheme(this, suntimesInfo);
         }
         super.onCreate(savedInstanceState);
 
@@ -144,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         if (suntimesInfo.appTheme != null) {    // override the theme
-            daySheet.setTheme(getThemeResID(suntimesInfo.appTheme));
+            daySheet.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.app_bottomsheet, daySheet).commit();
 
@@ -183,10 +178,6 @@ public class MainActivity extends AppCompatActivity
             }
             restoreDialogs();
         }
-    }
-
-    private int getThemeResID(@Nullable String themeName) {
-        return (themeName == null || themeName.equals(SuntimesInfo.THEME_DARK)) ? R.style.SolunarAppTheme_Dark : R.style.SolunarAppTheme_Light;
     }
 
     private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
@@ -403,7 +394,7 @@ public class MainActivity extends AppCompatActivity
         long rangeMillis = (((SolunarCardAdapter.MAX_POSITIONS / 2L) - 2) * (24 * 60 * 60 * 1000L));
 
         DateDialog dialog = new DateDialog();
-        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
         dialog.setDateRange(todayMillis - rangeMillis, todayMillis + rangeMillis);
         dialog.setFragmentListener(dateDialogListener);
 
@@ -469,8 +460,13 @@ public class MainActivity extends AppCompatActivity
 
     protected void showSettings()
     {
+        String themeName = AppThemeInfo.themeNameFromInfo(suntimesInfo);
+        int themeResID = AppThemeInfo.themePrefToStyleId(MainActivity.this, themeName);
+        int themeNightMode = themes.loadThemeInfo(themeName).getDefaultNightMode();
+
         Intent intent = new Intent(this, SettingsActivity.class);
-        intent.putExtra( SettingsActivity.EXTRA_THEMERESID, getThemeResID(suntimesInfo.appTheme) );
+        intent.putExtra( SettingsActivity.EXTRA_THEME_RESID, themeResID );
+        intent.putExtra( SettingsActivity.EXTRA_THEME_NIGHTMODE, themeNightMode );
         intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName() );
         intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
         startActivity(intent);
@@ -479,7 +475,7 @@ public class MainActivity extends AppCompatActivity
     protected void showHelp()
     {
         HelpDialog dialog = new HelpDialog();
-        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
 
         String[] help = getResources().getStringArray(R.array.help_topics);
         String helpContent = help[0];
@@ -493,7 +489,7 @@ public class MainActivity extends AppCompatActivity
     protected void showAbout()
     {
         AboutDialog dialog = new AboutDialog();
-        dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+        dialog.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
         dialog.setVersion(suntimesInfo);
         dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
     }
