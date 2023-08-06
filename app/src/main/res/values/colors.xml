@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- system theme colors -->
+    <color name="colorPrimary">@color/colorPrimary_light</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_light</color>
+    <color name="colorAccent">@color/colorAccent_light</color>
+    <color name="colorAction">@color/colorAction_light</color>
+    <color name="colorDisabled">@color/colorDisabled_light</color>
+    <color name="colorSheet">@color/colorSheet_light</color>
+
+    <color name="colorDate">@color/colorDate_light</color>
+    <color name="colorLabel">@color/colorLabel_light</color>
+    <color name="colorTime">@color/colorTime_light</color>
+    <color name="colorValue">@color/colorValue_light</color>
+
+
+
+
     <!-- light theme colors -->
 
     <color name="colorPrimary_light">@color/grey_100</color>

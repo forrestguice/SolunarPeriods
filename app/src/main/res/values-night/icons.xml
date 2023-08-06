@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="ic_action_back_ref">@drawable/ic_action_back</drawable>
+    <drawable name="ic_action_share_ref">@drawable/ic_action_share</drawable>
+    <drawable name="ic_today_ref">@drawable/ic_today</drawable>
+    <drawable name="ic_settings_ref">@drawable/ic_settings</drawable>
+    <drawable name="ic_help_ref">@drawable/ic_help</drawable>
+    <drawable name="ic_about_ref">@drawable/ic_about</drawable>
+
+    <drawable name="moonnoon_ref">@drawable/moonnoon_dark</drawable>
+    <drawable name="moonnight_ref">@drawable/moonnight_dark</drawable>
+    <drawable name="rounded_box_ref">@drawable/rounded_box_dark</drawable>
+</resources>

@@ -30,11 +30,11 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
 {
     private static final AppThemeInfo info_darkTheme = new DarkThemeInfo();
     private static final AppThemeInfo info_lightTheme = new LightThemeInfo();
-    //private static final AppThemeInfo info_systemTheme = new SystemThemeInfo();
+    private static final AppThemeInfo info_systemTheme = new SystemThemeInfo();
     //private static final AppThemeInfo info_systemTheme_contrast = new ContrastSystemThemeInfo();
     //private static final AppThemeInfo info_darkTheme_contrast = new ContrastDarkThemeInfo();
     //private static final AppThemeInfo info_lightTheme_contrast = new ContrastLightThemeInfo();
-    private static final AppThemeInfo info_defaultTheme = info_darkTheme;  // TODO: to system
+    private static final AppThemeInfo info_defaultTheme = info_systemTheme;
 
     @Override
     public AppThemeInfo loadThemeInfo(@Nullable String extendedThemeName)
@@ -48,10 +48,10 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_DARK)) {
             return info_darkTheme;
 
-        /*} else if (extendedThemeName.startsWith(SuntimesInfo.THEME_SYSTEM)) {
+        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_SYSTEM)) {
             return info_systemTheme;
 
-        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_LIGHT)) {
+        /*} else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_LIGHT)) {
             return info_lightTheme_contrast;
 
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_DARK)) {
@@ -76,7 +76,7 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
     }
 
     /* SystemThemeInfo */
-    /*public static class SystemThemeInfo extends AppThemeInfo
+    public static class SystemThemeInfo extends AppThemeInfo
     {
         @Override
         public String getThemeName() {
@@ -95,7 +95,7 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
                 case NORMAL: default: return R.style.SolunarAppTheme_System;
             }
         }
-    }*/
+    }
 
     /* LightThemeInfo */
     public static class LightThemeInfo extends AppThemeInfo

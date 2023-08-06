@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SolunarCardView.ref">
+        <item name="cardBackgroundColor">@color/card_background_dark</item>
+    </style>
+    <style name="SolunarToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+</resources>

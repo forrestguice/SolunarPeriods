@@ -2,14 +2,93 @@
 
     <style name="AppTheme" parent="SolunarAppTheme.Dark" />
 
+    <!-- System theme -->
+    <style name="SolunarAppTheme.System" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAction">@color/colorAction</item>
+        <item name="colorDisabled">@color/colorDisabled</item>
+        <item name="colorDate">@color/colorDate</item>
+        <item name="colorLabel">@color/colorLabel</item>
+        <item name="colorTime">@color/colorTime</item>
+        <item name="colorValue">@color/colorValue</item>
+        <item name="colorBottomSheet">@color/colorSheet</item>
+
+        <item name="icBack">@drawable/ic_action_back_ref</item>
+        <item name="icShare">@drawable/ic_action_share_ref</item>
+        <item name="icToday">@drawable/ic_today_ref</item>
+        <item name="icSettings">@drawable/ic_settings_ref</item>
+        <item name="icHelp">@drawable/ic_help_ref</item>
+        <item name="icAbout">@drawable/ic_about_ref</item>
+
+        <item name="icMoonNoon">@drawable/moonnoon_ref</item>
+        <item name="icMoonNight">@drawable/moonnight_ref</item>
+        <item name="roundedTextBox">@drawable/rounded_box_ref</item>
+
+        <item name="cardViewStyle">@style/SolunarCardView.ref</item>
+        <item name="toolbarTheme">@style/SolunarToolbarTheme</item>
+
+        <item name="text_size_tiny">@dimen/text_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
+        <item name="text_size_small">@dimen/text_size_small</item>
+        <item name="text_size_medium">@dimen/text_size_medium</item>
+        <item name="text_size_large">@dimen/text_size_large</item>
+        <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
+        <item name="text_size_huge">@dimen/text_size_huge</item>
+        <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.System.Small" parent="SolunarAppTheme.System">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/small_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.System.Large" parent="SolunarAppTheme.System">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/large_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.System.XLarge" parent="SolunarAppTheme.System">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
+    </style>
+
     <!-- Light theme -->
-    <style name="SolunarAppTheme.Light" parent="SuntimesAddonTheme.Light">
-        <!-- Customize your theme here. -->
+    <style name="SolunarAppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
         <item name="colorAction">@color/colorAction_light</item>
         <item name="colorDisabled">@color/colorDisabled_light</item>
+        <item name="colorDate">@color/colorDate_light</item>
+        <item name="colorLabel">@color/colorLabel_light</item>
+        <item name="colorTime">@color/colorTime_light</item>
+        <item name="colorValue">@color/colorValue_light</item>
+        <item name="colorBottomSheet">@color/colorSheet_light</item>
 
         <item name="icBack">@drawable/ic_action_back_light</item>
         <item name="icShare">@drawable/ic_action_share_light</item>
@@ -20,16 +99,10 @@
 
         <item name="icMoonNoon">@drawable/moonnoon_light</item>
         <item name="icMoonNight">@drawable/moonnight_light</item>
+        <item name="roundedTextBox">@drawable/rounded_box_light</item>
 
         <item name="cardViewStyle">@style/SolunarCardView.Light</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-
-        <item name="colorDate">@color/colorDate_light</item>
-        <item name="colorLabel">@color/colorLabel_light</item>
-        <item name="colorTime">@color/colorTime_light</item>
-        <item name="colorValue">@color/colorValue_light</item>
-        <item name="colorBottomSheet">@color/colorSheet_light</item>
-        <item name="roundedTextBox">@drawable/rounded_box_light</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -80,13 +153,17 @@
     </style>
 
     <!-- Dark theme -->
-    <style name="SolunarAppTheme.Dark" parent="SuntimesAddonTheme.Dark">
-        <!-- Customize your theme here. -->
+    <style name="SolunarAppTheme.Dark" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
         <item name="colorAction">@color/colorAction_dark</item>
         <item name="colorDisabled">@color/colorDisabled_dark</item>
+        <item name="colorDate">@color/colorDate_dark</item>
+        <item name="colorLabel">@color/colorLabel_dark</item>
+        <item name="colorTime">@color/colorTime_dark</item>
+        <item name="colorValue">@color/colorValue_dark</item>
+        <item name="colorBottomSheet">@color/colorSheet_dark</item>
 
         <item name="icBack">@drawable/ic_action_back</item>
         <item name="icShare">@drawable/ic_action_share</item>
@@ -97,16 +174,10 @@
 
         <item name="icMoonNoon">@drawable/moonnoon_dark</item>
         <item name="icMoonNight">@drawable/moonnight_dark</item>
+        <item name="roundedTextBox">@drawable/rounded_box_dark</item>
 
         <item name="cardViewStyle">@style/SolunarCardView.Dark</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-
-        <item name="colorDate">@color/colorDate_dark</item>
-        <item name="colorLabel">@color/colorLabel_dark</item>
-        <item name="colorTime">@color/colorTime_dark</item>
-        <item name="colorValue">@color/colorValue_dark</item>
-        <item name="colorBottomSheet">@color/colorSheet_dark</item>
-        <item name="roundedTextBox">@drawable/rounded_box_dark</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -171,6 +242,10 @@
     <style name="SolunarCardView.Light">
         <item name="cardBackgroundColor">@color/card_background_light</item>
     </style>
+    <style name="SolunarCardView.ref">
+        <item name="cardBackgroundColor">@color/card_background_light</item>
+    </style>
+    <style name="SolunarToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <style name="dateText">
         <item name="android:textColor">@color/textbutton_date</item>
