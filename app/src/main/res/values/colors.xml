@@ -22,6 +22,7 @@
     <color name="colorAction_contrast">@color/colorAction_contrast_light</color>
     <color name="colorDisabled_contrast">@color/colorDisabled_contrast_light</color>
     <color name="colorSheet_contrast">@color/colorSheet_contrast_light</color>
+    <color name="window_bg_contrast">@color/window_bg_contrast_light</color>
 
     <color name="colorDate_contrast">@color/colorDate_contrast_light</color>
     <color name="colorLabel_contrast">@color/colorLabel_contrast_light</color>
@@ -57,6 +58,7 @@
     <color name="colorAction_contrast_light">@color/sun_setting_light</color>
     <color name="colorDisabled_contrast_light">#aaaaaa</color>
     <color name="colorSheet_contrast_light">#faffff</color>  <!-- pampas: #f5f6f0, black-white: #fffffa, twilight-blue: #faffff, ceramico: #fafff0, spring green: #f4faf0 -->
+    <color name="window_bg_contrast_light">@color/grey_50</color>
 
     <color name="colorDate_contrast_light">#000000</color>
     <color name="colorLabel_contrast_light">#000000</color>
@@ -94,6 +96,7 @@
     <color name="colorAction_contrast_dark">@color/sun_setting_dark</color>
     <color name="colorDisabled_contrast_dark">#aaaaaa</color>
     <color name="colorSheet_contrast_dark">#0f1f27</color>  <!-- black pearl: #05151d, firefly: #0f1f27 -->
+    <color name="window_bg_contrast_dark">@color/grey_999</color>
 
     <color name="colorDate_contrast_dark">#FFFFFF</color>
     <color name="colorLabel_contrast_dark">#FFFFFF</color>

@@ -1,9 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="SolunarAppTheme.Dark" />
+    <style name="AppTheme" parent="SolunarAppTheme.System1" />
 
     <!-- System theme -->
-    <style name="SolunarAppTheme.System" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="SolunarAppTheme.System" parent="SuntimesAddonTheme.System">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -89,6 +89,7 @@
         <item name="colorTime">@color/colorTime_contrast</item>
         <item name="colorValue">@color/colorValue_contrast</item>
         <item name="colorBottomSheet">@color/colorSheet_contrast</item>
+        <item name="android:windowBackground">@color/window_bg_contrast</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -139,7 +140,7 @@
     </style>
 
     <!-- Light theme -->
-    <style name="SolunarAppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SolunarAppTheme.Light" parent="SuntimesAddonTheme.Light">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
@@ -225,6 +226,7 @@
         <item name="colorTime">@color/colorTime_contrast_light</item>
         <item name="colorValue">@color/colorValue_contrast_light</item>
         <item name="colorBottomSheet">@color/colorSheet_contrast_light</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_light</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -275,7 +277,7 @@
     </style>
 
     <!-- Dark theme -->
-    <style name="SolunarAppTheme.Dark" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="SolunarAppTheme.Dark" parent="SuntimesAddonTheme.Dark">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
@@ -350,7 +352,7 @@
     </style>
 
     <!-- Dark theme (contrast) -->
-    <style name="SolunarAppTheme.Dark1" parent="SolunarAppTheme.Dark">
+    <style name="SolunarAppTheme.Dark1" parent="SuntimesAddonTheme.Dark">
         <item name="colorPrimary">@color/colorPrimary_contrast_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_contrast_dark</item>
         <item name="colorAccent">@color/colorAccent_contrast_dark</item>
@@ -361,6 +363,7 @@
         <item name="colorTime">@color/colorTime_contrast_dark</item>
         <item name="colorValue">@color/colorValue_contrast_dark</item>
         <item name="colorBottomSheet">@color/colorSheet_contrast_dark</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>

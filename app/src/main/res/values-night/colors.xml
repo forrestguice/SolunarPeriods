@@ -21,6 +21,7 @@
     <color name="colorAction_contrast">@color/colorAction_contrast_dark</color>
     <color name="colorDisabled_contrast">@color/colorDisabled_contrast_dark</color>
     <color name="colorSheet_contrast">@color/colorSheet_contrast_dark</color>
+    <color name="window_bg_contrast">@color/window_bg_contrast_dark</color>
 
     <color name="colorDate_contrast">@color/colorDate_contrast_dark</color>
     <color name="colorLabel_contrast">@color/colorLabel_contrast_dark</color>
