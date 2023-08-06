@@ -528,35 +528,36 @@ public class MainActivity extends AppCompatActivity
         @Override
         public boolean onMenuItemClick(MenuItem item)
         {
-
-            switch (item.getItemId())
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_timezone_utc || itemId == R.id.action_timezone_system || itemId == R.id.action_timezone_suntimes || itemId == R.id.action_timezone_localmean || itemId == R.id.action_timezone_apparentsolar)
             {
-                case R.id.action_timezone_utc:
-                case R.id.action_timezone_system:
-                case R.id.action_timezone_suntimes:
-                case R.id.action_timezone_localmean:
-                case R.id.action_timezone_apparentsolar:
-                    item.setChecked(true);
-                    AppSettings.setTimeZoneMode(MainActivity.this, menuItemToTimeZoneMode(item));
-                    cardAdapter.invalidateData();
-                    cardAdapter.getOptions().timezone = AppSettings.fromTimeZoneMode(MainActivity.this, AppSettings.getTimeZoneMode(MainActivity.this), suntimesInfo);
-                    cardAdapter.initData();
-                    updateViews();
-                    return true;
+                item.setChecked(true);
+                AppSettings.setTimeZoneMode(MainActivity.this, menuItemToTimeZoneMode(item));
+                cardAdapter.invalidateData();
+                cardAdapter.getOptions().timezone = AppSettings.fromTimeZoneMode(MainActivity.this, AppSettings.getTimeZoneMode(MainActivity.this), suntimesInfo);
+                cardAdapter.initData();
+                updateViews();
+                return true;
             }
             return false;
         }
     };
     public static int menuItemToTimeZoneMode(MenuItem item)
     {
-        switch (item.getItemId())
-        {
-            case R.id.action_timezone_utc: return AppSettings.TZMODE_UTC;
-            case R.id.action_timezone_suntimes: return AppSettings.TZMODE_SUNTIMES;
-            case R.id.action_timezone_localmean: return AppSettings.TZMODE_LOCALMEAN;
-            case R.id.action_timezone_system: return AppSettings.TZMODE_SYSTEM;
-            case R.id.action_timezone_apparentsolar: default: return AppSettings.TZMODE_APPARENTSOLAR;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_timezone_utc) {
+            return AppSettings.TZMODE_UTC;
+
+        } else if (itemId == R.id.action_timezone_suntimes) {
+            return AppSettings.TZMODE_SUNTIMES;
+
+        } else if (itemId == R.id.action_timezone_localmean) {
+            return AppSettings.TZMODE_LOCALMEAN;
+
+        } else if (itemId == R.id.action_timezone_system) {
+            return AppSettings.TZMODE_SYSTEM;
         }
+        return AppSettings.TZMODE_APPARENTSOLAR;
     }
 
 
