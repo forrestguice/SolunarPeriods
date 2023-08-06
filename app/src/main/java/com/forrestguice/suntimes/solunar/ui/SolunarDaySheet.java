@@ -253,24 +253,23 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     }
     private void updateOverflowMenu(Menu menu) {
     }
-    private PopupMenu.OnMenuItemClickListener onOverflowMenuItemSelected = new PopupMenu.OnMenuItemClickListener()
+    private final PopupMenu.OnMenuItemClickListener onOverflowMenuItemSelected = new PopupMenu.OnMenuItemClickListener()
     {
         @Override
         public boolean onMenuItemClick(MenuItem item)
         {
-            switch (item.getItemId())
-            {
-                case R.id.action_date_suntimes:
-                    showDateSuntimes();
-                    return true;
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_date_suntimes) {
+                showDateSuntimes();
+                return true;
 
-                case R.id.action_calendar:
-                    openCalendar();
-                    return true;
-
-                case R.id.action_share:
-                    shareCard();
-                    return true;
+            } else if (itemId == R.id.action_calendar) {
+                openCalendar();
+                return true;
+                
+            } else if (itemId == R.id.action_share) {
+                shareCard();
+                return true;
             }
             return false;
         }
