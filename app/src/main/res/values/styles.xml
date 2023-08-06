@@ -77,6 +77,67 @@
         <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
     </style>
 
+    <!-- System theme (contrast) -->
+    <style name="SolunarAppTheme.System1" parent="SolunarAppTheme.System">
+        <item name="colorPrimary">@color/colorPrimary_contrast</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_contrast</item>
+        <item name="colorAccent">@color/colorAccent_contrast</item>
+        <item name="colorAction">@color/colorAction_contrast</item>
+        <item name="colorDisabled">@color/colorDisabled_contrast</item>
+        <item name="colorDate">@color/colorDate_contrast</item>
+        <item name="colorLabel">@color/colorLabel_contrast</item>
+        <item name="colorTime">@color/colorTime_contrast</item>
+        <item name="colorValue">@color/colorValue_contrast</item>
+        <item name="colorBottomSheet">@color/colorSheet_contrast</item>
+
+        <item name="text_size_tiny">@dimen/text_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
+        <item name="text_size_small">@dimen/text_size_small</item>
+        <item name="text_size_medium">@dimen/text_size_medium</item>
+        <item name="text_size_large">@dimen/text_size_large</item>
+        <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
+        <item name="text_size_huge">@dimen/text_size_huge</item>
+        <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
+    </style>  <!-- TODO -->
+    <style name="SolunarAppTheme.System1.Small" parent="SolunarAppTheme.System1">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/small_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.System1.Large" parent="SolunarAppTheme.System1">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/large_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.System1.XLarge" parent="SolunarAppTheme.System1">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
+    </style>
+
     <!-- Light theme -->
     <style name="SolunarAppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_light</item>
@@ -152,6 +213,67 @@
         <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
     </style>
 
+    <!-- Light theme (contrast) -->
+    <style name="SolunarAppTheme.Light1" parent="SolunarAppTheme.Light">
+        <item name="colorPrimary">@color/colorPrimary_contrast_light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_contrast_light</item>
+        <item name="colorAccent">@color/colorAccent_contrast_light</item>
+        <item name="colorAction">@color/colorAction_contrast_light</item>
+        <item name="colorDisabled">@color/colorDisabled_contrast_light</item>
+        <item name="colorDate">@color/colorDate_contrast_light</item>
+        <item name="colorLabel">@color/colorLabel_contrast_light</item>
+        <item name="colorTime">@color/colorTime_contrast_light</item>
+        <item name="colorValue">@color/colorValue_contrast_light</item>
+        <item name="colorBottomSheet">@color/colorSheet_contrast_light</item>
+
+        <item name="text_size_tiny">@dimen/text_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
+        <item name="text_size_small">@dimen/text_size_small</item>
+        <item name="text_size_medium">@dimen/text_size_medium</item>
+        <item name="text_size_large">@dimen/text_size_large</item>
+        <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
+        <item name="text_size_huge">@dimen/text_size_huge</item>
+        <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
+    </style>  <!-- TODO -->
+    <style name="SolunarAppTheme.Light1.Small" parent="SolunarAppTheme.Light1">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/small_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.Light1.Large" parent="SolunarAppTheme.Light1">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/large_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.Light1.XLarge" parent="SolunarAppTheme.Light1">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
+    </style>
+
     <!-- Dark theme -->
     <style name="SolunarAppTheme.Dark" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
@@ -215,6 +337,67 @@
         <item name="bottomBarSize">@dimen/large_bottombar_size</item>
     </style>
     <style name="SolunarAppTheme.Dark.XLarge" parent="SolunarAppTheme.Dark">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/xlarge_bottombar_size</item>
+    </style>
+
+    <!-- Dark theme (contrast) -->
+    <style name="SolunarAppTheme.Dark1" parent="SolunarAppTheme.Dark">
+        <item name="colorPrimary">@color/colorPrimary_contrast_dark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_contrast_dark</item>
+        <item name="colorAccent">@color/colorAccent_contrast_dark</item>
+        <item name="colorAction">@color/colorAction_contrast_dark</item>
+        <item name="colorDisabled">@color/colorDisabled_contrast_dark</item>
+        <item name="colorDate">@color/colorDate_contrast_dark</item>
+        <item name="colorLabel">@color/colorLabel_contrast_dark</item>
+        <item name="colorTime">@color/colorTime_contrast_dark</item>
+        <item name="colorValue">@color/colorValue_contrast_dark</item>
+        <item name="colorBottomSheet">@color/colorSheet_contrast_dark</item>
+
+        <item name="text_size_tiny">@dimen/text_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
+        <item name="text_size_small">@dimen/text_size_small</item>
+        <item name="text_size_medium">@dimen/text_size_medium</item>
+        <item name="text_size_large">@dimen/text_size_large</item>
+        <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
+        <item name="text_size_huge">@dimen/text_size_huge</item>
+        <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
+    </style>  <!-- TODO -->
+    <style name="SolunarAppTheme.Dark1.Small" parent="SolunarAppTheme.Dark1">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/small_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.Dark1.Large" parent="SolunarAppTheme.Dark1">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+        <item name="bottomBarSize">@dimen/large_bottombar_size</item>
+    </style>
+    <style name="SolunarAppTheme.Dark1.XLarge" parent="SolunarAppTheme.Dark1">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
         <item name="text_size_small">@dimen/xlargetext_size_small</item>

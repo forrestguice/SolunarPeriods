@@ -31,9 +31,9 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
     private static final AppThemeInfo info_darkTheme = new DarkThemeInfo();
     private static final AppThemeInfo info_lightTheme = new LightThemeInfo();
     private static final AppThemeInfo info_systemTheme = new SystemThemeInfo();
-    //private static final AppThemeInfo info_systemTheme_contrast = new ContrastSystemThemeInfo();
-    //private static final AppThemeInfo info_darkTheme_contrast = new ContrastDarkThemeInfo();
-    //private static final AppThemeInfo info_lightTheme_contrast = new ContrastLightThemeInfo();
+    private static final AppThemeInfo info_systemTheme_contrast = new ContrastSystemThemeInfo();
+    private static final AppThemeInfo info_darkTheme_contrast = new ContrastDarkThemeInfo();
+    private static final AppThemeInfo info_lightTheme_contrast = new ContrastLightThemeInfo();
     private static final AppThemeInfo info_defaultTheme = info_systemTheme;
 
     @Override
@@ -51,14 +51,14 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_SYSTEM)) {
             return info_systemTheme;
 
-        /*} else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_LIGHT)) {
+        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_LIGHT)) {
             return info_lightTheme_contrast;
 
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_DARK)) {
             return info_darkTheme_contrast;
 
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_SYSTEM)) {
-            return info_systemTheme_contrast;*/
+            return info_systemTheme_contrast;
 
         } else {
             return info_defaultTheme;
@@ -142,7 +142,7 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
     }
 
     /* ContrastSystemThemeInfo */
-    /*public static class ContrastSystemThemeInfo extends AppThemeInfo
+    public static class ContrastSystemThemeInfo extends AppThemeInfo
     {
         @Override
         public String getThemeName() {
@@ -161,10 +161,10 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
                 case NORMAL: default: return R.style.SolunarAppTheme_System1;
             }
         }
-    }*/
+    }
 
     /* ContrastLightThemeInfo */
-    /*public static class ContrastLightThemeInfo extends AppThemeInfo
+    public static class ContrastLightThemeInfo extends AppThemeInfo
     {
         @Override
         public String getThemeName() {
@@ -183,10 +183,10 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
                 case NORMAL: default: return R.style.SolunarAppTheme_Light1;
             }
         }
-    }*/
+    }
 
     /* ConstrastDarkThemeInfo */
-    /*public static class ContrastDarkThemeInfo extends AppThemeInfo
+    public static class ContrastDarkThemeInfo extends AppThemeInfo
     {
         @Override
         public String getThemeName() {
@@ -199,12 +199,12 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
         @Override
         public int getStyleId(Context context, TextSize size) {
             switch (size) {
-                case SMALL: return R.style.SolunarAppTheme_Small;
-                case LARGE: return R.style.SolunarAppTheme_Large;
-                case XLARGE: return R.style.SolunarAppTheme_XLarge;
+                case SMALL: return R.style.SolunarAppTheme_Dark1_Small;
+                case LARGE: return R.style.SolunarAppTheme_Dark1_Large;
+                case XLARGE: return R.style.SolunarAppTheme_Dark1_XLarge;
                 case NORMAL: default: return R.style.SolunarAppTheme_Dark1;
             }
         }
-    }*/
+    }
 
 }

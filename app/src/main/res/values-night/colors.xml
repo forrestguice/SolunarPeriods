@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- system theme colors -->
+    <!-- system theme -->
     <color name="colorPrimary">@color/colorPrimary_dark</color>
     <color name="colorPrimaryDark">@color/colorPrimaryDark_dark</color>
     <color name="colorAccent">@color/colorAccent_dark</color>
@@ -13,5 +13,18 @@
     <color name="colorLabel">@color/colorLabel_dark</color>
     <color name="colorTime">@color/colorTime_dark</color>
     <color name="colorValue">@color/colorValue_dark</color>
+
+    <!-- system theme (contrast) -->
+    <color name="colorPrimary_contrast">@color/colorPrimary_contrast_dark</color>
+    <color name="colorPrimaryDark_contrast">@color/colorPrimaryDark_contrast_dark</color>
+    <color name="colorAccent_contrast">@color/colorAccent_contrast_dark</color>
+    <color name="colorAction_contrast">@color/colorAction_contrast_dark</color>
+    <color name="colorDisabled_contrast">@color/colorDisabled_contrast_dark</color>
+    <color name="colorSheet_contrast">@color/colorSheet_contrast_dark</color>
+
+    <color name="colorDate_contrast">@color/colorDate_contrast_dark</color>
+    <color name="colorLabel_contrast">@color/colorLabel_contrast_dark</color>
+    <color name="colorTime_contrast">@color/colorTime_contrast_dark</color>
+    <color name="colorValue_contrast">@color/colorValue_contrast_dark</color>
 
 </resources>

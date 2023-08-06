@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- system theme colors -->
+    <!-- system theme -->
     <color name="colorPrimary">@color/colorPrimary_light</color>
     <color name="colorPrimaryDark">@color/colorPrimaryDark_light</color>
     <color name="colorAccent">@color/colorAccent_light</color>
@@ -15,10 +15,21 @@
     <color name="colorValue">@color/colorValue_light</color>
 
 
+    <!-- system theme (contrast) -->
+    <color name="colorPrimary_contrast">@color/colorPrimary_contrast_light</color>
+    <color name="colorPrimaryDark_contrast">@color/colorPrimaryDark_contrast_light</color>
+    <color name="colorAccent_contrast">@color/colorAccent_contrast_light</color>
+    <color name="colorAction_contrast">@color/colorAction_contrast_light</color>
+    <color name="colorDisabled_contrast">@color/colorDisabled_contrast_light</color>
+    <color name="colorSheet_contrast">@color/colorSheet_contrast_light</color>
+
+    <color name="colorDate_contrast">@color/colorDate_contrast_light</color>
+    <color name="colorLabel_contrast">@color/colorLabel_contrast_light</color>
+    <color name="colorTime_contrast">@color/colorTime_contrast_light</color>
+    <color name="colorValue_contrast">@color/colorValue_contrast_light</color>
 
 
-    <!-- light theme colors -->
-
+    <!-- light theme -->
     <color name="colorPrimary_light">@color/grey_100</color>
     <color name="colorPrimaryDark_light">@color/grey_600</color>
     <color name="colorAccent_light">@color/deep_teal_500</color>
@@ -37,6 +48,20 @@
     <color name="colorLabel_light">#000000</color>
     <color name="colorTime_light">#FF4081</color>
     <color name="colorValue_light">#3F51B5</color>
+
+
+    <!-- light theme (contrast) -->
+    <color name="colorPrimary_contrast_light">@color/grey_100</color>
+    <color name="colorPrimaryDark_contrast_light">@color/grey_600</color>
+    <color name="colorAccent_contrast_light">@color/deep_teal_500</color>
+    <color name="colorAction_contrast_light">@color/sun_setting_light</color>
+    <color name="colorDisabled_contrast_light">#aaaaaa</color>
+    <color name="colorSheet_contrast_light">#faffff</color>  <!-- pampas: #f5f6f0, black-white: #fffffa, twilight-blue: #faffff, ceramico: #fafff0, spring green: #f4faf0 -->
+
+    <color name="colorDate_contrast_light">#000000</color>
+    <color name="colorLabel_contrast_light">#000000</color>
+    <color name="colorTime_contrast_light">#FF4081</color>
+    <color name="colorValue_contrast_light">#3F51B5</color>
 
 
     <!-- dark theme colors -->
@@ -60,5 +85,19 @@
     <color name="colorTime_dark">#FFFFFF</color>
     <color name="colorValue_dark">#3F51B5</color>
 
+
+    <!-- dark theme (contrast) -->
+
+    <color name="colorPrimary_contrast_dark">@color/grey_900</color>
+    <color name="colorPrimaryDark_contrast_dark">@android:color/black</color>
+    <color name="colorAccent_contrast_dark">@color/deep_teal_200</color>
+    <color name="colorAction_contrast_dark">@color/sun_setting_dark</color>
+    <color name="colorDisabled_contrast_dark">#aaaaaa</color>
+    <color name="colorSheet_contrast_dark">#0f1f27</color>  <!-- black pearl: #05151d, firefly: #0f1f27 -->
+
+    <color name="colorDate_contrast_dark">#FFFFFF</color>
+    <color name="colorLabel_contrast_dark">#FFFFFF</color>
+    <color name="colorTime_contrast_dark">#FFFFFF</color>
+    <color name="colorValue_contrast_dark">#3F51B5</color>
 
 </resources>
