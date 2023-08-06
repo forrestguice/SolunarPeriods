@@ -331,41 +331,38 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
-        switch (id)
-        {
-            case R.id.action_today:
-                showToday();
-                return true;
+        if (id == R.id.action_today) {
+            showToday();
+            return true;
 
-            case R.id.action_date:
-                showDateDialog();
-                return true;
+        } else if (id == R.id.action_date) {
+            showDateDialog();
+            return true;
 
-            case R.id.action_calendars:
-                showCalendarIntegration();
-                return true;
+        } else if (id == R.id.action_calendars) {
+            showCalendarIntegration();
+            return true;
 
-            case R.id.action_settings:
-                showSettings();
-                return true;
+        } else if (id == R.id.action_settings) {
+            showSettings();
+            return true;
 
-            case R.id.action_help:
-                showHelp();
-                return true;
+        } else if (id == R.id.action_help) {
+            showHelp();
+            return true;
 
-            case R.id.action_about:
-                showAbout();
-                return true;
+        } else if (id == R.id.action_about) {
+            showAbout();
+            return true;
 
-            case android.R.id.home:
-                onHomePressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        } else if (id == android.R.id.home) {
+            onHomePressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void onHomePressed() {
