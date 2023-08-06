@@ -121,15 +121,11 @@ public class SettingsActivity extends PreferenceActivity
         @Override
         public boolean onOptionsItemSelected(MenuItem item)
         {
-            switch (item.getItemId())
-            {
-                case android.R.id.home:
-                    startActivity(new Intent(getActivity(), SettingsActivity.class));
-                    return true;
-
-                default:
-                    return super.onOptionsItemSelected(item);
+            if (item.getItemId() == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
             }
+            return super.onOptionsItemSelected(item);
         }
     }
 
