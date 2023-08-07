@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with SolunarPeriods.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_front" android:background="?attr/selectableItemBackground"
     android:paddingTop="@dimen/card_padding_top" android:paddingBottom="@dimen/card_padding_bottom"
     android:paddingStart="@dimen/card_padding_left" android:paddingEnd="@dimen/card_padding_right" android:paddingLeft="@dimen/card_padding_left" android:paddingRight="@dimen/card_padding_right"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--suppress AndroidUnknownAttribute -->
-    <android.support.v7.widget.AppCompatRatingBar
+    <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/rating" style="@style/Widget.AppCompat.RatingBar.Small" theme="@style/SolunarRatingBar"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:numStars="5" android:rating="4.75" android:stepSize="0.25" android:isIndicator="true"
@@ -195,4 +195,4 @@
         app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@+id/layout_moon" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

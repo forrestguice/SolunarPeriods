@@ -20,7 +20,7 @@
 package com.forrestguice.suntimes.solunar;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.forrestguice.suntimes.addon.AppThemeInfo;
 import com.forrestguice.suntimes.addon.SuntimesInfo;

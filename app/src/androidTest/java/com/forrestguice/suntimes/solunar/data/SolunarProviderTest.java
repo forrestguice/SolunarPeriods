@@ -4,16 +4,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
-import android.view.Display;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.BuildConfig;
-import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
 import org.junit.Before;
 import org.junit.Test;

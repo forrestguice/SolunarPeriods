@@ -21,8 +21,8 @@ package com.forrestguice.suntimes.solunar.ui;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -43,9 +43,7 @@ import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.TimeZone;
 

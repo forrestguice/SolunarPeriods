@@ -2,12 +2,9 @@ package com.forrestguice.suntimes.solunar.data;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import android.util.Log;
-
-import com.forrestguice.suntimes.solunar.data.SolunarCalculator;
-import com.forrestguice.suntimes.solunar.data.SolunarData;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -28,11 +28,10 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
-import com.forrestguice.suntimes.calendar.CalendarEventTemplateContract;
 import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.AppSettings;
@@ -47,10 +46,8 @@ import java.util.TimeZone;
 
 import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION;
 import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION;
-import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_STRINGS;
 import static com.forrestguice.suntimes.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE;
 import static com.forrestguice.suntimes.calendar.CalendarHelper.QUERY_CALENDAR_TEMPLATE_STRINGS;
-import static com.forrestguice.suntimes.calendar.CalendarHelper.QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.AUTHORITY;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_NAME;
 import static com.forrestguice.suntimes.solunar.data.SolunarProviderContract.COLUMN_CALENDAR_SUMMARY;
