@@ -1,0 +1,3 @@
+- adds support for system theme (night mode), high contrast app themes, and "text size" settings.
+- fixes crash when using "calendar integration" menu item (#6).
+- updates the targetSdkVersion (28 -> 33) and migrates the app to AndroidX.
