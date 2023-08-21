@@ -3,5 +3,8 @@
     <style name="SolunarCardView.ref">
         <item name="cardBackgroundColor">@color/card_background_dark</item>
     </style>
+    <style name="SolunarCardView.ref1">
+        <item name="cardBackgroundColor">@color/card_background_contrast_dark</item>
+    </style>
     <style name="SolunarToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

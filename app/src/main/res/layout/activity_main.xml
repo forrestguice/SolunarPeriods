@@ -45,7 +45,7 @@
             <View android:background="?attr/colorControlHighlight"
                 android:layout_width="match_parent" android:layout_height="1dp" />
 
-            <TextView android:id="@+id/text_timezone" android:textSize="12sp"
+            <TextView android:id="@+id/text_timezone" android:textSize="?attr/text_size_small"
                 android:textStyle="bold" android:textColor="@color/textbutton_date"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp" android:layout_marginRight="10dp"

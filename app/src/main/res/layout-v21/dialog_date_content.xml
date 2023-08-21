@@ -23,7 +23,6 @@
 
     <DatePicker android:id="@+id/datepicker"
         android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:headerBackground="?attr/dialogBackground"
         tools:ignore="UnusedAttribute"/>
 
 </LinearLayout>

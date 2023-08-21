@@ -90,6 +90,7 @@
         <item name="colorValue">@color/colorValue_contrast</item>
         <item name="colorBottomSheet">@color/colorSheet_contrast</item>
         <item name="android:windowBackground">@color/window_bg_contrast</item>
+        <item name="cardViewStyle">@style/SolunarCardView.ref1</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -101,7 +102,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.System1.Small" parent="SolunarAppTheme.System1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -238,7 +239,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.Light1.Small" parent="SolunarAppTheme.Light1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -375,7 +376,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.Dark1.Small" parent="SolunarAppTheme.Dark1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -431,17 +432,21 @@
     <style name="SolunarCardView.ref">
         <item name="cardBackgroundColor">@color/card_background_light</item>
     </style>
+    <style name="SolunarCardView.ref1">
+        <item name="cardBackgroundColor">@color/card_background_contrast_light</item>
+    </style>
     <style name="SolunarToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <style name="dateText">
         <item name="android:textColor">@color/textbutton_date</item>
+        <item name="android:textSize">?attr/text_size_small</item>
     </style>
 
 
     <style name="periodText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">?attr/text_size_small</item>
         <item name="android:gravity">end</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
@@ -465,7 +470,7 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="periodText.Label" parent="periodText">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">?attr/text_size_tiny</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">4dp</item>
         <item name="android:ellipsize">end</item>
@@ -473,7 +478,7 @@
         <item name="android:visibility">gone</item>
     </style>
     <style name="periodText.Plus" parent="periodText">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">?attr/text_size_small</item>
         <item name="android:textStyle">bold</item>
         <item name="android:text">@string/label_enhanced_period</item>
         <item name="android:layout_marginLeft">4dp</item>
@@ -504,6 +509,10 @@
         <item name="colorAccent">?attr/colorAccent</item>
         <item name="colorControlNormal">?attr/colorAccent</item>
         <item name="colorControlActivated">?attr/colorAction</item>
+    </style>
+    <style name="SolunarRatingText">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">?attr/text_size_small</item>
     </style>
 
 </resources>
