@@ -1,7 +1,6 @@
 ~
 
 ### v0.2.1 (2023-8-21)
-* adds support for "utc" time zone.
 * adds support for system theme (night mode), high contrast app themes, and "text size" settings.
 * fixes crash when using "calendar integration" menu item (#6).
 * updates build; targetSdkVersion 28 -> 33; Gradle 4.4 -> 6.5; Android Gradle Plugin 3.1.3 -> 4.1.3; migrates from legacy support libraries to AndroidX.
