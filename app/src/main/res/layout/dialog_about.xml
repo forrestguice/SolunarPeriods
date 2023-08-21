@@ -46,12 +46,14 @@
                 android:text="@string/app_name"
                 android:gravity="center"
                 android:textColor="@color/textbutton_date" android:textStyle="bold"
+                android:textSize="?attr/text_size_xlarge"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/txt_about_desc"
+            android:textSize="?attr/text_size_small"
             android:layout_height="wrap_content" android:layout_width="wrap_content"
             android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
             android:layout_marginTop="5dp"
@@ -60,6 +62,7 @@
 
         <TextView
             android:id="@+id/txt_about_version"
+            android:textSize="?attr/text_size_small"
             android:layout_height="wrap_content" android:layout_width="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
@@ -70,6 +73,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <TextView
+            android:textSize="?attr/text_size_small"
             android:id="@+id/txt_about_provider"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -81,6 +85,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <TextView
+            android:textSize="?attr/text_size_small"
             android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
@@ -90,6 +95,7 @@
             android:text="@string/app_support_url" />
 
         <TextView
+            android:textSize="?attr/text_size_small"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="0dp"
@@ -102,6 +108,7 @@
 
         <TextView
             android:id="@+id/txt_about_url"
+            android:textSize="?attr/text_size_small"
             android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="0dp"

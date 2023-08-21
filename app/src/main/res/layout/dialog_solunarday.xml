@@ -59,7 +59,7 @@
                 <TextView android:id="@+id/text_rating"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:layout_marginStart="4dp" android:layout_marginEnd="4dp"
-                    android:textColor="?attr/colorAccent" android:textSize="12sp"
+                    style="@style/SolunarRatingText"
                     app:layout_constraintStart_toEndOf="@+id/rating"
                     app:layout_constraintTop_toTopOf="@+id/rating" app:layout_constraintBottom_toBottomOf="@+id/rating"
                     tools:text="Best" />
@@ -67,6 +67,7 @@
                     android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/roundedTextBox"
                     app:layout_constraintStart_toStartOf="@+id/rating" app:layout_constraintTop_toBottomOf="@+id/rating" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="4dp" android:layout_marginBottom="8dp" android:paddingTop="2dp" android:paddingBottom="4dp" android:paddingLeft="6dp" android:paddingRight="6dp"
+                    android:textSize="?attr/text_size_small"
                     tools:text="A full moon occurs on this day." />
 
                 <!-- moon phase, illumination -->
@@ -78,12 +79,12 @@
                 </LinearLayout>
                 <TextView android:id="@+id/text_moonillum" android:textColor="@color/textbutton_moonset"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:gravity="end" android:textSize="12sp"
+                    android:gravity="end" android:textSize="?attr/text_size_small"
                     app:layout_constraintTop_toBottomOf="@+id/icon_moonphase" app:layout_constraintStart_toStartOf="@+id/icon_moonphase" app:layout_constraintEnd_toEndOf="@+id/icon_moonphase"
                     tools:text="100%" />
                 <TextView android:id="@+id/text_moonphase" android:textColor="@color/textbutton_moonset"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:gravity="end|center_vertical"  android:textSize="12sp" android:layout_margin="4dp"
+                    android:gravity="end|center_vertical" android:textSize="?attr/text_size_small" android:layout_margin="4dp"
                     android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/icon_moonphase"
                     app:layout_constraintTop_toTopOf="@+id/icon_moonphase"
@@ -113,7 +114,7 @@
                             android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
                             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
                             android:contentDescription="@string/label_sunrise" />
-                        <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="14sp"
+                        <TextView android:id="@+id/text_sunrise" android:textColor="?attr/sunriseColor" android:textSize="?attr/text_size_small"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             tools:text="7:00 AM" />
                     </LinearLayout>
@@ -125,7 +126,7 @@
                             android:layout_marginStart="4dp" android:layout_marginLeft="4dp"
                             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
                             android:contentDescription="@string/label_sunset" />
-                        <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="14sp"
+                        <TextView android:id="@+id/text_sunset"  android:textColor="?attr/sunsetColor"  android:textSize="?attr/text_size_small"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             tools:text="6:00 PM"/>
                     </LinearLayout>
@@ -151,7 +152,7 @@
                         <TextView style="@style/periodText.Dash" />
                         <TextView android:id="@+id/text_moonset_end" style="@style/periodText.End"
                             android:textColor="?attr/moonsetColor" tools:text="8:00 AM" />
-                        <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="12sp"
+                        <TextView android:id="@+id/text_moonset"  android:textColor="?attr/moonsetColor" android:textSize="?attr/text_size_small"
                             android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                             tools:text="7:00 AM" android:visibility="gone" />
                         <TextView android:id="@+id/text_moonset_label" style="@style/periodText.Label"
@@ -183,7 +184,7 @@
                         <TextView style="@style/periodText.Dash" />
                         <TextView android:id="@+id/text_moonrise_end" style="@style/periodText.End"
                             android:textColor="?attr/moonriseColor" tools:text="7:00 PM"/>
-                        <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="12sp"
+                        <TextView android:id="@+id/text_moonrise" android:textColor="?attr/moonriseColor" android:textSize="?attr/text_size_small"
                             android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
                             tools:text="6:00 PM" android:visibility="gone" />
                         <TextView android:id="@+id/text_moonrise_label" style="@style/periodText.Label"
