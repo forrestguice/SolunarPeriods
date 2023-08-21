@@ -90,6 +90,7 @@
         <item name="colorValue">@color/colorValue_contrast</item>
         <item name="colorBottomSheet">@color/colorSheet_contrast</item>
         <item name="android:windowBackground">@color/window_bg_contrast</item>
+        <item name="cardViewStyle">@style/SolunarCardView.ref1</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -101,7 +102,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.System1.Small" parent="SolunarAppTheme.System1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -238,7 +239,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.Light1.Small" parent="SolunarAppTheme.Light1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -375,7 +376,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
         <item name="actionBarSize">@dimen/normal_actionbar_size</item>
         <item name="bottomBarSize">@dimen/normal_bottombar_size</item>
-    </style>  <!-- TODO -->
+    </style>
     <style name="SolunarAppTheme.Dark1.Small" parent="SolunarAppTheme.Dark1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -430,6 +431,9 @@
     </style>
     <style name="SolunarCardView.ref">
         <item name="cardBackgroundColor">@color/card_background_light</item>
+    </style>
+    <style name="SolunarCardView.ref1">
+        <item name="cardBackgroundColor">@color/card_background_contrast_light</item>
     </style>
     <style name="SolunarToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar" />
 
