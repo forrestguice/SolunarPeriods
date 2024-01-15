@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimes.calendar.CalendarEventTemplateContract;
 import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.AppSettings;
@@ -433,10 +434,42 @@ public class SolunarProvider extends ContentProvider
         minorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarRise, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarSet, descPattern)};
         majorDesc = new String[] {context.getString(R.string.calendar_event_desc_pattern0, lunarNoon, descPattern), context.getString(R.string.calendar_event_desc_pattern0, lunarNight, descPattern)};
 
-        String[] template_values = CalendarHelper.queryCalendarTemplate(context, CALENDAR_NAME);
+        //String[] template_values = CalendarHelper.queryCalendarTemplate(context, CALENDAR_NAME);
+        String[] template_values = queryCalendarTemplate(context, CALENDAR_NAME);
         template_title = ((template_values[0] != null) ? template_values[0] : DEF_TEMPLATE_TITLE);
         template_desc = ((template_values[1] != null) ? template_values[1] : DEF_TEMPLATE_DESCRIPTION);
         template_location = ((template_values[2] != null) ? template_values[2] : DEF_TEMPLATE_LOCATION);
+    }
+
+    public static String[] queryCalendarTemplate(@com.forrestguice.suntimes.annotation.NonNull Context context, @com.forrestguice.suntimes.annotation.NonNull String calendarName)
+    {
+        String[] elements = new String[3];
+        ContentResolver resolver = context.getContentResolver();
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse("content://" + CalendarEventTemplateContract.AUTHORITY + "/" + CalendarEventTemplateContract.QUERY_TEMPLATE + "/" + calendarName);
+            try {
+                Cursor cursor = resolver.query(uri, CalendarEventTemplateContract.QUERY_TEMPLATE_PROJECTION, null, null, null);
+                if (cursor != null)
+                {
+                    cursor.moveToFirst();
+                    if (!cursor.isAfterLast())
+                    {
+                        int i_template_title = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE);
+                        int i_template_desc = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION);
+                        int i_template_location = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION);
+                        elements[0] = (i_template_title >= 0 ? cursor.getString(i_template_title) : null);
+                        elements[1] = (i_template_desc >= 0 ? cursor.getString(i_template_desc) : null);
+                        elements[2] = (i_template_location >= 0 ? cursor.getString(i_template_location) : null);
+                    }
+                    cursor.close();
+                }
+
+            } catch (SecurityException e) {
+                Log.e("CalendarHelper", "queryCalendarTemplate: Unable to access " + CalendarEventTemplateContract.AUTHORITY + "! " + e);
+            }
+        }
+        return elements;
     }
 
     public Cursor queryCalendarContent(long[] range, @NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
