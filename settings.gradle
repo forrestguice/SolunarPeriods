@@ -1,1 +1,2 @@
-include ':app'
+include ':SuntimesAddon' , ':app'
+project(':SuntimesAddon').projectDir = new File(rootDir, 'SuntimesAddon/suntimesaddon/')
