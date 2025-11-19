@@ -23,13 +23,37 @@ android {
         buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
 
         missingDimensionStrategy 'version', 'androidx'
+        missingDimensionStrategy 'api', 'api33'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions = [ "versiontype" ]
+    productFlavors {
+        production {
+            dimension "versiontype"
+            getIsDefault().set(true)
+        }
+        nightly {
+            dimension "versiontype"
+            applicationIdSuffix ".nightly"
+            versionNameSuffix "-nightly"
+            def nightlyVersionCode = new Date().format('yyyyMMddHH') as int
+            versionCode nightlyVersionCode
+
+            def authorityRoot = "solunarperiods.calculator.nightly"
+            manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
+            manifestPlaceholders.suntimesPermissionRoot = "suntimes"
+            manifestPlaceholders.solunarPeriodsAuthorityRoot = "$authorityRoot"
+            buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
+        }
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
