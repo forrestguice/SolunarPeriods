@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.forrestguice.suntimes.solunar">
 
-    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
+    <uses-permission android:name="${suntimesPermissionRoot}.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
 
     <application
         android:icon="@mipmap/ic_launcher_round"
@@ -35,7 +35,7 @@
                 <category android:name="suntimes.SUNTIMES_CALENDAR" />
             </intent-filter>
             <meta-data android:name="SuntimesCalendarReference"
-                android:value="content://solunarperiods.calculator.provider" />
+                android:value="content://${solunarPeriodsAuthorityRoot}.provider" />
 
         </activity>
 
@@ -46,15 +46,15 @@
         <!-- Content Provider -->
         <provider
             android:name="com.forrestguice.suntimes.solunar.data.SolunarProvider"
-            android:authorities="solunarperiods.calculator.provider"
-            android:permission="suntimes.permission.READ_CALCULATOR"
+            android:authorities="${solunarPeriodsAuthorityRoot}.provider"
+            android:permission="${suntimesPermissionRoot}.permission.READ_CALCULATOR"
             android:exported="true"
             android:syncable="false" />
 
     </application>
 
     <queries>
-        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
+        <package android:name="${suntimesApplicationId}" />    <!-- package visibility api 30+ -->
     </queries>
 
 </manifest>

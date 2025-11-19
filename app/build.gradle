@@ -12,6 +12,12 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
+        manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
+        manifestPlaceholders.suntimesPermissionRoot = "suntimes"
+        def authorityRoot = "solunarperiods.calculator"
+        manifestPlaceholders.solunarPeriodsAuthorityRoot = "$authorityRoot"
+        buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
+
         missingDimensionStrategy 'version', 'androidx'
     }
     buildTypes {
