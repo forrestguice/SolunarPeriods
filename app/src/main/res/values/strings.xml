@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Solunar Periods</string>
-    <string name="app_desc">A hunting and fishing addon for Suntimes.</string>
     <string name="app_version"><![CDATA[<b>Version:</b>]]> %s</string>
     <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
     <string name="app_support_url"><![CDATA[
