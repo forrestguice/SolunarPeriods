@@ -71,7 +71,7 @@ public class SolunarProviderTest
     public void setup()
     {
         //context = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
     }
 
     @Test
@@ -157,7 +157,7 @@ public class SolunarProviderTest
         test_query_solunar_projection();
 
         SolunarCalculator calculator = new SolunarCalculator();
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         ContentResolver resolver = context.getContentResolver();
         assertNotNull(resolver);
 
@@ -166,8 +166,9 @@ public class SolunarProviderTest
         double longitude = Double.parseDouble(config.location[2]);
         double altitude = Double.parseDouble(config.location[3]);
         String timezone = config.timezone;
+        TimeZone tz = TimeZone.getTimeZone(timezone);
 
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone(timezone));
+        Calendar date = Calendar.getInstance(tz);
         date.set(Calendar.MONTH, 3);
         date.set(Calendar.DAY_OF_MONTH, 11);
         date.set(Calendar.HOUR_OF_DAY, 12);
@@ -179,11 +180,11 @@ public class SolunarProviderTest
         date1.setTimeInMillis(date.getTimeInMillis());
         date1.add(Calendar.DATE, n);
 
-        SolunarData oracle = new SolunarData(date.getTimeInMillis(), latitude, longitude, altitude, timezone);
-        calculator.calculateData(resolver, oracle);
+        SolunarData oracle = new SolunarData(date.getTimeInMillis(), "test", latitude, longitude, altitude);
+        calculator.calculateData(context, resolver, oracle, tz);
         test_solunar_data(oracle, date.getTimeInMillis(), latitude, longitude, altitude, timezone);
 
-        SolunarPeriod period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, oracle.moonnoon, oracle.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, oracle.sunrise, oracle.sunset);
+        SolunarPeriod period = new SolunarPeriod(SolunarPeriod.TYPE_MINOR, "label", oracle.moonnoon, oracle.moonnoon + SolunarCalculator.MAJOR_PERIOD_MILLIS, oracle.sunrise, oracle.sunset);
         assertTrue("moonnoon_overlap expected at sunrise!", period.occursAtSunrise());
 
         Uri uri1 = Uri.parse("content://" + AUTHORITY + "/" + QUERY_SOLUNAR + "/" + date.getTimeInMillis());
@@ -211,7 +212,7 @@ public class SolunarProviderTest
         test_query_solunar_projection();
 
         SolunarCalculator calculator = new SolunarCalculator();
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         ContentResolver resolver = context.getContentResolver();
         assertNotNull(resolver);
 
@@ -220,11 +221,12 @@ public class SolunarProviderTest
         double longitude = Double.parseDouble(config.location[2]);
         double altitude = Double.parseDouble(config.location[3]);
         String timezone = config.timezone;
+        TimeZone tz = TimeZone.getTimeZone(timezone);
 
         // case 0
         long date0 = Calendar.getInstance().getTimeInMillis();
-        SolunarData oracle0 = new SolunarData(date0, latitude, longitude, altitude, timezone);
-        calculator.calculateData(resolver, oracle0);
+        SolunarData oracle0 = new SolunarData(date0, "test", latitude, longitude, altitude);
+        calculator.calculateData(context, resolver, oracle0, tz);
         test_solunar_data(oracle0, date0, latitude, longitude, altitude, timezone);
 
         Uri uri = Uri.parse("content://" + AUTHORITY + "/" + QUERY_SOLUNAR);
@@ -244,7 +246,7 @@ public class SolunarProviderTest
     {
         test_query_solunar_projection();
 
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         ContentResolver resolver = context.getContentResolver();
         assertNotNull(resolver);
 
@@ -333,7 +335,7 @@ public class SolunarProviderTest
         assertTrue("moon illumination should match .. " + moonillum + " != " + oracle.moonillum, moonillum == oracle.moonillum);
 
         double rating = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_SOLUNAR_RATING));
-        assertTrue("rating should match .. " + rating + " != " + oracle.getDayRating(), rating == oracle.getDayRating());
+        assertTrue("rating should match .. " + rating + " != " + oracle.getRating().getDayRating(), rating == oracle.getRating().getDayRating());
 
         long major_length = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH));
         assertTrue("major length should match .. " + major_length + " != " + SolunarCalculator.MAJOR_PERIOD_MILLIS, major_length == SolunarCalculator.MAJOR_PERIOD_MILLIS);
