@@ -497,10 +497,5 @@ public class SolunarCalculator
         return midnight;
     }
 
-    enum MoonPhase {
-        NEW, FIRST_QUARTER, FULL, THIRD_QUARTER;
-        MoonPhase() {}
-    }
-
 
 }
