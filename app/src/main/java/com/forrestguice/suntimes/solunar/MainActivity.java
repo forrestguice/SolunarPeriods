@@ -37,6 +37,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
+
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void onCreate(Bundle savedInstanceState)
     {
-        if (suntimesInfo.appTheme != null) {    // override the theme
+        if (suntimesInfo != null && suntimesInfo.appTheme != null) {    // override the theme
             AppThemeInfo.setTheme(this, suntimesInfo);
         }
         super.onCreate(savedInstanceState);
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity
                 hideBottomSheet();
             }
         });
-        if (suntimesInfo.appTheme != null) {    // override the theme
+        if (suntimesInfo != null && suntimesInfo.appTheme != null) {    // override the theme
             daySheet.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.app_bottomsheet, daySheet).commit();
@@ -171,9 +173,10 @@ public class MainActivity extends AppCompatActivity
     {
         super.onResume();
 
-        String currentTheme = suntimesInfo.appTheme;
+        String currentTheme = ((suntimesInfo != null) ? suntimesInfo.appTheme : null);
         suntimesInfo = SuntimesInfo.queryInfo(MainActivity.this);
-        if (suntimesInfo.appTheme != null && !suntimesInfo.appTheme.equals(currentTheme)) {
+        if (currentTheme != null && suntimesInfo != null && suntimesInfo.appTheme != null && !suntimesInfo.appTheme.equals(currentTheme)) {
+            Log.d("DEBUG", suntimesInfo.appTheme + " != " + currentTheme + ": calling recreate...");
             recreate();
 
         } else {
@@ -204,10 +207,12 @@ public class MainActivity extends AppCompatActivity
     protected void initData()
     {
         TimeZone timezone = AppSettings.fromTimeZoneMode(MainActivity.this, AppSettings.getTimeZoneMode(MainActivity.this), suntimesInfo);
-        double latitude = Double.parseDouble(suntimesInfo.location[1]);
-        double longitude = Double.parseDouble(suntimesInfo.location[2]);
-        double altitude = Double.parseDouble(suntimesInfo.location[3]);
-        cardAdapter = new SolunarCardAdapter(this, suntimesInfo.location[0], latitude, longitude, altitude, new SolunarCardAdapter.SolunarCardOptions(suntimesInfo.getOptions(this), timezone));
+        String label = (suntimesInfo != null && suntimesInfo.location != null) ? suntimesInfo.location[0] : "NULL";
+        double latitude = (suntimesInfo != null && suntimesInfo.location != null) ? Double.parseDouble(suntimesInfo.location[1]) : -89;
+        double longitude = (suntimesInfo != null && suntimesInfo.location != null) ? Double.parseDouble(suntimesInfo.location[2]) : -180;
+        double altitude = (suntimesInfo != null && suntimesInfo.location != null) ? Double.parseDouble(suntimesInfo.location[3]) : 0;
+        SuntimesInfo.SuntimesOptions options = (suntimesInfo != null) ? suntimesInfo.getOptions(this) : new SuntimesInfo.SuntimesOptions(this);
+        cardAdapter = new SolunarCardAdapter(this, label, latitude, longitude, altitude, new SolunarCardAdapter.SolunarCardOptions(options, timezone));
         cardAdapter.setCardAdapterListener(cardListener);
 
         cardAdapter.initData();
@@ -218,7 +223,7 @@ public class MainActivity extends AppCompatActivity
     {
         ActionBar toolbar = getSupportActionBar();
         if (toolbar != null) {
-            toolbar.setTitle(suntimesInfo.location[0]);
+            toolbar.setTitle(suntimesInfo != null && suntimesInfo.location != null ? suntimesInfo.location[0] : "NULL");
             toolbar.setSubtitle(DisplayStrings.formatLocation(this, suntimesInfo));
         }
 
@@ -313,7 +318,7 @@ public class MainActivity extends AppCompatActivity
         boolean checkVersion = SuntimesInfo.checkVersion(this, suntimesInfo);
         if (!checkVersion) {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
-            if (!suntimesInfo.hasPermission) {
+            if (suntimesInfo != null && !suntimesInfo.hasPermission) {
                 Messages.showPermissionDeniedMessage(this, view);
             } else {
                 Messages.showMissingDependencyMessage(this, view);
