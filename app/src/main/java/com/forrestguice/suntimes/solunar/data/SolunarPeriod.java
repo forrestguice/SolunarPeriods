@@ -36,10 +36,10 @@ public class SolunarPeriod implements Parcelable, Comparable<SolunarPeriod>
     public static final int TYPE_MAJOR = 0;
     public static final int TYPE_MINOR = 1;
 
-    protected int type;
-    protected long start, end;
-    protected long toSunrise, toSunset;
-    protected String label;
+    protected final int type;
+    protected final long start, end;
+    protected final long toSunrise, toSunset;
+    protected final String label;
 
     public SolunarPeriod(int type, String label, long start, long end, long sunrise, long sunset)
     {

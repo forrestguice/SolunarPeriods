@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity
         bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
-    protected BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
+    protected final BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
     {
         @Override
         public void onStateChanged(@NonNull View view, int newState) {}

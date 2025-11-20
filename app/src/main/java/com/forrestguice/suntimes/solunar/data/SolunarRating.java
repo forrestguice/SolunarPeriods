@@ -32,8 +32,8 @@ import java.util.List;
  */
 public class SolunarRating implements Parcelable, Comparable<SolunarRating>
 {
-    protected double rating;  // [0,1]
-    protected ArrayList<String> reasons = new ArrayList<>();
+    protected final double rating;  // [0,1]
+    protected final ArrayList<String> reasons = new ArrayList<>();
 
     public SolunarRating() {
         this(0, (List<String>) null);

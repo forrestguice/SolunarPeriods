@@ -48,7 +48,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     public static final int MAX_POSITIONS = 7300;   // +- 10 yrs
     public static final int TODAY_POSITION = (MAX_POSITIONS / 2);
 
-    protected WeakReference<Context> contextRef;
+    protected final WeakReference<Context> contextRef;
 
     private final String location;
     private final double latitude;
@@ -106,7 +106,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
     }
 
     @SuppressLint("UseSparseArrays")
-    protected HashMap<Integer, SolunarData> data = new HashMap<>();
+    protected final HashMap<Integer, SolunarData> data = new HashMap<>();
     public HashMap<Integer, SolunarData> getData() {
         return data;
     }
@@ -266,7 +266,7 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
      */
     public static class SolunarCardOptions
     {
-        public SuntimesInfo.SuntimesOptions suntimes_options;
+        public final SuntimesInfo.SuntimesOptions suntimes_options;
         public TimeZone timezone;
         public boolean show_dayDiff = false;
 
