@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity
         if (dateDialog != null) {
             dateDialog.setFragmentListener(dateDialogListener);
         }
+
+        HelpDialog helpDialog = (HelpDialog) fragments.findFragmentByTag(DIALOG_HELP);
+        if (helpDialog != null) {
+            helpDialog.setNeutralButtonListener(HelpDialog.getOnlineHelpClickListener(this, HELP_PATH_ID), DIALOG_HELP);
+        }
     }
 
     protected void onCreate(Bundle savedInstanceState)
