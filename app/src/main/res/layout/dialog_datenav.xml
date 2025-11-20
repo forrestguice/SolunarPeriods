@@ -26,26 +26,31 @@
     <ImageButton android:id="@+id/btn_center"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:contentDescription="@string/today"
         app:srcCompat="@drawable/ic_today" />
 
     <ImageButton android:id="@+id/btn_first" android:visibility="gone"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:contentDescription="@string/action_first"
         app:srcCompat="@drawable/ic_action_first" />
 
     <ImageButton android:id="@+id/btn_prev"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:contentDescription="@string/action_prev"
         app:srcCompat="@drawable/ic_action_prev" />
 
     <ImageButton android:id="@+id/btn_next"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:contentDescription="@string/action_next"
         app:srcCompat="@drawable/ic_action_next" />
 
     <ImageButton android:id="@+id/btn_last" android:visibility="gone"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:contentDescription="@string/action_last"
         app:srcCompat="@drawable/ic_action_last" />
 
 </LinearLayout>
