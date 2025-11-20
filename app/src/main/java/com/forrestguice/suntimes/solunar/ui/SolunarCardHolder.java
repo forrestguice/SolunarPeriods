@@ -244,7 +244,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         public TextView label;
         public TextView start, end;
         public TextView plus;
-        private SolunarCardAdapter.SolunarCardOptions options;
+        private final SolunarCardAdapter.SolunarCardOptions options;
 
         public SolunarPeriodRow(View parent, int layoutID, int labelViewID, int startViewID, int endViewID, int plusViewID, SolunarCardAdapter.SolunarCardOptions options) {
             layout = parent.findViewById(layoutID);

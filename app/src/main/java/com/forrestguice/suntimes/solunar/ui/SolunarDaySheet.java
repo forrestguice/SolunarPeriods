@@ -43,7 +43,6 @@ import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.data.SolunarData;
 
-@SuppressWarnings("Convert2Diamond")
 public class SolunarDaySheet extends BottomSheetDialogFragment
 {
     public static final String KEY_POSITION = "position";
@@ -134,7 +133,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         }
     }
 
-    @SuppressWarnings({"deprecation","RestrictedApi"})
+    @SuppressWarnings({"RestrictedApi"})
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -145,15 +144,17 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
     {
         saveSettings(outState);
         super.onSaveInstanceState(outState);
     }
 
     protected void loadSettings(Bundle bundle) {
+        /* EMPTY */
     }
     protected void saveSettings(Bundle bundle) {
+        /* EMPTY */
     }
 
     @Override
@@ -163,7 +164,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         expandSheet(getDialog());
     }
 
-    private DialogInterface.OnShowListener onDialogShow = new DialogInterface.OnShowListener()
+    private final DialogInterface.OnShowListener onDialogShow = new DialogInterface.OnShowListener()
     {
         @Override
         public void onShow(DialogInterface dialog) {
@@ -172,9 +173,10 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     };
 
     @Override
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(@NonNull DialogInterface dialog) {
+        /* EMPTY */
     }
-    private View.OnClickListener onBackButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onBackButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (listener != null) {
@@ -193,7 +195,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (layout != null)
         {
-            BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
+            BottomSheetBehavior<?> behavior = BottomSheetBehavior.from(layout);
             behavior.setHideable(false);
             behavior.setSkipCollapsed(true);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -216,7 +218,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
             startActivity(Intent.createChooser(intent, null));
         }
     }
-    private View.OnClickListener onShareButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onShareButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             shareCard();
@@ -225,11 +227,14 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
 
     public void showDateSuntimes()
     {
-        Intent intent = AddonHelper.intentForMainActivity();
-        intent.putExtra("dateMillis", getData().getDateMillis());
-        intent.setAction("suntimes.action.SHOW_CARD");
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);    // needed to trigger onNewIntent on already running activity
-        AddonHelper.startActivity(getActivity(), intent);
+        if (getActivity() != null)
+        {
+            Intent intent = AddonHelper.intentForMainActivity();
+            intent.putExtra("dateMillis", getData().getDateMillis());
+            intent.setAction("suntimes.action.SHOW_CARD");
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);    // needed to trigger onNewIntent on already running activity
+            AddonHelper.startActivity(getActivity(), intent);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,6 +254,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
         }
     }
     private void updateOverflowMenu(Menu menu) {
+        /* EMPTY */
     }
     private final PopupMenu.OnMenuItemClickListener onOverflowMenuItemSelected = new PopupMenu.OnMenuItemClickListener()
     {
@@ -271,7 +277,7 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
             return false;
         }
     };
-    private View.OnClickListener onOverflowButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onOverflowButtonClicked = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         showOverflowMenu(v);

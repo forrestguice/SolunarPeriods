@@ -50,10 +50,10 @@ public class SolunarCardAdapter extends RecyclerView.Adapter<SolunarCardHolder>
 
     protected WeakReference<Context> contextRef;
 
-    private String location;
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private final String location;
+    private final double latitude;
+    private final double longitude;
+    private final double altitude;
 
     public SolunarCardAdapter(Context context, String location, double latitude, double longitude, double altitude, SolunarCardOptions options)
     {

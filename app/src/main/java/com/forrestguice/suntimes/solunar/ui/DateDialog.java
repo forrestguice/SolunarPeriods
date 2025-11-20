@@ -39,7 +39,6 @@ import com.forrestguice.suntimes.solunar.R;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-@SuppressWarnings("Convert2Diamond")
 public class DateDialog extends BottomSheetDialogFragment
 {
     public static final String KEY_DIALOGTHEME = "themeResID";
@@ -142,7 +141,7 @@ public class DateDialog extends BottomSheetDialogFragment
         return dialogContent;
     }
 
-    @SuppressWarnings({"deprecation","RestrictedApi"})
+    @SuppressWarnings({"RestrictedApi"})
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -153,15 +152,17 @@ public class DateDialog extends BottomSheetDialogFragment
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
     {
         saveSettings(outState);
         super.onSaveInstanceState(outState);
     }
 
     protected void loadSettings(Bundle bundle) {
+        /* EMPTY */
     }
     protected void saveSettings(Bundle bundle) {
+        /* EMPTY */
     }
 
     public boolean isToday()
@@ -180,7 +181,7 @@ public class DateDialog extends BottomSheetDialogFragment
         expandSheet(getDialog());
     }
 
-    private DialogInterface.OnShowListener onDialogShow = new DialogInterface.OnShowListener()
+    private final DialogInterface.OnShowListener onDialogShow = new DialogInterface.OnShowListener()
     {
         @Override
         public void onShow(DialogInterface dialog) {
@@ -188,7 +189,7 @@ public class DateDialog extends BottomSheetDialogFragment
         }
     };
 
-    private View.OnClickListener onDialogNeutralClick = new View.OnClickListener()
+    private final View.OnClickListener onDialogNeutralClick = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -201,22 +202,24 @@ public class DateDialog extends BottomSheetDialogFragment
         }
     };
 
-    private View.OnClickListener onDialogCancelClick = new View.OnClickListener() {
+    private final View.OnClickListener onDialogCancelClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getDialog().cancel();
+            if (getDialog() != null) {
+                getDialog().cancel();
+            }
         }
     };
 
     @Override
-    public void onCancel(DialogInterface dialog)
+    public void onCancel(@NonNull DialogInterface dialog)
     {
         if (listener != null) {
             listener.onCanceled();
         }
     }
 
-    private View.OnClickListener onDialogAcceptClick = new View.OnClickListener()
+    private final View.OnClickListener onDialogAcceptClick = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -240,7 +243,7 @@ public class DateDialog extends BottomSheetDialogFragment
         FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (layout != null)
         {
-            BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
+            BottomSheetBehavior<?> behavior = BottomSheetBehavior.from(layout);
             behavior.setHideable(false);
             behavior.setSkipCollapsed(true);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);

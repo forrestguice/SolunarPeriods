@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
     }
 
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
     {
         super.onSaveInstanceState(outState);
         //outState.putInt("bottomSheet", bottomSheet.getState());
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
+    private final RecyclerView.ItemDecoration cardDecoration = new RecyclerView.ItemDecoration()
     {
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state)
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity
         }
     };*/
 
-    private View.OnClickListener onFabClicked = new View.OnClickListener()
+    private final View.OnClickListener onFabClicked = new View.OnClickListener()
     {
         @Override
         public void onClick(View v) {
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    private SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
+    private final SolunarCardAdapter.SolunarCardAdapterListener cardListener = new SolunarCardAdapter.SolunarCardAdapterListener()
     {
         @Override
         public void onDateClick(int i)
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("RestrictedApi")
     @Override
-    protected boolean onPrepareOptionsPanel(View view, Menu menu)
+    protected boolean onPrepareOptionsPanel(View view, @NonNull Menu menu)
     {
         DisplayStrings.forceActionBarIcons(menu);
         return super.onPrepareOptionsPanel(view, menu);
@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity
         dialog.show(getSupportFragmentManager(), DIALOG_DATE);
     }
 
-    private DateDialog.FragmentListener dateDialogListener = new DateDialog.FragmentListener()
+    private final DateDialog.FragmentListener dateDialogListener = new DateDialog.FragmentListener()
     {
         @Override
         public void onAccepted(int year, int month, int day)

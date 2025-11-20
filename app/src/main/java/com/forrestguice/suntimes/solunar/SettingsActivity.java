@@ -109,7 +109,7 @@ public class SettingsActivity extends PreferenceActivity
             }
         }
 
-        private static Preference.OnPreferenceChangeListener onMinutesChangedListener = new Preference.OnPreferenceChangeListener()
+        private static final Preference.OnPreferenceChangeListener onMinutesChangedListener = new Preference.OnPreferenceChangeListener()
         {
             @Override
             public boolean onPreferenceChange(Preference preference, Object value) {
