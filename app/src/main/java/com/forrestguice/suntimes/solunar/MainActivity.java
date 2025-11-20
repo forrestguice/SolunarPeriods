@@ -28,6 +28,8 @@ import android.preference.PreferenceActivity;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -469,18 +471,30 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    protected void showHelp()
+    private static final int HELP_PATH_ID = R.string.help_main_path;
+
+    protected void showHelp() {
+        HelpDialog dialog = createHelpDialog(this, suntimesInfo, R.array.help_topics, DIALOG_HELP, HELP_PATH_ID);
+        dialog.show(getSupportFragmentManager(), DIALOG_HELP);
+    }
+    public static HelpDialog createHelpDialog(Context context, @Nullable SuntimesInfo suntimesInfo, int helpTopicsArrayRes, String dialogTag, Integer helpPathID)
     {
         HelpDialog dialog = new HelpDialog();
-        dialog.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
+        if (suntimesInfo != null && suntimesInfo.appTheme != null) {
+            dialog.setTheme(AppThemeInfo.themePrefToStyleId(context, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
+        }
+        if (helpPathID != null) {
+            dialog.setShowNeutralButton(context.getString(R.string.action_onlineHelp));
+            dialog.setNeutralButtonListener(HelpDialog.getOnlineHelpClickListener(context, helpPathID), dialogTag);
+        }
 
-        String[] help = getResources().getStringArray(R.array.help_topics);
+        String[] help = context.getResources().getStringArray(helpTopicsArrayRes);
         String helpContent = help[0];
         for (int i=1; i<help.length; i++) {
-            helpContent = getString(R.string.format_help, helpContent, help[i]);
+            helpContent = context.getString(R.string.format_help, helpContent, help[i]);
         }
         dialog.setContent(helpContent + "<br/>");
-        dialog.show(getSupportFragmentManager(), DIALOG_HELP);
+        return dialog;
     }
 
     protected void showAbout()

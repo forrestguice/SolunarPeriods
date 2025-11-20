@@ -19,8 +19,13 @@
 
 package com.forrestguice.suntimes.solunar;
 
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
+
 import androidx.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,6 +103,24 @@ public class AppSettings
         } else {
             return TimeZone.getDefault();
         }
+    }
+
+    /**
+     * Is the current device a television? This implies limited features.
+     */
+    public static boolean isTelevision(@Nullable Context context)
+    {
+        if (context != null)
+        {
+            if (Build.VERSION.SDK_INT >= 21) {
+                return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
+
+            } else if (Build.VERSION.SDK_INT >= 13) {
+                UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+                return (uiModeManager != null && (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION));
+
+            } else return false;
+        } else return false;
     }
 
 }
