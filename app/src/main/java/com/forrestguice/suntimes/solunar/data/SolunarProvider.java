@@ -37,6 +37,7 @@ import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.solunar.AppSettings;
 import com.forrestguice.suntimes.solunar.BuildConfig;
+import com.forrestguice.suntimes.solunar.ExceptionHandler;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
@@ -116,6 +117,7 @@ public class SolunarProvider extends ContentProvider
 
     @Override
     public boolean onCreate() {
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getContext(), Thread.getDefaultUncaughtExceptionHandler()));
         return true;
     }
 

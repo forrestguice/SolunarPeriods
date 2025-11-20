@@ -2,6 +2,7 @@
     tools:locale="en">
     <string name="app_version"><![CDATA[<b>Version:</b>]]> %s</string>
     <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
+    <string name="app_support_url0">https://github.com/forrestguice/SolunarPeriods/issues</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SolunarPeriods/issues">issue tracker</a> to submit a request.
