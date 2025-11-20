@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--suppress XmlHighlighting, XmlUnusedNamespaceDeclaration -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="solunarperiods1.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   inkscape:export-filename="C:\Users\Forrest\Documents\GitHub\SuntimesCalendars\app\src\main\artwork\suntimes-calendar31.png"
+   inkscape:export-xdpi="2048"
+   inkscape:export-ydpi="2048"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata
+     id="metadata32">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs30" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1904"
+     inkscape:window-height="1000"
+     id="namedview28"
+     showgrid="true"
+     inkscape:zoom="22.627417"
+     inkscape:cx="2.5853592"
+     inkscape:cy="12.639534"
+     inkscape:window-x="1275"
+     inkscape:window-y="63"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg26"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#3f3fff"
+       empopacity="0.25098039"
+       color="#3f3fff"
+       opacity="0.1254902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <rect
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.0065;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:16.0519, 2.0065;stroke-dashoffset:0;stroke-opacity:0.337255;paint-order:normal"
+     id="rect1253"
+     width="24.126991"
+     height="24.029015"
+     x="0.019635614"
+     y="0.0044380459" />
+  <path
+     id="path3797-8-1"
+     style="display:inline;fill:#ffffff;fill-opacity:0.85;fill-rule:evenodd;stroke:none;stroke-width:2.02191;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20.373047 3.6464844 L 18.150391 5.8730469 C 19.695103 7.4510776 20.646484 9.6118308 20.646484 11.994141 C 20.646484 16.826346 16.728689 20.744141 11.896484 20.744141 C 9.5128278 20.744141 7.3555682 19.794679 5.7792969 18.253906 L 3.6699219 20.361328 A 11.965281 11.82733 45 0 1 3.65625 20.345703 L 3.6484375 20.353516 A 11.965353 11.827401 44.970484 0 0 20.320312 20.318359 A 11.965353 11.827401 44.970484 0 0 20.373047 3.6464844 z " />
+  <path
+     fill="none"
+     d="M0 0h24v24H0V0z"
+     id="path22" />
+  <path
+     fill="#ff00ff"
+     d="m 11.896696,30.097227 c -4.8322033,0 -8.750469,3.918266 -8.750469,8.750468 0,4.832205 3.9085427,8.75047 8.750469,8.75047 4.832205,0 8.75047,-3.918265 8.75047,-8.75047 0,-4.832202 -3.918265,-8.750468 -8.75047,-8.750468 z"
+     fill-opacity="0.9"
+     stroke="#000000"
+     stroke-opacity="0"
+     stroke-width="0.194454"
+     id="path2-4-7"
+     style="fill:#ffffff;fill-opacity:0.2" />
+  <path
+     style="fill:#ffffff;fill-opacity:0.2"
+     d="m 11.900402,3.2480861 c -4.8322026,0 -8.7504685,3.9182659 -8.7504685,8.7504679 0,4.832205 3.9085431,8.75047 8.7504685,8.75047 4.832205,0 8.75047,-3.918265 8.75047,-8.75047 0,-4.832202 -3.918265,-8.7504679 -8.75047,-8.7504679 z m 8.483176,0.3966017 A 11.965281,11.82733 45 0 0 3.7083727,3.695439 11.965281,11.82733 45 0 0 3.6743322,20.367338 l 8.3563058,-8.356307 z"
+     id="path2-4" />
+  <path
+     fill="#ffcc00"
+     d="M 11.895341,4.9557962 A 6.9456852,6.6562633 0 0 0 4.958733,11.322638 l 13.865229,1.08e-4 A 6.9456852,6.6562633 0 0 0 11.895341,4.9557962 Z"
+     stroke-linejoin="round"
+     stroke="#000000"
+     stroke-opacity="0"
+     stroke-width="9.89291"
+     id="path3"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     fill="#ff9900"
+     d="m 4.958727,12.67704 a 6.9456852,6.6562633 0 0 0 6.936607,6.366841 6.9456852,6.6562633 0 0 0 6.928731,-6.366841 z"
+     stroke-linejoin="round"
+     stroke="#000000"
+     stroke-opacity="0"
+     stroke-width="9.89291"
+     id="path4"
+     style="fill:#ffffff;fill-opacity:0.57" />
+</svg>
