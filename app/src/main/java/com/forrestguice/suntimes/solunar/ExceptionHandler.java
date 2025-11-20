@@ -37,7 +37,7 @@ public class ExceptionHandler extends com.forrestguice.suntimes.crashreport.Exce
 
     @Override
     protected String getAppSupportURL(Context context) {
-        return context.getString(R.string.app_support_url);
+        return context.getString(R.string.app_support_url0);
     }
 
     @Override
