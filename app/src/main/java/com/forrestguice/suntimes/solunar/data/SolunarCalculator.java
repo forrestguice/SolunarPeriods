@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 import android.util.Pair;
 
+import com.forrestguice.suntimes.annotation.Nullable;
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimes.solunar.R;
@@ -180,13 +181,18 @@ public class SolunarCalculator
                 HashMap<MoonPhase, Calendar> phases = new HashMap<>(4);
                 Calendar midnightBefore = midnight(data.getDate(timezone));
                 queryMoonPhases(resolver, data, midnightBefore, phases);
-                data.moonnew = phases.get(MoonPhase.NEW).getTimeInMillis();
-                data.moonfull = phases.get(MoonPhase.FULL).getTimeInMillis();
-                data.moonphase = findPhaseOf(midnightBefore, phases).name();
+                Calendar newMoon = phases.get(MoonPhase.NEW);
+                Calendar fullMoon = phases.get(MoonPhase.FULL);
+                if (newMoon != null && fullMoon != null)
+                {
+                    data.moonnew = newMoon.getTimeInMillis();
+                    data.moonfull = fullMoon.getTimeInMillis();
+                    data.moonphase = findPhaseOf(midnightBefore, phases).name();
 
-                long nextNewMoon = phases.get(MoonPhase.NEW).getTimeInMillis();
-                long prevNewMoon = queryMoonPhase(resolver, MoonPhase.NEW, (nextNewMoon - AVG_MONTH_MILLIS));
-                data.moonperiod = (nextNewMoon - prevNewMoon);
+                    long nextNewMoon = newMoon.getTimeInMillis();
+                    long prevNewMoon = queryMoonPhase(resolver, MoonPhase.NEW, (nextNewMoon - AVG_MONTH_MILLIS));
+                    data.moonperiod = (nextNewMoon - prevNewMoon);
+                }
 
                 // minor periods at moonrise and moonset
                 if (data.moonrise != -1) {
@@ -403,8 +409,11 @@ public class SolunarCalculator
         return (isSameDay(calendar, phases.get(nextPhase)) ? toPhase(nextPhase) : prevMinorPhase(nextPhase));
     }
 
-    public static boolean isSameDay(Calendar calendar, Calendar otherCalendar)
+    public static boolean isSameDay(@Nullable Calendar calendar, @Nullable Calendar otherCalendar)
     {
+        if (calendar == null || otherCalendar == null) {
+            return false;
+        }
         int year = calendar.get(Calendar.YEAR);
         int otherYear = otherCalendar.get(Calendar.YEAR);
         int day = calendar.get(Calendar.DAY_OF_YEAR);

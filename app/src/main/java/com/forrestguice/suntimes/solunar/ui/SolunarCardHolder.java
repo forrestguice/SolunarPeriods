@@ -175,7 +175,9 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
 
             hideMoonPhaseIcons();
             ImageView icon = icon_moonphases.get(phase);
-            icon.setVisibility(View.VISIBLE);
+            if (icon != null) {
+                icon.setVisibility(View.VISIBLE);
+            }
 
             double moonPeriodDays = data.getMoonPeriod() / 1000d / 60d / 60d / 24d;
 
