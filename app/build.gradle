@@ -14,6 +14,7 @@ android {
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
+        resConfigs "en"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
         manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
@@ -61,18 +62,23 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //noinspection GradleDependency
+    implementation 'androidx.appcompat:appcompat:1.6.1'                       // 1.7.0 (2024-05-29) requires Java 17, minapi 21+
+    //noinspection GradleDependency
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'         // 2.2.0 (2024-10-30) requires Java 17, minapi 21+
     implementation "androidx.preference:preference:1.2.1"
     //noinspection GradleDependency
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    //noinspection GradleDependency
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'             // 1.2.0 requires Java 17, minapi 19+
     implementation project(path: ":SuntimesAddon")  //implementation 'com.github.forrestguice:SuntimesAddon:v0.4.0'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    //noinspection GradleDependency
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'                 // 1.2.0 requires minapi 19+
+    //noinspection GradleDependency
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'    // 3.6.0 requires minapi 19+
 }
 
 configurations.all {
