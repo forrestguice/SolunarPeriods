@@ -28,7 +28,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.app.ActionBar;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import com.forrestguice.suntimes.addon.AppThemeInfo;
