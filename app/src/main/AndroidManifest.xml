@@ -3,6 +3,7 @@
     package="com.forrestguice.suntimes.solunar">
 
     <uses-permission android:name="${suntimesPermissionRoot}.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />    <!-- used to report app crashes -->
 
     <application
         android:icon="@mipmap/ic_launcher_round"
