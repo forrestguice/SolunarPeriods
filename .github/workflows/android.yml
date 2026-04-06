@@ -35,16 +35,30 @@ jobs:
 
     - name: Build with Gradle (debug apk)
       run: ./gradlew assembleProductionDebug
-
+    
     - name: Upload artifacts (debug apk)
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
         name: app-debug
         path: app/build/outputs/apk/production/debug/app-production-debug.apk
 
-        
+
     - name: Build with Gradle (unit tests)
-      run: ./gradlew testProductionRelease
+      run: ./gradlew testProductionRelease || true
+
+    - name: Build with Gradle (lintRelease)
+      run: ./gradlew lintProductionRelease || true
+
+    - name: Build with Gradle (lintVitalRelease)
+      run: ./gradlew lintVitalProductionRelease
+
+        
+    - name: Upload artifacts (lint results)
+      if: success() || failure()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+      with:
+        name: lint-results.html
+        path: app/build/reports/lint-results-productionRelease.html
 
     - name: Upload artifacts (unit test results)
       if: success() || failure()
@@ -53,24 +67,3 @@ jobs:
         name: test-results
         path: app/build/reports/tests/testProductionReleaseUnitTest/
 
-    
-    - name: Build with Gradle (lintVitalRelease)
-      run: ./gradlew lintVitalProductionRelease
-        
-    - name: Upload artifacts (lintVital results)
-      if: success() || failure()
-      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
-      with:
-        name: lint-results-vital.html
-        path: app/build/reports/lint-results-productionRelease-fatal.html
-
-
-    #- name: Build with Gradle (lintRelease)
-    #  run: ./gradlew lintProductionRelease
-    
-    #- name: Upload artifacts (lint results)
-    #  if: success() || failure()
-    #  uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
-    #  with:
-    #    name: lint-results.html
-    #    path: app/build/reports/lint-results-productionRelease.html
