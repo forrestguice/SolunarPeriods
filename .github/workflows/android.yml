@@ -32,32 +32,45 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew assembleProductionDebug
-    
-    - name: Build with Gradle (Unit tests)
-      run: ./gradlew testProductionRelease
 
-    - name: Build with Gradle (lintRelease)
-      run: ./gradlew lintProductionRelease
-    
-    - name: Build with Gradle (lintVitalRelease)
-      run: ./gradlew lintVitalProductionRelease
-      
+    - name: Build with Gradle (debug apk)
+      run: ./gradlew assembleProductionDebug
+
     - name: Upload artifacts (debug apk)
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
-        name: app
+        name: app-debug
         path: app/build/outputs/apk/production/debug/app-production-debug.apk
 
-    - name: Upload artifacts (lint results)
+        
+    - name: Build with Gradle (unit tests)
+      run: ./gradlew testProductionRelease
+
+    - name: Upload artifacts (unit test results)
+      if: success() || failure()
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
-        name: lint-results.html
-        path: app/build/reports/lint-results-productionRelease.html
+        name: test-results
+        path: app/build/reports/tests/testProductionReleaseUnitTest/
+
+    
+    - name: Build with Gradle (lintVitalRelease)
+      run: ./gradlew lintVitalProductionRelease
         
     - name: Upload artifacts (lintVital results)
+      if: success() || failure()
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
         name: lint-results-vital.html
         path: app/build/reports/lint-results-productionRelease-vital.html
+
+
+    - name: Build with Gradle (lintRelease)
+      run: ./gradlew lintProductionRelease
+    
+    - name: Upload artifacts (lint results)
+      if: success() || failure()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+      with:
+        name: lint-results.html
+        path: app/build/reports/lint-results-productionRelease.html
