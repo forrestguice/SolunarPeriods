@@ -8,41 +8,69 @@ on:
     branches: 
       - master
 
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  #6.0.2
       with:
         submodules: recursive
+        persist-credentials: false
     
     - name: set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654  #5.2.0
       with:
         distribution: 'temurin'
         java-version: '17'
+
+    - name: Gradle Wrapper Validation
+      uses: gradle/actions/wrapper-validation@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e  #6.1.0
     
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew assembleProductionRelease
-    
-    - name: Build with Gradle (Unit tests)
+
+    - name: Build with Gradle (debug apk)
+      run: ./gradlew assembleProductionDebug
+
+    - name: Upload artifacts (debug apk)
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+      with:
+        name: app-debug
+        path: app/build/outputs/apk/production/debug/app-production-debug.apk
+
+        
+    - name: Build with Gradle (unit tests)
       run: ./gradlew testProductionRelease
+
+    - name: Upload artifacts (unit test results)
+      if: success() || failure()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+      with:
+        name: test-results
+        path: app/build/reports/tests/testProductionReleaseUnitTest/
+
     
     - name: Build with Gradle (lintVitalRelease)
       run: ./gradlew lintVitalProductionRelease
-      
-    - name: Upload artifacts (debug apk)
-      uses: actions/upload-artifact@v4
-      with:
-        name: app
-        path: app/build/outputs/apk/debug/app-debug.apk
         
-    - name: Upload artifacts (lint results)
-      uses: actions/upload-artifact@v4
+    - name: Upload artifacts (lintVital results)
+      if: success() || failure()
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
-        name: lint-results.html
-        path: app/build/reports/lint-results.html
+        name: lint-results-vital.html
+        path: app/build/reports/lint-results-productionRelease-fatal.html
+
+
+    #- name: Build with Gradle (lintRelease)
+    #  run: ./gradlew lintProductionRelease
+    
+    #- name: Upload artifacts (lint results)
+    #  if: success() || failure()
+    #  uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+    #  with:
+    #    name: lint-results.html
+    #    path: app/build/reports/lint-results-productionRelease.html
