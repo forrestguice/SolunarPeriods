@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
 
+    namespace = "com.forrestguice.suntimes.solunar"
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId "com.forrestguice.suntimes.solunar"
         minSdkVersion 14
