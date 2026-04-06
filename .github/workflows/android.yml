@@ -45,10 +45,10 @@ jobs:
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  #v4.6.2
       with:
         name: app
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/production/debug/app-production-debug.apk
         
     - name: Upload artifacts (lint results)
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  #v4.6.2
       with:
         name: lint-results.html
-        path: app/build/reports/lint-results.html
+        path: app/build/reports/lint-results-productionRelease.html
