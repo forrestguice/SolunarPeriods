@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <integer name="min_provider_version">2</integer>
     <string name="min_suntimes_version">Suntimes v0.10.3</string>
     <string name="min_suntimes_url">https://forrestguice.github.io/SuntimesWidget/</string>

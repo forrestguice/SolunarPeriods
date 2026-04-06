@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name">Solunar Periods</string>
     <string name="app_desc">A hunting and fishing addon for Suntimes.</string>
     <color name="ic_launcher_background">#282828</color>
