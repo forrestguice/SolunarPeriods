@@ -37,6 +37,9 @@ jobs:
     
     - name: Build with Gradle (Unit tests)
       run: ./gradlew testProductionRelease
+
+    - name: Build with Gradle (lintRelease)
+      run: ./gradlew lintProductionRelease
     
     - name: Build with Gradle (lintVitalRelease)
       run: ./gradlew lintVitalProductionRelease
@@ -46,9 +49,15 @@ jobs:
       with:
         name: app
         path: app/build/outputs/apk/production/debug/app-production-debug.apk
-        
+
     - name: Upload artifacts (lint results)
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
       with:
         name: lint-results.html
-        path: app/build/reports/lint-results-productionDebug.html
+        path: app/build/reports/lint-results-productionRelease.html
+        
+    - name: Upload artifacts (lintVital results)
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
+      with:
+        name: lint-results-vital.html
+        path: app/build/reports/lint-results-productionRelease-vital.html
