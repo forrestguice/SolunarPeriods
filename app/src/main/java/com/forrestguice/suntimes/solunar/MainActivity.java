@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
+            actionBar.setHomeAsUpIndicator(com.forrestguice.suntimes.addon.R.drawable.ic_action_suntimes);
         }
 
         View bottomSheetView = findViewById(R.id.app_bottomsheet);

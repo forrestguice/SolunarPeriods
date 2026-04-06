@@ -226,7 +226,7 @@ public class DisplayStrings
     {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dateTime);
-        String format = (is24Hr ? context.getString(R.string.format_time24) : context.getString(R.string.format_time12));
+        String format = (is24Hr ? context.getString(com.forrestguice.suntimes.addon.R.string.format_time24) : context.getString(com.forrestguice.suntimes.addon.R.string.format_time12));
         SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
         timeFormat.setTimeZone(timezone);
         return timeFormat.format(calendar.getTime());

@@ -21,7 +21,8 @@ package com.forrestguice.suntimes.calculator;
 
 import android.content.Context;
 
-import com.forrestguice.suntimes.solunar.R;
+//import com.forrestguice.suntimes.solunar.R;
+import com.forrestguice.suntimes.addon.R;
 
 /**
  * MoonPhaseDisplay

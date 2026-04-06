@@ -408,14 +408,14 @@ public class SolunarProvider extends ContentProvider
         location = config.location[0];
 
         moonPhaseDisplay = new HashMap<>();
-        moonPhaseDisplay.put("NEW", context.getString(R.string.timeMode_moon_new));
-        moonPhaseDisplay.put("WAXING_CRESCENT", context.getString(R.string.timeMode_moon_waxingcrescent));
-        moonPhaseDisplay.put("FIRST_QUARTER", context.getString(R.string.timeMode_moon_firstquarter));
-        moonPhaseDisplay.put("WAXING_GIBBOUS", context.getString(R.string.timeMode_moon_waxinggibbous));
-        moonPhaseDisplay.put("FULL", context.getString(R.string.timeMode_moon_full));
-        moonPhaseDisplay.put("WANING_GIBBOUS", context.getString(R.string.timeMode_moon_waninggibbous));
-        moonPhaseDisplay.put("THIRD_QUARTER", context.getString(R.string.timeMode_moon_thirdquarter));
-        moonPhaseDisplay.put("WANING_CRESCENT", context.getString(R.string.timeMode_moon_waningcrescent));
+        moonPhaseDisplay.put("NEW", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_new));
+        moonPhaseDisplay.put("WAXING_CRESCENT", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_waxingcrescent));
+        moonPhaseDisplay.put("FIRST_QUARTER", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_firstquarter));
+        moonPhaseDisplay.put("WAXING_GIBBOUS", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_waxinggibbous));
+        moonPhaseDisplay.put("FULL", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_full));
+        moonPhaseDisplay.put("WANING_GIBBOUS", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_waninggibbous));
+        moonPhaseDisplay.put("THIRD_QUARTER", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_thirdquarter));
+        moonPhaseDisplay.put("WANING_CRESCENT", context.getString(com.forrestguice.suntimes.addon.R.string.timeMode_moon_waningcrescent));
 
         majorTitle = context.getString(R.string.calendar_event_title_major);
         majorTitles = new String[] {majorTitle, majorTitle};

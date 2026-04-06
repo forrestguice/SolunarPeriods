@@ -76,12 +76,12 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
         super(itemView);
 
         int[] attrs = new int[] {
-                R.attr.sunriseColor,
-                R.attr.sunsetColor,
+                com.forrestguice.suntimes.addon.R.attr.sunriseColor,
+                com.forrestguice.suntimes.addon.R.attr.sunsetColor,
         };
         TypedArray a = context.obtainStyledAttributes(attrs);
-        color_sunrise = ContextCompat.getColor(context, a.getResourceId(0, R.color.sun_rising_dark));
-        color_sunset = ContextCompat.getColor(context, a.getResourceId(1, R.color.sun_setting_dark));
+        color_sunrise = ContextCompat.getColor(context, a.getResourceId(0, com.forrestguice.suntimes.addon.R.color.sun_rising_dark));
+        color_sunset = ContextCompat.getColor(context, a.getResourceId(1, com.forrestguice.suntimes.addon.R.color.sun_setting_dark));
         a.recycle();
 
         layout_card = itemView.findViewById(R.id.card);
@@ -154,7 +154,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             long moonrise = data.getDateMillis(SolunarData.KEY_MOONRISE);
             long moonset = data.getDateMillis(SolunarData.KEY_MOONSET);
 
-            String time_none = context.getString(R.string.time_none);
+            String time_none = context.getString(com.forrestguice.suntimes.addon.R.string.time_none);
             text_sunrise.setText( sunrise > 0 ? DisplayStrings.formatTime(context, sunrise, options.timezone, options.suntimes_options.time_is24) : time_none);
             text_sunset.setText( sunset > 0 ? DisplayStrings.formatTime(context, sunset, options.timezone, options.suntimes_options.time_is24) : time_none);
             text_moonrise.setText( moonrise > 0 ? DisplayStrings.formatTime(context, moonrise, options.timezone, options.suntimes_options.time_is24) : time_none);
@@ -215,7 +215,7 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
             }
 
         } else {
-            text_debug.setText(context.getString(R.string.time_none));
+            text_debug.setText(context.getString(com.forrestguice.suntimes.addon.R.string.time_none));
             rating.setNumStars(0);
 
             text_rating.setText("");
@@ -280,8 +280,8 @@ public class SolunarCardHolder extends RecyclerView.ViewHolder
                 layout.setVisibility(View.VISIBLE);
 
             } else {
-                start.setText(context.getString(R.string.time_none));
-                end.setText(context.getString(R.string.time_none));
+                start.setText(context.getString(com.forrestguice.suntimes.addon.R.string.time_none));
+                end.setText(context.getString(com.forrestguice.suntimes.addon.R.string.time_none));
                 layout.setVisibility(View.GONE);
             }
         }
