@@ -59,6 +59,11 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+
+    lint {
+        abortOnError true
+        checkReleaseBuilds true
+    }
 }
 
 dependencies {
