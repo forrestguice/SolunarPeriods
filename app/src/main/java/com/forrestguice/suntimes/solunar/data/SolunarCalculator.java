@@ -30,6 +30,7 @@ import android.util.Pair;
 import com.forrestguice.suntimes.annotation.Nullable;
 import com.forrestguice.suntimes.calculator.MoonPhaseDisplay;
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimes.solunar.BuildConfig;
 import com.forrestguice.suntimes.solunar.R;
 import com.forrestguice.suntimes.solunar.ui.DisplayStrings;
 
@@ -212,7 +213,7 @@ public class SolunarCalculator
                 }
 
             } catch (SecurityException e) {
-                Log.e(getClass().getSimpleName(), "calculateData: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                Log.e(getClass().getSimpleName(), "calculateData: Unable to access " + AUTHORITY() + "! " + e);
                 data.calculated = false;
                 return false;
             }
@@ -225,7 +226,7 @@ public class SolunarCalculator
     private static final String[] PROJECTION_SUNRISESET = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
     protected void querySunriseSunset(ContentResolver resolver, SolunarData data)
     {
-        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + data.getDateMillis() );
+        Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_SUN + "/" + data.getDateMillis() );
         Cursor cursor = resolver.query(uri, PROJECTION_SUNRISESET, null, null, null);
         if (cursor != null)
         {
@@ -240,7 +241,7 @@ public class SolunarCalculator
     private static final String[] PROJECTION_MOONRISESET = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
     protected void queryMoonriseMoonset(ContentResolver resolver, SolunarData data, Pair<Calendar,Calendar>[] riseSet)
     {
-        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/"
+        Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_MOON + "/"
                 + (data.getDateMillis() - SUN_PERIOD_MILLIS) + "-" + (data.getDateMillis() + SUN_PERIOD_MILLIS) );
         Cursor cursor = resolver.query(uri, PROJECTION_MOONRISESET, null, null, null);
         if (cursor != null)
@@ -280,7 +281,7 @@ public class SolunarCalculator
     {
         long eventMillis = -1;
         String[] projection = new String[] { toProviderColumn(phase) };
-        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + after );
+        Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + after );
         Cursor cursor = resolver.query(uri, projection, null, null, null);
         if (cursor != null)
         {
@@ -294,10 +295,14 @@ public class SolunarCalculator
         return eventMillis;
     }
 
+    public static String AUTHORITY() {
+        return BuildConfig.SUNTIMES_AUTHORITY_ROOT + ".calculator.provider";   // CalculatorProviderContract.AUTHORITY
+    }
+
     private static final String[] PROJECTION_MOONPHASES = new String[] { CalculatorProviderContract.COLUMN_MOON_NEW, CalculatorProviderContract.COLUMN_MOON_FIRST, CalculatorProviderContract.COLUMN_MOON_FULL, CalculatorProviderContract.COLUMN_MOON_THIRD };
     protected void queryMoonPhases(ContentResolver resolver, SolunarData data, Calendar after, HashMap<MoonPhase, Calendar> phases)
     {
-        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + after.getTimeInMillis() );
+        Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + after.getTimeInMillis() );
         Cursor cursor = resolver.query(uri, PROJECTION_MOONPHASES, null, null, null);
         if (cursor != null)
         {
@@ -325,7 +330,7 @@ public class SolunarCalculator
     protected double queryIlluminationAt(ContentResolver resolver, long illuminationAt)
     {
         double retValue = -1;
-        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS + "/" + illuminationAt );
+        Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_MOONPOS + "/" + illuminationAt );
         Cursor cursor = resolver.query(uri, PROJECTION_ILLUMINATION, null, null, null);
         if (cursor != null)
         {

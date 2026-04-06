@@ -24,9 +24,11 @@ android {
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
         manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
         manifestPlaceholders.suntimesPermissionRoot = "suntimes"
-        def authorityRoot = "solunarperiods.calculator"
-        manifestPlaceholders.solunarPeriodsAuthorityRoot = "$authorityRoot"
-        buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
+        def solunarAuthorityRoot = "solunarperiods.calculator"
+        def suntimesAuthorityRoot = "suntimeswidget"
+        manifestPlaceholders.solunarPeriodsAuthorityRoot = "$solunarAuthorityRoot"
+        buildConfigField "String", "SOLUNAR_AUTHORITY_ROOT", "\"$solunarAuthorityRoot\""
+        buildConfigField "String", "SUNTIMES_AUTHORITY_ROOT", "\"$suntimesAuthorityRoot\""
 
         missingDimensionStrategy 'version', 'androidx'
         missingDimensionStrategy 'api', 'api33'
@@ -52,11 +54,13 @@ android {
             def nightlyVersionCode = new Date().format('yyyyMMddHH') as int
             versionCode nightlyVersionCode
 
-            def authorityRoot = "solunarperiods.calculator.nightly"
-            manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
-            manifestPlaceholders.suntimesPermissionRoot = "suntimes"
-            manifestPlaceholders.solunarPeriodsAuthorityRoot = "$authorityRoot"
-            buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
+            def solunarAuthorityRoot = "solunarperiods.calculator.nightly"
+            def suntimesAuthorityRoot = "suntimeswidget.nightly"
+            manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget.nightly"
+            manifestPlaceholders.suntimesPermissionRoot = "suntimes.nightly"
+            manifestPlaceholders.solunarPeriodsAuthorityRoot = "$solunarAuthorityRoot"
+            buildConfigField "String", "SOLUNAR_AUTHORITY_ROOT", "\"$solunarAuthorityRoot\""
+            buildConfigField "String", "SUNTIMES_AUTHORITY_ROOT", "\"$suntimesAuthorityRoot\""
         }
     }
 
