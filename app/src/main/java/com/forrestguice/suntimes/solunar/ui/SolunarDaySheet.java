@@ -100,9 +100,9 @@ public class SolunarDaySheet extends BottomSheetDialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
-        androidx.appcompat.view.ContextThemeWrapper contextWrapper = new androidx.appcompat.view.ContextThemeWrapper(getActivity(), getThemeResID());    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_solunarday, parent, false);
-        initViews(contextWrapper, dialogContent);
+        Context context = requireContext();
+        View dialogContent = inflater.inflate(R.layout.dialog_solunarday, parent, false);
+        initViews(context, dialogContent);
         if (savedState != null) {
             loadSettings(savedState);
         }
