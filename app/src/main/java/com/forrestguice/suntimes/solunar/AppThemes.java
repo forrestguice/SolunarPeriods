@@ -31,9 +31,15 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
     private static final AppThemeInfo info_darkTheme = new DarkThemeInfo();
     private static final AppThemeInfo info_lightTheme = new LightThemeInfo();
     private static final AppThemeInfo info_systemTheme = new SystemThemeInfo();
+
     private static final AppThemeInfo info_systemTheme_contrast = new ContrastSystemThemeInfo();
     private static final AppThemeInfo info_darkTheme_contrast = new ContrastDarkThemeInfo();
     private static final AppThemeInfo info_lightTheme_contrast = new ContrastLightThemeInfo();
+
+    private static final AppThemeInfo info_systemTheme_monet = new MonetSystemThemeInfo();
+    private static final AppThemeInfo info_darkTheme_monet = new MonetDarkThemeInfo();
+    private static final AppThemeInfo info_lightTheme_monet = new MonetLightThemeInfo();
+
     private static final AppThemeInfo info_defaultTheme = info_systemTheme;
 
     @Override
@@ -59,6 +65,15 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
 
         } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_CONTRAST_SYSTEM)) {
             return info_systemTheme_contrast;
+
+        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_MONET_LIGHT)) {
+            return info_lightTheme_monet;
+
+        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_MONET_DARK)) {
+            return info_darkTheme_monet;
+
+        } else if (extendedThemeName.startsWith(SuntimesInfo.THEME_MONET_SYSTEM)) {
+            return info_systemTheme_monet;
 
         } else {
             return info_defaultTheme;
@@ -203,6 +218,72 @@ public class AppThemes extends AppThemeInfo.AppThemeInfoFactory
                 case LARGE: return R.style.SolunarAppTheme_Dark1_Large;
                 case XLARGE: return R.style.SolunarAppTheme_Dark1_XLarge;
                 case NORMAL: default: return R.style.SolunarAppTheme_Dark1;
+            }
+        }
+    }
+
+    /* MonetSystemThemeInfo */
+    public static class MonetSystemThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return SuntimesInfo.THEME_MONET_SYSTEM;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.SolunarAppTheme_MonetSystem_Small;
+                case LARGE: return R.style.SolunarAppTheme_MonetSystem_Large;
+                case XLARGE: return R.style.SolunarAppTheme_MonetSystem_XLarge;
+                case NORMAL: default: return R.style.SolunarAppTheme_MonetSystem;
+            }
+        }
+    }
+
+    /* MonetLightThemeInfo */
+    public static class MonetLightThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return SuntimesInfo.THEME_MONET_LIGHT;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return MODE_NIGHT_NO;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.SolunarAppTheme_MonetLight_Small;
+                case LARGE: return R.style.SolunarAppTheme_MonetLight_Large;
+                case XLARGE: return R.style.SolunarAppTheme_MonetLight_XLarge;
+                case NORMAL: default: return R.style.SolunarAppTheme_MonetLight;
+            }
+        }
+    }
+
+    /* MonetDarkThemeInfo */
+    public static class MonetDarkThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return SuntimesInfo.THEME_MONET_DARK;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return MODE_NIGHT_YES;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.SolunarAppTheme_MonetDark_Small;
+                case LARGE: return R.style.SolunarAppTheme_MonetDark_Large;
+                case XLARGE: return R.style.SolunarAppTheme_MonetDark_XLarge;
+                case NORMAL: default: return R.style.SolunarAppTheme_MonetDark;
             }
         }
     }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="monet_window_bg">@color/monet_dark_window_bg</color>
+    <color name="monet_card_bg">@color/monet_dark_card_bg</color>
+    <color name="monet_action">@color/monet_dark_action</color>
+    <color name="monet_accent">@color/monet_dark_accent</color>
+    <color name="monet_value">@color/monet_dark_accent</color>
+    <color name="monet_label">@color/monet_dark_label</color>
+    <color name="monet_time">@color/monet_dark_time</color>
+    <color name="monet_date">@color/monet_dark_date</color>
+    <color name="monet_disabled">@color/monet_dark_disabled</color>
+    <color name="monet_colorPrimary">@color/monet_dark_colorPrimary</color>
+    <color name="monet_colorPrimaryDark">@color/monet_dark_colorPrimaryDark</color>
+</resources>

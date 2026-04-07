@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="monet_window_bg">@color/monet_light_window_bg</color>
+    <color name="monet_card_bg">@color/monet_light_card_bg</color>
+    <color name="monet_action">@color/monet_light_action</color>
+    <color name="monet_accent">@color/monet_light_accent</color>
+    <color name="monet_value">@color/monet_light_value</color>
+    <color name="monet_date">@color/monet_light_date</color>
+    <color name="monet_label">@color/monet_light_label</color>
+    <color name="monet_time">@color/monet_light_time</color>
+    <color name="monet_disabled">@color/monet_light_disabled</color>
+    <color name="monet_colorPrimary">@color/monet_light_colorPrimary</color>
+    <color name="monet_colorPrimaryDark">@color/monet_light_colorPrimaryDark</color>
+
+    <color name="monet_light_window_bg">@color/grey_50</color>
+    <color name="monet_light_card_bg">@color/grey_50</color>
+    <color name="monet_light_action">@color/deep_teal_500</color>
+    <color name="monet_light_accent">@color/deep_teal_500</color>
+    <color name="monet_light_value">@color/deep_teal_500</color>
+    <color name="monet_light_date">@color/colorDate_contrast_light</color>
+    <color name="monet_light_label">@color/colorLabel_contrast_light</color>
+    <color name="monet_light_time">@color/colorTime_contrast_light</color>
+    <color name="monet_light_disabled">@color/colorDisabled_contrast_light</color>
+    <color name="monet_light_colorPrimary">@color/colorPrimary_light</color>
+    <color name="monet_light_colorPrimaryDark">@color/colorPrimaryDark_light</color>
+
+    <color name="monet_dark_window_bg">@color/grey_900</color>
+    <color name="monet_dark_card_bg">@color/grey_900</color>
+    <color name="monet_dark_action">@color/deep_teal_200</color>
+    <color name="monet_dark_accent">@color/deep_teal_200</color>
+    <color name="monet_dark_value">@color/deep_teal_200</color>
+    <color name="monet_dark_date">@color/colorDate_contrast_dark</color>
+    <color name="monet_dark_label">@color/colorLabel_contrast_dark</color>
+    <color name="monet_dark_time">@color/colorTime_contrast_dark</color>
+    <color name="monet_dark_disabled">@color/colorDisabled_contrast_dark</color>
+    <color name="monet_dark_colorPrimary">@color/colorPrimary_dark</color>
+    <color name="monet_dark_colorPrimaryDark">@color/colorPrimaryDark_dark</color>
+
+</resources>
