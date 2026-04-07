@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimes.alarm.AlarmHelper;
 import com.forrestguice.suntimes.calendar.CalendarEventTemplateContract;
 import com.forrestguice.suntimes.calendar.CalendarHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
@@ -116,8 +117,13 @@ public class SolunarProvider extends ContentProvider
     public static final String CALENDAR_NAME = "solunarCalendar";
 
     @Override
-    public boolean onCreate() {
+    public boolean onCreate()
+    {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getContext(), Thread.getDefaultUncaughtExceptionHandler()));
+        SuntimesInfo.setSuntimesPackage(BuildConfig.SUNTIMES_APPLICATION_ID);
+        SuntimesInfo.setAuthorityRoot(BuildConfig.SUNTIMES_AUTHORITY_ROOT);
+        AlarmHelper.setAuthorityRoot(BuildConfig.SUNTIMES_AUTHORITY_ROOT);
+        //CalendarHelper.setAuthorityRoot(BuildConfig.SUNTIMESCALENDARS_AUTHORITY_ROOT);
         return true;
     }
 

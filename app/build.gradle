@@ -22,13 +22,17 @@ android {
         resConfigs "en"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
-        manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
-        manifestPlaceholders.suntimesPermissionRoot = "suntimes"
+
         def solunarAuthorityRoot = "solunarperiods.calculator"
         def suntimesAuthorityRoot = "suntimeswidget"
+        def suntimesApplicationId = "com.forrestguice.suntimeswidget";
+        def suntimesPermissionRoot = "suntimes";
+        manifestPlaceholders.suntimesApplicationId = "$suntimesApplicationId"
+        manifestPlaceholders.suntimesPermissionRoot = "$suntimesPermissionRoot"
         manifestPlaceholders.solunarPeriodsAuthorityRoot = "$solunarAuthorityRoot"
         buildConfigField "String", "SOLUNAR_AUTHORITY_ROOT", "\"$solunarAuthorityRoot\""
         buildConfigField "String", "SUNTIMES_AUTHORITY_ROOT", "\"$suntimesAuthorityRoot\""
+        buildConfigField "String", "SUNTIMES_APPLICATION_ID", "\"$suntimesApplicationId\""
 
         missingDimensionStrategy 'version', 'androidx'
         missingDimensionStrategy 'api', 'api34'
@@ -56,11 +60,14 @@ android {
 
             def solunarAuthorityRoot = "solunarperiods.calculator.nightly"
             def suntimesAuthorityRoot = "suntimeswidget.nightly"
-            manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget.nightly"
-            manifestPlaceholders.suntimesPermissionRoot = "suntimes.nightly"
+            def suntimesApplicationId = "com.forrestguice.suntimeswidget.nightly";
+            def suntimesPermissionRoot = "suntimes.nightly";
+            manifestPlaceholders.suntimesApplicationId = "$suntimesApplicationId"
+            manifestPlaceholders.suntimesPermissionRoot = "$suntimesPermissionRoot"
             manifestPlaceholders.solunarPeriodsAuthorityRoot = "$solunarAuthorityRoot"
             buildConfigField "String", "SOLUNAR_AUTHORITY_ROOT", "\"$solunarAuthorityRoot\""
             buildConfigField "String", "SUNTIMES_AUTHORITY_ROOT", "\"$suntimesAuthorityRoot\""
+            buildConfigField "String", "SUNTIMES_APPLICATION_ID", "\"$suntimesApplicationId\""
         }
     }
 
