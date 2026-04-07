@@ -6,6 +6,8 @@
     <color name="monet_light_card_bg">@android:color/system_neutral1_50</color>
     <color name="monet_light_sheet_bg">@android:color/system_neutral2_50</color>
     <color name="monet_light_menu_bg">@android:color/system_neutral2_50</color>
+    <color name="monet_light_dialog_bg">@android:color/system_neutral2_50</color>
+    <color name="monet_light_dialogAlt_bg">@android:color/system_neutral2_200</color>
     <color name="monet_light_action">@android:color/system_accent1_400</color>
     <color name="monet_light_accent">@android:color/system_accent3_400</color>
     <color name="monet_light_value">@android:color/system_accent2_400</color>
@@ -16,6 +18,8 @@
     <color name="monet_dark_card_bg">@android:color/system_neutral1_800</color>
     <color name="monet_dark_sheet_bg">@android:color/system_neutral2_900</color>
     <color name="monet_dark_menu_bg">@android:color/system_neutral1_900</color>
+    <color name="monet_dark_dialog_bg">@android:color/system_neutral2_900</color>
+    <color name="monet_dark_dialogAlt_bg">@android:color/system_neutral2_700</color>
     <color name="monet_dark_action">@android:color/system_accent1_400</color>
     <color name="monet_dark_accent">@android:color/system_accent3_400</color>
     <color name="monet_dark_value">@android:color/system_accent2_400</color>

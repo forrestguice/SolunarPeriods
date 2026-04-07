@@ -13,6 +13,8 @@
         <item name="colorTime">@color/monet_time</item>
         <item name="colorValue">@color/monet_value</item>
         <item name="colorBottomSheet">@color/monet_sheet_bg</item>
+        <item name="dialogBackground">@color/monet_dialog_bg</item>
+        <item name="dialogBackgroundAlt">@color/monet_dialogAlt_bg</item>
         <item name="android:windowBackground">@color/monet_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetRef</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.System</item>
@@ -78,6 +80,8 @@
         <item name="colorTime">@color/monet_light_time</item>
         <item name="colorValue">@color/monet_light_value</item>
         <item name="colorBottomSheet">@color/monet_light_sheet_bg</item>
+        <item name="dialogBackground">@color/monet_light_dialog_bg</item>
+        <item name="dialogBackgroundAlt">@color/monet_light_dialogAlt_bg</item>
         <item name="android:windowBackground">@color/monet_light_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetLight</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.Light</item>
@@ -143,7 +147,9 @@
         <item name="colorTime">@color/monet_dark_time</item>
         <item name="colorValue">@color/monet_dark_value</item>
         <item name="colorBottomSheet">@color/monet_dark_sheet_bg</item>
-        <item name="android:windowBackground">@color/monet_dark_window_bg</item>
+        <item name="dialogBackground">@color/monet_dark_dialog_bg</item>
+        <item name="dialogBackgroundAlt">@color/monet_dark_dialogAlt_bg</item>
+        <item name="android:windowBackground">@color/monet_dark_accent</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetDark</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.Dark</item>
         <item name="popupMenuStyle">@style/MonetMenu.Dark</item>
