@@ -3,6 +3,7 @@
     <color name="monet_window_bg">@color/monet_light_window_bg</color>
     <color name="monet_card_bg">@color/monet_light_card_bg</color>
     <color name="monet_sheet_bg">@color/monet_light_sheet_bg</color>
+    <color name="monet_menu_bg">@color/monet_light_menu_bg</color>
     <color name="monet_action">@color/monet_light_action</color>
     <color name="monet_accent">@color/monet_light_accent</color>
     <color name="monet_value">@color/monet_light_value</color>
@@ -16,6 +17,7 @@
     <color name="monet_light_window_bg">@color/grey_50</color>
     <color name="monet_light_card_bg">@color/grey_50</color>
     <color name="monet_light_sheet_bg">@color/grey_200</color>
+    <color name="monet_light_menu_bg">@color/grey_200</color>
     <color name="monet_light_action">@color/deep_teal_500</color>
     <color name="monet_light_accent">@color/deep_teal_500</color>
     <color name="monet_light_value">@color/deep_teal_500</color>
@@ -29,6 +31,7 @@
     <color name="monet_dark_window_bg">@color/grey_900</color>
     <color name="monet_dark_card_bg">@color/grey_900</color>
     <color name="monet_dark_sheet_bg">@color/grey_800</color>
+    <color name="monet_dark_menu_bg">@color/grey_800</color>
     <color name="monet_dark_action">@color/deep_teal_200</color>
     <color name="monet_dark_accent">@color/deep_teal_200</color>
     <color name="monet_dark_value">@color/deep_teal_200</color>

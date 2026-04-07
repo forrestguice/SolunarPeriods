@@ -15,7 +15,8 @@
         <item name="colorBottomSheet">@color/monet_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetRef</item>
-        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.System</item>-->
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.System</item>
+        <item name="popupMenuStyle">@style/MonetMenu.System</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -79,7 +80,8 @@
         <item name="colorBottomSheet">@color/monet_light_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_light_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetLight</item>
-        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.Light</item>-->
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.Light</item>
+        <item name="popupMenuStyle">@style/MonetMenu.Light</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -143,7 +145,8 @@
         <item name="colorBottomSheet">@color/monet_dark_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_dark_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetDark</item>
-        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.Dark</item>-->
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.Dark</item>
+        <item name="popupMenuStyle">@style/MonetMenu.Dark</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -203,14 +206,24 @@
         <item name="cardBackgroundColor">@color/monet_light_card_bg</item>
     </style>
 
-    <!--<style name="MonetOverflowMenu.System" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <style name="MonetPopupTheme.System" parent="ThemeOverlay.MaterialComponents">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.System</item>
+    </style>
+    <style name="MonetPopupTheme.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.Dark</item>
+    </style>
+    <style name="MonetPopupTheme.Light" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.Light</item>
+    </style>
+
+    <style name="MonetMenu.System" parent="Widget.MaterialComponents.PopupMenu.Overflow">
         <item name="android:popupBackground">@drawable/monet_popupmenu_frame_ref</item>
     </style>
-    <style name="MonetOverflowMenu.Dark" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <style name="MonetMenu.Dark" parent="Widget.MaterialComponents.PopupMenu.Overflow">
         <item name="android:popupBackground">@drawable/monet_popupmenu_frame_dark</item>
     </style>
-    <style name="MonetOverflowMenu.Light" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <style name="MonetMenu.Light" parent="Widget.MaterialComponents.PopupMenu.Overflow">
         <item name="android:popupBackground">@drawable/monet_popupmenu_frame_light</item>
-    </style>-->
+    </style>
 
 </resources>
