@@ -12,9 +12,10 @@
         <item name="colorLabel">@color/monet_label</item>
         <item name="colorTime">@color/monet_time</item>
         <item name="colorValue">@color/monet_value</item>
-        <item name="colorBottomSheet">@color/monet_card_bg</item>
+        <item name="colorBottomSheet">@color/monet_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetRef</item>
+        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.System</item>-->
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -75,9 +76,10 @@
         <item name="colorLabel">@color/monet_light_label</item>
         <item name="colorTime">@color/monet_light_time</item>
         <item name="colorValue">@color/monet_light_value</item>
-        <item name="colorBottomSheet">@color/monet_light_card_bg</item>
+        <item name="colorBottomSheet">@color/monet_light_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_light_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetLight</item>
+        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.Light</item>-->
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -138,9 +140,10 @@
         <item name="colorLabel">@color/monet_dark_label</item>
         <item name="colorTime">@color/monet_dark_time</item>
         <item name="colorValue">@color/monet_dark_value</item>
-        <item name="colorBottomSheet">@color/monet_dark_card_bg</item>
+        <item name="colorBottomSheet">@color/monet_dark_sheet_bg</item>
         <item name="android:windowBackground">@color/monet_dark_window_bg</item>
         <item name="cardViewStyle">@style/SolunarCardView.MonetDark</item>
+        <!--<item name="actionOverflowMenuStyle">@style/MonetOverflowMenu.Dark</item>-->
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -199,5 +202,15 @@
     <style name="SolunarCardView.MonetRef">
         <item name="cardBackgroundColor">@color/monet_light_card_bg</item>
     </style>
+
+    <!--<style name="MonetOverflowMenu.System" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_ref</item>
+    </style>
+    <style name="MonetOverflowMenu.Dark" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_dark</item>
+    </style>
+    <style name="MonetOverflowMenu.Light" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_light</item>
+    </style>-->
 
 </resources>

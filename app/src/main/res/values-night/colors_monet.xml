@@ -2,6 +2,7 @@
 <resources>
     <color name="monet_window_bg">@color/monet_dark_window_bg</color>
     <color name="monet_card_bg">@color/monet_dark_card_bg</color>
+    <color name="monet_sheet_bg">@color/monet_dark_sheet_bg</color>
     <color name="monet_action">@color/monet_dark_action</color>
     <color name="monet_accent">@color/monet_dark_accent</color>
     <color name="monet_value">@color/monet_dark_accent</color>
