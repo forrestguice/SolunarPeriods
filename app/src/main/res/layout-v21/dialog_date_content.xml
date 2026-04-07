@@ -17,12 +17,18 @@
     You should have received a copy of the GNU General Public License
     along with SolunarPeriods.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="vertical" android:padding="0dp" android:background="?attr/dialogBackgroundAlt">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:background="?attr/dialogBackground">
 
     <DatePicker android:id="@+id/datepicker"
         android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:headerBackground="?attr/dialogBackgroundAlt"
         tools:ignore="UnusedAttribute"/>
 
 </LinearLayout>

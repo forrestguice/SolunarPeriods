@@ -73,8 +73,7 @@ public class HelpDialog extends BottomSheetDialogFragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
         themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
-        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
+        View dialogContent = inflater.inflate(R.layout.dialog_help, parent, false);
 
         initViews(dialogContent);
         if (savedState != null) {

@@ -6,6 +6,7 @@
     <color name="monet_menu_bg">@color/monet_dark_menu_bg</color>
     <color name="monet_dialog_bg">@color/monet_dark_dialog_bg</color>
     <color name="monet_dialogAlt_bg">@color/monet_dark_dialogAlt_bg</color>
+    <color name="monet_dialogFrame_bg">@color/monet_dark_dialogFrame_bg</color>
     <color name="monet_action">@color/monet_dark_action</color>
     <color name="monet_accent">@color/monet_dark_accent</color>
     <color name="monet_value">@color/monet_dark_accent</color>

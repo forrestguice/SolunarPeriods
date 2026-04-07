@@ -65,8 +65,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     {
         restoreInstanceState(savedState);
 
-        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_about, parent, false);
+        View dialogContent = inflater.inflate(R.layout.dialog_about, parent, false);
 
         TextView version = (TextView)dialogContent.findViewById(R.id.txt_about_version);
         version.setMovementMethod(LinkMovementMethod.getInstance());
