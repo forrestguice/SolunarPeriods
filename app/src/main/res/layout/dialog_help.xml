@@ -40,7 +40,7 @@
 
         <LinearLayout
             android:id="@+id/dialog_buttons"
-            android:background="?attr/dialogBackgroundAlt"
+            android:background="?attr/dialogFrame"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal" android:gravity="center_vertical|end"
             android:paddingLeft="?dialogPreferredPadding" android:paddingRight="?dialogPreferredPadding">

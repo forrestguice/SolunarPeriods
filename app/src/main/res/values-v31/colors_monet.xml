@@ -8,7 +8,7 @@
     <color name="monet_light_menu_bg">@android:color/system_neutral2_50</color>
     <color name="monet_light_dialog_bg">@android:color/system_neutral2_50</color>
     <color name="monet_light_dialogAlt_bg">@android:color/system_neutral2_300</color>
-    <color name="monet_light_dialogFrame_bg">@android:color/system_neutral2_200</color>
+    <color name="monet_light_dialogFrame_bg">@android:color/system_neutral2_100</color>
     <color name="monet_light_action">@android:color/system_accent1_400</color>
     <color name="monet_light_accent">@android:color/system_accent3_400</color>
     <color name="monet_light_value">@android:color/system_accent2_400</color>

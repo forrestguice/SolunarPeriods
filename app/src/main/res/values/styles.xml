@@ -519,7 +519,7 @@
     </style>
 
 
-    <style name="BottomSheetTheme" parent="Theme.Material3.DayNight.BottomSheetDialog">
+    <style name="BottomSheetTheme" parent="ThemeOverlay.Material3.DayNight.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
     <style name="BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
