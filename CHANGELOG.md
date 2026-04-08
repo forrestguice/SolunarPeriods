@@ -5,6 +5,7 @@
 * adds exception handler and crash report notification.
 * adds "online help" button (https://forrestguice.github.io/Suntimes/help/addons/solunarperiods).
 * updates build; targetSdkVersion 33 -> 34; Gradle 6.5 -> 8.7; Android Gradle Plugin 4.1.3 -> 8.5.2.
+* updates build; adds nightly build flavor (#9).
 
 ### v0.2.1 (2023-08-21)
 * adds support for system theme (night mode), high contrast app themes, and "text size" settings.
