@@ -1,4 +1,5 @@
 - adds support for "Material You" (needs Suntimes v0.17.0+).
+- adds support for "show coordinates" option (needs Suntimes v0.17.0+).
 - adds crash report notification.
 - adds "online help" button.
-- updates targetSdk to Android 14 (api 34).
+- updates targetSdk to Android 14.
