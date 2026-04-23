@@ -1,6 +1,14 @@
 ~
 
-### v0.2.1 (2023-8-21)
+### v0.2.2 (2026-04-27)
+* adds support for "Material You" (needs Suntimes v0.17.0+).
+* adds support for "show coordinates" option (needs Suntimes v0.17.0+).
+* adds exception handler and crash report notification.
+* adds "online help" button (https://forrestguice.github.io/Suntimes/help/addons/solunarperiods).
+* updates build; targetSdkVersion 33 -> 34 (Android 14); Gradle 6.5 -> 8.7; Android Gradle Plugin 4.1.3 -> 8.5.2.
+* updates build; adds nightly build flavor (#9).
+
+### v0.2.1 (2023-08-21)
 * adds support for system theme (night mode), high contrast app themes, and "text size" settings.
 * fixes crash when using "calendar integration" menu item (#6).
 * updates build; targetSdkVersion 28 -> 33; Gradle 4.4 -> 6.5; Android Gradle Plugin 3.1.3 -> 4.1.3; migrates from legacy support libraries to AndroidX.
