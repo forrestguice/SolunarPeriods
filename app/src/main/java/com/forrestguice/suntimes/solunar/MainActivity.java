@@ -221,10 +221,12 @@ public class MainActivity extends AppCompatActivity
 
     protected void updateViews()
     {
+        SuntimesInfo.SuntimesOptions options = (suntimesInfo != null ? suntimesInfo.getOptions(this) : null);
+
         ActionBar toolbar = getSupportActionBar();
         if (toolbar != null) {
             toolbar.setTitle(suntimesInfo != null && suntimesInfo.location != null ? suntimesInfo.location[0] : "NULL");
-            toolbar.setSubtitle(DisplayStrings.formatLocation(this, suntimesInfo));
+            toolbar.setSubtitle((options != null && options.show_coordinates ? DisplayStrings.formatLocation(this, suntimesInfo) : null));
         }
 
         TextView text_timezone = findViewById(R.id.text_timezone);
