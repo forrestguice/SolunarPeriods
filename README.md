@@ -17,9 +17,9 @@ This app displays sunrise, sunset, moonrise, moonset, lunar noon, lunar midnight
 ## Donations ##
 Do you find value in this software? Please pay as you feel.
 
-[![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
-
 <noscript><a href="https://liberapay.com/forrestguice/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+
+[![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
 
 
 ## Bug Reports ##
@@ -33,7 +33,7 @@ Solunar Periods does not collect, store, or transmit personal user data. It cont
 __Solunar Periods is an addon for Suntimes.__ It uses the `suntimes.permission.READ_CALCULATOR` permission in order to access data provided by this app. https://github.com/forrestguice/SuntimesWidget/wiki/Privacy
 
 ## Legal Stuff
-Copyright (C) 2020-2025 **Forrest Guice**
+Copyright (C) 2020-2026 **Forrest Guice**
 ```
 SolunarPeriods is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
