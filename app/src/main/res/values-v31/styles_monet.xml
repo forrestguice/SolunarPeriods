@@ -20,6 +20,7 @@
         <item name="cardViewStyle">@style/SolunarCardView.MonetRef</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.System</item>
         <item name="popupMenuStyle">@style/MonetMenu.System</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.System</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -88,6 +89,7 @@
         <item name="cardViewStyle">@style/SolunarCardView.MonetLight</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.Light</item>
         <item name="popupMenuStyle">@style/MonetMenu.Light</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.Light</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
@@ -156,6 +158,7 @@
         <item name="cardViewStyle">@style/SolunarCardView.MonetDark</item>
         <item name="actionBarPopupTheme">@style/MonetPopupTheme.Dark</item>
         <item name="popupMenuStyle">@style/MonetMenu.Dark</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.Dark</item>
 
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
