@@ -1,6 +1,6 @@
 ~
 
-### v0.2.2 (2026-04-27)
+### v0.2.2 (2026-06-18)
 * adds support for "Material You" (needs Suntimes v0.17.0+).
 * adds support for "show coordinates" option (needs Suntimes v0.17.0+).
 * adds exception handler and crash report notification.
