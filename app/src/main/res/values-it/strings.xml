@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_version"><![CDATA[<b>Versione:</b>]]> %s</string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Supporto:</b> visita il
+        <a href="https://github.com/forrestguice/SolunarPeriods/issues">tracker delle segnalazioni</a> per inviare una richiesta.
+    ]]></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Codice sorgente:</b><br />
+        Copyright &#169 2020-2026 Forrest Guice <br />
+        Codice sorgente disponibile sotto licenza GPLv3.
+    ]]></string>
+    <string name="action_back">Indietro</string>
+    <string name="action_calendar">Apri Calendario</string>
+    <string name="action_share">Condividi</string>
+    <string name="action_today">Oggi</string>
+    <string name="action_date">Vai a…</string>
+    <string name="action_first">Primo</string>
+    <string name="action_last">Ultimo</string>
+    <string name="action_next">Successivo</string>
+    <string name="action_prev">Precedente</string>
+    <string name="action_date_suntimes">Mostra la data</string>
+    <string name="action_overflow">Altro</string>
+    <string name="action_calendars">Integrazione calendario</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="action_onlineHelp">Aiuto online</string>
+    <string name="action_help">Aiuto</string>
+    <string name="action_about">Informazioni</string>
+    <string name="snack_timezone"><![CDATA[Il fuso orario è impostato su <b>%s</b>.]]></string>
+    <string name="past_today">Passato</string>
+    <string name="past_n">Passato (%1$s)</string>
+    <string name="yesterday">Ieri</string>
+    <string name="today">Oggi</string>
+    <string name="tomorrow">Domani</string>
+    <string name="future_today">Futuro</string>
+    <string name="future_n">Futuro (%1$s)</string>
+    <string name="format_card_summary">%1$s \n%2$s \nCaccia e pesca: %3$s \n---\n%4$s (%5$s) \nAlba: %6$s, Tramonto: %7$s \n%8$s \n[%9$s]</string>
+    <string name="format_card_period_timerange">%1$s - %2$s</string>
+    <string name="format_card_period_summary0">%2$s (%1$s)</string>
+    <string name="format_card_period_summary1">%2$s (%1$s) ⊙</string>
+    <string name="format_card_period_list">%1$s\n%2$s</string>
+    <string name="format_card_title0">%1$s\n%2$s</string>
+    <string name="format_card_title1">%1$s</string>
+    <string name="format_date">EEEE\nd MMMM</string>
+    <string name="format_date_long">EEEE\nd MMMM yyyy</string>
+    <string name="format_date_long_alt">EEEE, d MMMM</string>
+    <string name="format_location">%1$s, %2$s</string>
+    <string name="format_location_long">%1$s, %2$s %3$s</string>
+    <string name="format_location_altitude">%1$s%2$s</string>
+    <string name="format_tag">[%1$s]</string>
+    <string name="format_moonphase_long">%1$s\n@ %2$s</string>
+    <string name="format_illumination">%s</string>
+    <string name="format_summary_minutes">%s minuti</string>
+    <string name="format_help"><![CDATA[%1$s<br/><br/>%2$s]]></string>
+    <string name="units_feet">piedi</string>
+    <string name="units_feet_short">ft</string>
+    <string name="units_meters">metri</string>
+    <string name="units_meters_short">m</string>
+    <string name="help_configuration"><![CDATA[<h4>Configurazione</h4>La posizione, il fuso orario e le altre opzioni sono configurati da Suntimes.]]></string>
+    <string name="help_rating_day"><![CDATA[<h4>Valutazione solunar</h4>I giorni <b>eccellenti</b> si verificano durante la <em>luna nuova</em> e la <em>luna piena</em>, con giorni <b>buoni</b> e <b>ottimi</b> prima e dopo questi eventi.]]></string>
+    <string name="help_minor_periods"><![CDATA[I periodi <b>minori</b> si verificano all'<em>alba lunare</em> e al <em>tramonto lunare</em> e durano generalmente un'ora.]]></string>
+    <string name="help_major_periods"><![CDATA[I periodi <b>maggiori</b> si verificano a <em>mezzogiorno lunare</em> e a <em>mezzanotte lunare</em> e durano generalmente 2 ore.]]></string>
+    <string name="help_rating_period"><![CDATA[<b>&#x2299;</b> Un periodo è potenziato quando si verifica entro 30 minuti dall'<em>alba</em> o dal <em>tramonto</em>.]]></string>
+    <string name="note_full_moon_today">Oggi si verifica una luna piena.</string>
+    <string name="note_full_moon_soon">Si verificherà una luna piena nei prossimi giorni.</string>
+    <string name="note_full_moon_recent">Nei giorni scorsi si è verificata una luna piena.</string>
+    <string name="note_full_moon_verysoon">Si verificherà presto una luna piena.</string>
+    <string name="note_full_moon_veryrecent">Si è verificata recentemente una luna piena.</string>
+    <string name="note_new_moon_today">Oggi si verifica una luna nuova.</string>
+    <string name="note_new_moon_soon">Si verificherà una luna nuova nei prossimi giorni.</string>
+    <string name="note_new_moon_recent">Nei giorni scorsi si è verificata una luna nuova.</string>
+    <string name="note_new_moon_verysoon">Si verificherà presto una luna nuova.</string>
+    <string name="note_new_moon_veryrecent">Si è verificata recentemente una luna nuova.</string>
+    <string name="note_major_period_at_sunrise">Un periodo maggiore è potenziato all\'alba.</string>
+    <string name="note_major_period_at_sunset">Un periodo maggiore è potenziato al tramonto.</string>
+    <string name="note_minor_period_at_sunrise">Un periodo minore è potenziato all\'alba.</string>
+    <string name="note_minor_period_at_sunset">Un periodo minore è potenziato al tramonto.</string>
+    <string name="label_sunrise">Alba</string>
+    <string name="label_sunset">Tramonto</string>
+    <string name="label_moonrise">alba lunare</string>
+    <string name="label_moonnoon">mezzogiorno lunare</string>
+    <string name="label_moonset">tramonto lunare</string>
+    <string name="label_moonnight">mezzanotte lunare</string>
+    <string name="label_major_period">Maggiore</string>
+    <string name="label_minor_period">Minore</string>
+    <string name="label_enhanced_period">⊙</string>
+    <string name="period_separator">-</string>
+    <string name="calendar_solunar_displayName">Periodi solunari</string>
+    <string name="calendar_solunar_summary">Caccia e pesca</string>
+    <string name="calendar_event_title_major">Maggiore</string>
+    <string name="calendar_event_title_minor">Minore</string>
+    <string name="calendar_event_title_pattern0">%1$s %2$s</string>
+    <string name="calendar_event_desc_pattern0">%1$s %2$s</string>
+    <string name="calendar_event_desc_pattern1">(%1$s)\n%2$s\n%3$s</string>
+    <string name="action_timezone_system_format">(%s)</string>
+    <string name="action_timezone_system">Sistema %s</string>
+    <string name="action_timezone_suntimes">Suntimes %s</string>
+    <string name="action_timezone_localmean">@string/solartime_localmean</string>
+    <string name="action_timezone_apparentsolar">@string/solartime_apparent</string>
+    <string name="action_timezone_utc">@string/solartime_utc</string>
+    <string name="solartime_localmean">Ora locale media</string>
+    <string name="solartime_apparent">Orario solare apparente</string>
+    <string name="solartime_utc">UTC</string>
+    <string name="title_activity_settings">@string/action_settings</string>
+    <string name="pref_header_general">Generale</string>
+    <string name="pref_title_length_minor_period">Durata del periodo minore</string>
+    <string name="pref_def_length_minor_period">60</string>
+    <string name="pref_title_length_major_period">Durata del periodo maggiore</string>
+    <string name="pref_def_length_major_period">120</string>
+    <string-array name="ratings_labels">
+        <item>Medio</item>
+        <item>Buono</item>
+        <item>Ottimo</item>
+        <item>Eccellente</item>
+    </string-array>
+    <string-array name="solunarevent_overlap">
+        <item />
+        <item>&#x2299; alba alle %s</item>
+        <item>&#x2299; tramonto alle %s</item>
+    </string-array>
+</resources>
